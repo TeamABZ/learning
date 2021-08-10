@@ -1,0 +1,64 @@
+import React from "react";
+import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
+import Toolbar from "@material-ui/core/Toolbar";
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import SearchIcon from "@material-ui/icons/Search";
+import Typography from "@material-ui/core/Typography";
+import { Link, Switch, Route, BrowserRouter } from "react-router-dom";
+import Login from "./Login";
+const useStyles = makeStyles((theme) => ({
+  toolbarTitle: {
+    flex: 1,
+  },
+  btnLogin: {
+    backgroundColor: "#66FCF1",
+
+    marginLeft: theme.spacing(1),
+  },
+  toolbars: {
+    backgroundColor: "#141414",
+    color: "#fff",
+    padding: theme.spacing(0, 2),
+  },
+}));
+
+export default function Header(props) {
+  const classes = useStyles();
+  const { title } = props;
+
+  return (
+    <React.Fragment>
+      <Toolbar className={classes.toolbars}>
+        <Typography
+          component="h2"
+          variant="h5"
+          color="inherit"
+          noWrap
+          className={classes.toolbarTitle}
+        >
+          {title}
+        </Typography>
+
+        <Button size="medium">Sign up</Button>
+        <Button
+          size="medium"
+          variant="outlined"
+          className={classes.btnLogin}
+          href="/login"
+        >
+          Login
+        </Button>
+        <Button
+          size="medium"
+          variant="outlined"
+          className={classes.btnLogin}
+          href="/userprofile"
+        >
+          User Profile
+        </Button>
+      </Toolbar>
+    </React.Fragment>
+  );
+}
