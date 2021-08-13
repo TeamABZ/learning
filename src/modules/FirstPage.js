@@ -6,10 +6,7 @@ import Container from "@material-ui/core/Container";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import TwitterIcon from "@material-ui/icons/Twitter";
-import Header from "./Header";
 import MainFeaturedPost from "./MainFeaturedPost";
-import TestUi from "./TestUi";
-import Footer from "./Footer";
 import { Link, Switch, Route, BrowserRouter } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,18 +25,11 @@ const mainFeaturedPost = {
 };
 
 export default function FirstPage() {
-  const classes = useStyles();
-
   return (
     <>
-      <CssBaseline />
-      <Container maxWidth="lg" className={classes.mainGrid}>
-        <Header title="Leaning" />
-        <main>
-          <MainFeaturedPost post={mainFeaturedPost} />
-        </main>
-        <Footer />
-      </Container>
+      <main>
+        <MainFeaturedPost post={mainFeaturedPost} />
+      </main>
     </>
   );
 }

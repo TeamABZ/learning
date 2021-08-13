@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
   toolbarTitle: {
     flex: 1,
   },
-  btnLogin: {
+  btnheader: {
     backgroundColor: "#66FCF1",
 
     marginLeft: theme.spacing(1),
@@ -36,11 +36,18 @@ export default function Header(props) {
           {title}
         </Typography>
 
-        <Button size="medium">Sign up</Button>
         <Button
           size="medium"
           variant="outlined"
-          className={classes.btnLogin}
+          className={classes.btnheader}
+          href="/singup"
+        >
+          Sign up
+        </Button>
+        <Button
+          size="medium"
+          variant="outlined"
+          className={classes.btnheader}
           href="/login"
         >
           Login
@@ -48,7 +55,7 @@ export default function Header(props) {
         <Button
           size="medium"
           variant="outlined"
-          className={classes.btnLogin}
+          className={classes.btnheader}
           href="/userprofile"
         >
           User Profile

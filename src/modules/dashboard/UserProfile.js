@@ -34,57 +34,54 @@ export default function Login() {
 
   return (
     <div className={classes.root}>
-      <Container component="main" maxWidth="lg">
-        <Header title="Leaning"></Header>
-        <Toolbar
-          component="nav"
-          variant="dense"
-          className={classes.toolbarSecondary}
+      <Toolbar
+        component="nav"
+        variant="dense"
+        className={classes.toolbarSecondary}
+      >
+        <Link
+          color="inherit"
+          noWrap
+          variant="h6"
+          className={classes.toolbarLink}
         >
-          <Link
-            color="inherit"
-            noWrap
-            variant="h6"
-            className={classes.toolbarLink}
-          >
-            Dashboard
-          </Link>
-          <Link
-            color="inherit"
-            noWrap
-            variant="h6"
-            className={classes.toolbarLink}
-          >
-            Lean
-          </Link>
-        </Toolbar>
+          Dashboard
+        </Link>
+        <Link
+          color="inherit"
+          noWrap
+          variant="h6"
+          className={classes.toolbarLink}
+        >
+          Lean
+        </Link>
+      </Toolbar>
 
-        <Grid container className={classes.dashboard}>
-          <Grid item xs={12} sm={5}>
-            <Typography variant="h6" gutterBottom>
-              News module
-              <NewMudule></NewMudule>
-            </Typography>
-            <Typography variant="h6" gutterBottom>
-              <Link
-                color="inherit"
-                noWrap
-                variant="h6"
-                className={classes.toolbarLink}
-                href="/allmodule"
-              >
-                All Learn modules >>
-              </Link>
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={5}>
-            <Typography variant="h6" gutterBottom>
-              My module
-              <Mymodule></Mymodule>
-            </Typography>
-          </Grid>
+      <Grid container className={classes.dashboard}>
+        <Grid item xs={12} sm={5}>
+          <Typography variant="h6" gutterBottom>
+            News module
+            <NewMudule></NewMudule>
+          </Typography>
+          <Typography variant="h6" gutterBottom>
+            <Link
+              color="inherit"
+              noWrap
+              variant="h6"
+              className={classes.toolbarLink}
+              href="/allmodule"
+            >
+              All Learn modules >>
+            </Link>
+          </Typography>
         </Grid>
-      </Container>
+        <Grid item xs={12} sm={5}>
+          <Typography variant="h6" gutterBottom>
+            My module
+            <Mymodule></Mymodule>
+          </Typography>
+        </Grid>
+      </Grid>
     </div>
   );
 }
