@@ -4,6 +4,7 @@ import { Link, Switch, Route, BrowserRouter } from "react-router-dom";
 import Login from "./component/Login";
 import FirstPage from "./component/FirstPage";
 import UserProfile from "./component/dashboard/UserProfile";
+import AllModule from "./component/dashboard/AllModule";
 function App() {
   return (
     <BrowserRouter>
@@ -12,6 +13,7 @@ function App() {
 
         <Route path="/Login" component={Login}></Route>
         <Route path="/userprofile" component={UserProfile}></Route>
+        <Route path="/allmodule" component={AllModule}></Route>
       </Switch>
     </BrowserRouter>
   );

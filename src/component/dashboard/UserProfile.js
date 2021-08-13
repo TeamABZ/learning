@@ -66,7 +66,15 @@ export default function Login() {
               <NewMudule></NewMudule>
             </Typography>
             <Typography variant="h6" gutterBottom>
-              All Learn modules >>
+              <Link
+                color="inherit"
+                noWrap
+                variant="h6"
+                className={classes.toolbarLink}
+                href="/allmodule"
+              >
+                All Learn modules >>
+              </Link>
             </Typography>
           </Grid>
           <Grid item xs={12} sm={5}>

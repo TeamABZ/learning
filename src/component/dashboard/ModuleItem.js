@@ -5,13 +5,13 @@ import Grid from "@material-ui/core/Grid";
 import ImageIcon from "@material-ui/icons/Image";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
   itemModule: {
-    border: " 1px solid #555",
-    width: "100%",
     textAlign: "center",
+    display: "inline-block",
+    border: " 1px solid #555",
+    padding: "20px",
+    height: "200px",
+    margin: "auto 1em",
   },
 }));
 export default function ModuleItem(props) {
@@ -19,7 +19,7 @@ export default function ModuleItem(props) {
   const { imageModule, titleModule, descriptionModule } = props;
 
   return (
-    <Grid Container className={classes.itemModule}>
+    <Grid className={classes.itemModule}>
       <ImageIcon />
       {/* {imageModule} */}
       <Typography variant="h5">Networking Fundamentals </Typography>
