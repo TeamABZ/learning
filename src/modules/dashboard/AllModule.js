@@ -33,6 +33,27 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MyModule() {
   const classes = useStyles();
+  const moduleItems = [
+    {
+      titleModule: "Cyber security training",
+      descModule:
+        "Making it easier to break into security, all through your browser.",
+      imageModule: "https://source.unsplash.com/random",
+    },
+    {
+      titleModule: "Cyber security training",
+      descModule:
+        "Making it easier to break into security, all through your browser.",
+      imageModule: "https://source.unsplash.com/random",
+    },
+    {
+      titleModule: "Cyber security training",
+      descModule:
+        "Making it easier to break into security, all through your browser.",
+      imageModule: "https://source.unsplash.com/random",
+    },
+  ];
+
   return (
     <div className={classes.root}>
       <div className={classes.titlepage}>
@@ -42,28 +63,11 @@ export default function MyModule() {
         </Typography>
       </div>
       <Grid container className={classes.allitem} spacing={2}>
-        <Grid item className={classes.item} md={4}>
-          <ModuleItem></ModuleItem>
-        </Grid>
-        <Grid item className={classes.item} md={4}>
-          <ModuleItem></ModuleItem>
-        </Grid>
-        <Grid item className={classes.item} md={4}>
-          <ModuleItem></ModuleItem>
-        </Grid>
-        <Grid item className={classes.item} md={4}>
-          <Grid className={classes.itemModule}>
-            <ImageIcon />
-            {/* {imageModule} */}
-            <Typography variant="h5">Networking Fundamentals </Typography>
-            {/* {titleModule} */}
-            <Typography>Understand, enumerate and attack various n</Typography>
-            {/* {descriptionModule} */}
+        {moduleItems.map((data) => (
+          <Grid item className={classes.item} md={4}>
+            <ModuleItem key={data.titleModule} dataitem={data} />
           </Grid>
-        </Grid>
-        <Grid item className={classes.item} md={4}>
-          <ModuleItem></ModuleItem>
-        </Grid>
+        ))}
       </Grid>
     </div>
   );

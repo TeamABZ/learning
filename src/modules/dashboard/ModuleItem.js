@@ -14,20 +14,16 @@ const useStyles = makeStyles((theme) => ({
     margin: "auto 1em",
   },
 }));
-export default function ModuleItem(props) {
+export default function ModuleItem({ dataitem }) {
   const classes = useStyles();
-  const { imageModule, titleModule, descriptionModule } = props;
-
+  const { titleModule, descModule, imageModule } = dataitem;
   return (
     <Grid className={classes.itemModule}>
       <ImageIcon />
       {/* {imageModule} */}
-      <Typography variant="h5">Networking Fundamentals </Typography>
+      <Typography variant="h5">{titleModule} </Typography>
       {/* {titleModule} */}
-      <Typography>
-        Understand, enumerate and attack various networking services in
-        real-world environments.
-      </Typography>
+      <Typography>{descModule}</Typography>
       {/* {descriptionModule} */}
     </Grid>
   );
