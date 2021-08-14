@@ -65,7 +65,7 @@ export default function MyModule() {
       <Grid container className={classes.allitem} spacing={2}>
         {moduleItems.map((data) => (
           <Grid item className={classes.item} md={4}>
-            <ModuleItem key={data.titleModule} dataitem={data} />
+            <ModuleItem key={data.titleModule} {...data} />
           </Grid>
         ))}
       </Grid>

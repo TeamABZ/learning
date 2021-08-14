@@ -14,9 +14,9 @@ const useStyles = makeStyles((theme) => ({
     margin: "auto 1em",
   },
 }));
-export default function ModuleItem({ dataitem }) {
+export default function ModuleItem({ titleModule, descModule, imageModule }) {
   const classes = useStyles();
-  const { titleModule, descModule, imageModule } = dataitem;
+  // const { titleModule, descModule, imageModule } = dataitem;
   return (
     <Grid className={classes.itemModule}>
       <ImageIcon />
