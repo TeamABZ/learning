@@ -1,22 +1,21 @@
 import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 
 import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import ImageIcon from "@material-ui/icons/Image";
 
-import { makeStyles } from "@material-ui/core/styles";
 import ModuleItem from "./ModuleItem";
+import network from "assets/images/network.png";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-
   item: {
     display: "inline-block",
   },
   allitem: {
-    flexWrap: "warp",
+    flexWrap: "wrap",
+    paddingBottom: 20,
   },
   titlepage: {
     padding: theme.spacing(3, 2),
@@ -38,19 +37,19 @@ export default function MyModule() {
       titleModule: "Cyber security training",
       descModule:
         "Making it easier to break into security, all through your browser.",
-      imageModule: "https://source.unsplash.com/random",
+      imageModule: network,
     },
     {
       titleModule: "Cyber security training",
       descModule:
         "Making it easier to break into security, all through your browser.",
-      imageModule: "https://source.unsplash.com/random",
+      imageModule: network,
     },
     {
       titleModule: "Cyber security training",
       descModule:
         "Making it easier to break into security, all through your browser.",
-      imageModule: "https://source.unsplash.com/random",
+      imageModule: network,
     },
   ];
 

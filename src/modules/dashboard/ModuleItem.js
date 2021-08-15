@@ -2,7 +2,6 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import ImageIcon from "@material-ui/icons/Image";
 
 const useStyles = makeStyles((theme) => ({
   itemModule: {
@@ -10,8 +9,11 @@ const useStyles = makeStyles((theme) => ({
     display: "inline-block",
     border: " 1px solid #555",
     padding: "20px",
-    height: "200px",
+    height: 300,
     margin: "auto 1em",
+  },
+  media: {
+    height: 130,
   },
 }));
 export default function ModuleItem({ titleModule, descModule, imageModule }) {
@@ -19,7 +21,8 @@ export default function ModuleItem({ titleModule, descModule, imageModule }) {
   // const { titleModule, descModule, imageModule } = dataitem;
   return (
     <Grid className={classes.itemModule}>
-      <ImageIcon />
+      <img className={classes.media} src={imageModule} />
+
       {/* {imageModule} */}
       <Typography variant="h5">{titleModule} </Typography>
       {/* {titleModule} */}
