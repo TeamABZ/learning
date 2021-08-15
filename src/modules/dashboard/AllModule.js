@@ -51,6 +51,24 @@ export default function MyModule() {
         "Making it easier to break into security, all through your browser.",
       imageModule: network,
     },
+    {
+      titleModule: "Cyber security training",
+      descModule:
+        "Making it easier to break into security, all through your browser.",
+      imageModule: network,
+    },
+    {
+      titleModule: "Cyber security training",
+      descModule:
+        "Making it easier to break into security, all through your browser.",
+      imageModule: network,
+    },
+    {
+      titleModule: "Cyber security training",
+      descModule:
+        "Making it easier to break into security, all through your browser.",
+      imageModule: network,
+    },
   ];
 
   return (

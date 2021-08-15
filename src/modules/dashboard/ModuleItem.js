@@ -2,6 +2,7 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+import Link from "@material-ui/core/Link";
 
 const useStyles = makeStyles((theme) => ({
   itemModule: {
@@ -21,13 +22,15 @@ export default function ModuleItem({ titleModule, descModule, imageModule }) {
   // const { titleModule, descModule, imageModule } = dataitem;
   return (
     <Grid className={classes.itemModule}>
-      <img className={classes.media} src={imageModule} />
+      <Link color="inherit" href="/moduledetail">
+        <img className={classes.media} src={imageModule} />
 
-      {/* {imageModule} */}
-      <Typography variant="h5">{titleModule} </Typography>
-      {/* {titleModule} */}
-      <Typography>{descModule}</Typography>
-      {/* {descriptionModule} */}
+        {/* {imageModule} */}
+        <Typography variant="h5">{titleModule} </Typography>
+        {/* {titleModule} */}
+        <Typography>{descModule}</Typography>
+        {/* {descriptionModule} */}
+      </Link>
     </Grid>
   );
 }

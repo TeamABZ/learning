@@ -4,6 +4,8 @@ import Login from "./Login";
 import FirstPage from "./FirstPage";
 import UserProfile from "./dashboard/UserProfile";
 import AllModule from "./dashboard/AllModule";
+import ModuleDetail from "./dashboard/ModuleDetail";
+
 import SingUp from "./SingUp";
 export default function Routes() {
   return (
@@ -19,6 +21,9 @@ export default function Routes() {
       </Route>
       <Route path="/userprofile">
         <UserProfile></UserProfile>
+      </Route>
+      <Route path="/moduledetail">
+        <ModuleDetail></ModuleDetail>
       </Route>
 
       <Route path="/allmodule">
