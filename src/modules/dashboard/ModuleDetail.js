@@ -28,12 +28,14 @@ export default function ModuleDetail() {
           how to exploit them using industry tools and techniques
         </Typography>
       </div>
-      <Grid container xl={8}>
-        <Grid item xs={12}>
+      <Grid container>
+        <Grid item xl={7}>
           <ListModule></ListModule>
         </Grid>
+        <Grid item xl={3}>
+          <Typography variant="h4"> Need to know</Typography>
+        </Grid>
       </Grid>
-      <Grid container xl={4}></Grid>
     </div>
   );
 }
