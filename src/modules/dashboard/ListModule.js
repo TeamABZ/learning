@@ -19,41 +19,19 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
   },
 }));
-export default function ListModule() {
+export default function ListModule({ topic, title, desc }) {
   const classes = useStyles();
-  const [checked, setChecked] = React.useState([1]);
-
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    setChecked(newChecked);
-  };
 
   return (
     <List dense className={classes.root}>
-      {[0, 1, 2, 3].map((value) => {
-        const labelId = `checkbox-list-secondary-label-${value}`;
-        return (
-          <ListItem key={value} button>
-            <CheckCircleOutlineIcon style={{ color: green[500] }} />
-            <ListItemAvatar className={classes.imageItem}>
-              <Avatar
-                alt={`Avatar n°${value + 1}`}
-                src={`/static/images/avatar/${value + 1}.jpg`}
-              />
-            </ListItemAvatar>
-            <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-            {/* <ListItemText id={labelId} primary={`Line item ${value + 1}`} /> */}
-          </ListItem>
-        );
-      })}
+      <ListItem key={title} button>
+        <CheckCircleOutlineIcon style={{ color: green[500] }} />
+        <ListItemAvatar className={classes.imageItem}>
+          <Avatar src={`/static/images/avatar/${topic + 1}.jpg`} />
+        </ListItemAvatar>
+        <ListItemText primary={title} secondary={desc} />
+        {/* <ListItemText id={labelId} primary={`Line item ${value + 1}`} /> */}
+      </ListItem>
     </List>
   );
 }

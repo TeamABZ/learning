@@ -29,6 +29,29 @@ export default function ModuleDetail() {
       "Making it easier to break into security, all through your browser.",
     imageModule: network,
   };
+
+  const lessonItem = [
+    {
+      topic: "http",
+      title: "Web Fundamentals",
+      desc: "Learn how the web works",
+    },
+    {
+      topic: "OWASP",
+      title: "OWASP Top 10",
+      desc: "Learn about and exploit each of the OWASP Top 10 vulnerabilities; the 10 most critical web security risks.",
+    },
+    {
+      topic: "http",
+      title: "Web Fundamentals",
+      desc: "Learn how the web works",
+    },
+    {
+      topic: "OWASP",
+      title: "OWASP Top 10",
+      desc: "Learn about and exploit each of the OWASP Top 10 vulnerabilities; the 10 most critical web security risks.",
+    },
+  ];
   return (
     <div className={classes.root}>
       <div className={classes.titlepage}>
@@ -42,7 +65,9 @@ export default function ModuleDetail() {
       </div>
       <Grid container>
         <Grid item xl={8}>
-          <ListModule></ListModule>
+          {lessonItem.map((data) => (
+            <ListModule key={data.titleModule} {...data} />
+          ))}
         </Grid>
         <Grid item xl={4}>
           <Typography variant="h4"> Need to know</Typography>
