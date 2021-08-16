@@ -3,7 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import ListModule from "./ListModule";
-
+import network from "assets/images/network.png";
+import ModuleItem from "./ModuleItem";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -16,7 +17,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function ModuleDetail() {
   const classes = useStyles();
-
+  const knowlearn = {
+    titleModule: "Cyber security training",
+    descModule:
+      "Making it easier to break into security, all through your browser.",
+    imageModule: network,
+  };
+  const nextlearn = {
+    titleModule: "Cyber security training",
+    descModule:
+      "Making it easier to break into security, all through your browser.",
+    imageModule: network,
+  };
   return (
     <div className={classes.root}>
       <div className={classes.titlepage}>
@@ -29,11 +41,19 @@ export default function ModuleDetail() {
         </Typography>
       </div>
       <Grid container>
-        <Grid item xl={7}>
+        <Grid item xl={8}>
           <ListModule></ListModule>
         </Grid>
-        <Grid item xl={3}>
+        <Grid item xl={4}>
           <Typography variant="h4"> Need to know</Typography>
+          <Grid item>
+            <ModuleItem key={knowlearn.titleModule} {...knowlearn} />
+          </Grid>
+          <hr />
+          <Typography variant="h4"> Next Learn</Typography>
+          <Grid item>
+            <ModuleItem key={nextlearn.titleModule} {...nextlearn} />
+          </Grid>
         </Grid>
       </Grid>
     </div>
