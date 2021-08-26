@@ -33,7 +33,7 @@ export default function LeaningDetail() {
     },
     secAtk: { textAlign: "right" },
     txtHead: {
-      padding: "15px 0px",
+      padding: "2.5em 0",
       alignItems: "center",
     },
   }));
@@ -52,7 +52,6 @@ export default function LeaningDetail() {
       backgroundColor: "#1a90ff",
     },
   }))(LinearProgress);
-  const ids = 0;
   const itemTask = [
     {
       no: "Task 1",
@@ -92,7 +91,9 @@ export default function LeaningDetail() {
       <Grid container>
         <Grid container item className={classes.txtHead}>
           <Grid item xl={6}>
-            Learn the Linux Fundamentals Part 1
+            <Typography variant="h5">
+              Learn the Linux Fundamentals Part 1
+            </Typography>
           </Grid>
           <Grid className={classes.secAtk} item xl={6}>
             <Button variant="contained" color="primary">

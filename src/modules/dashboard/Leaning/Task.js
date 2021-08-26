@@ -10,7 +10,7 @@ import Questions from "./Questions";
 export default function Task({ no, titleTask, desc }) {
   const useStyles = makeStyles((theme) => ({
     rootTask: {
-      marginTop: "2rem",
+      margin: "1rem 0",
     },
     headTask: {
       width: "100%",
@@ -46,7 +46,7 @@ export default function Task({ no, titleTask, desc }) {
           <Grid container className={classes.contentTask}>
             <Grid item container xl={12} className={classes.question}>
               <Grid item xl={9}>
-                {desc}
+                <Typography variant="subtitle1">{desc}</Typography>
               </Grid>
               <Grid item xl={3} container className={classes.btnMachine}>
                 <Button variant="contained" color="primary">
