@@ -5,6 +5,7 @@ import FirstPage from "./FirstPage";
 import UserProfile from "./dashboard/UserProfile";
 import AllModule from "./dashboard/AllModule";
 import ModuleDetail from "./dashboard/ModuleDetail";
+import LeaningDetail from "./dashboard/Leaning/LeaningDetail";
 
 import SingUp from "./SingUp";
 export default function Routes() {
@@ -25,7 +26,9 @@ export default function Routes() {
       <Route path="/moduledetail">
         <ModuleDetail></ModuleDetail>
       </Route>
-
+      <Route path="/LeaningDetail">
+        <LeaningDetail></LeaningDetail>
+      </Route>
       <Route path="/allmodule">
         <AllModule></AllModule>
       </Route>

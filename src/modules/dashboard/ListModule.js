@@ -8,6 +8,7 @@ import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
 import Avatar from "@material-ui/core/Avatar";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import { green } from "@material-ui/core/colors";
+import { Link } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,15 +24,17 @@ export default function ListModule({ topic, title, desc }) {
   const classes = useStyles();
 
   return (
-    <List dense className={classes.root}>
-      <ListItem key={title} button>
-        <CheckCircleOutlineIcon style={{ color: green[500] }} />
-        <ListItemAvatar className={classes.imageItem}>
-          <Avatar src={`/static/images/avatar/${topic + 1}.jpg`} />
-        </ListItemAvatar>
-        <ListItemText primary={title} secondary={desc} />
-        {/* <ListItemText id={labelId} primary={`Line item ${value + 1}`} /> */}
-      </ListItem>
-    </List>
+    <Link color="inherit" href="/LeaningDetail">
+      <List dense className={classes.root}>
+        <ListItem key={title} button>
+          <CheckCircleOutlineIcon style={{ color: green[500] }} />
+          <ListItemAvatar className={classes.imageItem}>
+            <Avatar src={`/static/images/avatar/${topic + 1}.jpg`} />
+          </ListItemAvatar>
+          <ListItemText primary={title} secondary={desc} />
+          {/* <ListItemText id={labelId} primary={`Line item ${value + 1}`} /> */}
+        </ListItem>
+      </List>
+    </Link>
   );
 }

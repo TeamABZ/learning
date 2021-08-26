@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import ListModule from "./ListModule";
 import network from "assets/images/network.png";
 import ModuleItem from "./ModuleItem";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
