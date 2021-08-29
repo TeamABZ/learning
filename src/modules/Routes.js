@@ -6,7 +6,7 @@ import UserProfile from "./dashboard/UserProfile";
 import AllModule from "./dashboard/AllModule";
 import ModuleDetail from "./dashboard/ModuleDetail";
 import LeaningDetail from "./dashboard/Leaning/LeaningDetail";
-
+import AdminProfile from "./dashboard/admin/AdminProfile";
 import SingUp from "./SingUp";
 export default function Routes() {
   return (
@@ -22,6 +22,9 @@ export default function Routes() {
       </Route>
       <Route path="/userprofile">
         <UserProfile></UserProfile>
+      </Route>
+      <Route path="/adminprofile">
+        <AdminProfile></AdminProfile>
       </Route>
       <Route path="/moduledetail">
         <ModuleDetail></ModuleDetail>

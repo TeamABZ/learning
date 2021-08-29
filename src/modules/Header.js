@@ -60,6 +60,14 @@ export default function Header(props) {
         >
           User Profile
         </Button>
+        <Button
+          size="medium"
+          variant="outlined"
+          className={classes.btnheader}
+          href="/adminprofile"
+        >
+          Admin Profile
+        </Button>
       </Toolbar>
     </React.Fragment>
   );
