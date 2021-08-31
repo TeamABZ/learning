@@ -1,5 +1,5 @@
 import React from "react";
 
-export default function Ganaral() {
+export default function leftBar() {
   return <div></div>;
 }

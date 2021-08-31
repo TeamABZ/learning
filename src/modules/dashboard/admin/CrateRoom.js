@@ -17,6 +17,7 @@ export default function CrateRoom() {
     formCrate: {
       justifyContent: "center",
       textAlign: "center",
+
       "& div": {
         padding: theme.spacing(1),
       },

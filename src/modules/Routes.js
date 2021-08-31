@@ -8,7 +8,7 @@ import ModuleDetail from "./dashboard/ModuleDetail";
 import LeaningDetail from "./dashboard/Leaning/LeaningDetail";
 import AdminProfile from "./dashboard/admin/AdminProfile";
 import CrateRoom from "./dashboard/admin/CrateRoom";
-
+import UpdateRoom from "./dashboard/admin/UpdateRoom";
 import SingUp from "./SingUp";
 export default function Routes() {
   return (
@@ -39,6 +39,9 @@ export default function Routes() {
       </Route>
       <Route path="/createroom">
         <CrateRoom></CrateRoom>
+      </Route>
+      <Route path="/updateroom">
+        <UpdateRoom></UpdateRoom>
       </Route>
     </Switch>
   );
