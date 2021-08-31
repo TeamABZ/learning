@@ -27,8 +27,8 @@ export default function ManageRoom() {
   return (
     <div className={classes.root}>
       <Grid container className={classes.btnCreate}>
-        <Button variant="contained" color="default">
-          Crate New Room
+        <Button size="medium" variant="outlined" href="/createroom">
+          Create Room
         </Button>
       </Grid>
       <Grid container className={classes.room}>
