@@ -70,17 +70,6 @@ export default function ModuleDetail() {
             <ListModule key={data.titleModule} {...data} />
           ))}
         </Grid>
-        <Grid item xl={4}>
-          <Typography variant="h4"> Need to know</Typography>
-          <Grid item>
-            <ModuleItem key={knowlearn.titleModule} {...knowlearn} />
-          </Grid>
-          <hr />
-          <Typography variant="h4"> Next Learn</Typography>
-          <Grid item>
-            <ModuleItem key={nextlearn.titleModule} {...nextlearn} />
-          </Grid>
-        </Grid>
       </Grid>
     </div>
   );

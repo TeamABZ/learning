@@ -27,7 +27,7 @@ export default function GanaralSetting() {
   }));
   const classes = useStyles();
   return (
-    <div>
+    <div className={classes.formCrate}>
       <form noValidate autoComplete="off">
         <div>
           <TextField id="title" label="Title" className={classes.textField} />

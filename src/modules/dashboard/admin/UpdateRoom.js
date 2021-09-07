@@ -6,6 +6,7 @@ import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import ToobarAdmin from "./ToobarAdmin";
 import GanaralSetting from "./GanaralSetting";
+import LeftBar from "./LeftBar";
 
 export default function UpdateRoom() {
   const useStyles = makeStyles((theme) => ({
@@ -34,7 +35,7 @@ export default function UpdateRoom() {
       </div>
       <Grid container className={classes.updateRoom}>
         <Grid container item xl={3}>
-          xx
+          <LeftBar></LeftBar>
         </Grid>
         <Grid container item xl={9}>
           <Typography variant="h5" color="initial">

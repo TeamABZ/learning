@@ -9,6 +9,8 @@ import LeaningDetail from "./dashboard/Leaning/LeaningDetail";
 import AdminProfile from "./dashboard/admin/AdminProfile";
 import CrateRoom from "./dashboard/admin/CrateRoom";
 import UpdateRoom from "./dashboard/admin/UpdateRoom";
+import TaskSetting from "./dashboard/admin/TaskSetting";
+
 import SingUp from "./SingUp";
 export default function Routes() {
   return (
@@ -42,6 +44,9 @@ export default function Routes() {
       </Route>
       <Route path="/updateroom">
         <UpdateRoom></UpdateRoom>
+      </Route>
+      <Route path="/tasksetting">
+        <TaskSetting></TaskSetting>
       </Route>
     </Switch>
   );
