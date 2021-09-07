@@ -10,6 +10,8 @@ import AdminProfile from "./dashboard/admin/AdminProfile";
 import CrateRoom from "./dashboard/admin/CrateRoom";
 import UpdateRoom from "./dashboard/admin/UpdateRoom";
 import TaskSetting from "./dashboard/admin/TaskSetting";
+import UserSetting from "./dashboard/admin/UserSetting";
+import UpdateUser from "./dashboard/admin/UpdateUser";
 
 import SingUp from "./SingUp";
 export default function Routes() {
@@ -47,6 +49,12 @@ export default function Routes() {
       </Route>
       <Route path="/tasksetting">
         <TaskSetting></TaskSetting>
+      </Route>
+      <Route path="/usersetting">
+        <UserSetting></UserSetting>
+      </Route>
+      <Route path="/updateuser">
+        <UpdateUser></UpdateUser>
       </Route>
     </Switch>
   );

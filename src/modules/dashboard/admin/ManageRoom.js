@@ -33,9 +33,7 @@ export default function ManageRoom() {
       </Grid>
       <Grid container className={classes.room}>
         <Grid item xl={6}>
-          <Link color="inherit" noWrap variant="h6" href="/updateroom">
-            <ListRoom></ListRoom>
-          </Link>
+          <ListRoom></ListRoom>
           <ListRoom></ListRoom>
           <ListRoom></ListRoom>
         </Grid>

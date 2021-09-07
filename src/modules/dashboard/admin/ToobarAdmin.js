@@ -43,14 +43,6 @@ export default function ToobarAdmin() {
           variant="h6"
           className={classes.toolbarLink}
         >
-          Dashboard
-        </Link>
-        <Link
-          color="inherit"
-          noWrap
-          variant="h6"
-          className={classes.toolbarLink}
-        >
           Lean
         </Link>
         <Link
@@ -60,12 +52,13 @@ export default function ToobarAdmin() {
           href="/adminprofile"
           className={classes.toolbarLink}
         >
-          Develop
+          Setting Learn
         </Link>
         <Link
           color="inherit"
           noWrap
           variant="h6"
+          href="/usersetting"
           className={classes.toolbarLink}
         >
           User

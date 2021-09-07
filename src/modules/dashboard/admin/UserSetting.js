@@ -1,13 +1,13 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import Toolbar from "@material-ui/core/Toolbar";
-import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-import ManageRoom from "./ManageRoom";
+import Typography from "@material-ui/core/Typography";
 import ToobarAdmin from "./ToobarAdmin";
+import Button from "@material-ui/core/Button";
+import Link from "@material-ui/core/Link";
+import Userlist from "./Userlist";
 
-export default function AdminProfile() {
+export default function UserSetting() {
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -24,13 +24,11 @@ export default function AdminProfile() {
       <ToobarAdmin></ToobarAdmin>
 
       <div className={classes.titlepage}>
-        <Typography variant="h4">Setting Leaning</Typography>
-        <Typography variant="h6">
-          Create a room ,upload your material and assign task
-        </Typography>
+        <Typography variant="h4">Setting User</Typography>
+        <Typography variant="h6">update user account</Typography>
       </div>
       <Grid container>
-        <ManageRoom></ManageRoom>
+        <Userlist></Userlist>
       </Grid>
     </div>
   );
