@@ -102,9 +102,6 @@ export default function LeaningDetail() {
           </Grid>
         </Grid>
         <Grid container item spacing={1}>
-          <Grid className={classes.video} item xl={12}>
-            VDO
-          </Grid>
           <Grid item xl={12}>
             <BorderLinearProgress variant="determinate" value={50} />
           </Grid>

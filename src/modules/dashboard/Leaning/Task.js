@@ -48,11 +48,7 @@ export default function Task({ no, titleTask, desc }) {
               <Grid item xl={9}>
                 <Typography variant="subtitle1">{desc}</Typography>
               </Grid>
-              <Grid item xl={3} container className={classes.btnMachine}>
-                <Button variant="contained" color="primary">
-                  Start Machine
-                </Button>
-              </Grid>
+              <Grid item xl={3} container className={classes.btnMachine}></Grid>
             </Grid>
             <Grid container item>
               <Questions></Questions>
