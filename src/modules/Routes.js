@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, Switch, Route, BrowserRouter } from "react-router-dom";
-import Login from "./Login";
+import Login from "./Signin";
 import FirstPage from "./FirstPage";
 import UserProfile from "./dashboard/UserProfile";
 import AllModule from "./dashboard/AllModule";
@@ -13,7 +13,7 @@ import TaskSetting from "./dashboard/admin/TaskSetting";
 import UserSetting from "./dashboard/admin/UserSetting";
 import UpdateUser from "./dashboard/admin/UpdateUser";
 
-import SingUp from "./SingUp";
+import SingUp from "./Signup";
 export default function Routes() {
   return (
     <Switch>
