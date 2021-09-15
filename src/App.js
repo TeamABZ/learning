@@ -1,7 +1,8 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { Link, Switch, Route, BrowserRouter } from "react-router-dom";
-import Login from "./modules/Signin";
+import { Switch, Route, BrowserRouter } from "react-router-dom";
+import Signin from "./modules/Signin";
+
 import FirstPage from "./modules/FirstPage";
 import UserProfile from "./modules/dashboard/UserProfile";
 import AllModule from "./modules/dashboard/AllModule";

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, Switch, Route, BrowserRouter } from "react-router-dom";
-import Login from "./Signin";
+import Signin from "./Signin";
 import FirstPage from "./FirstPage";
 import UserProfile from "./dashboard/UserProfile";
 import AllModule from "./dashboard/AllModule";
@@ -20,8 +20,8 @@ export default function Routes() {
       <Route exact path="/">
         <FirstPage></FirstPage>
       </Route>
-      <Route path="/Login">
-        <Login></Login>
+      <Route path="/Signin">
+        <Signin></Signin>
       </Route>
       <Route path="/singup">
         <SingUp></SingUp>
