@@ -11,6 +11,7 @@ import Container from "@material-ui/core/Container";
 
 import swal from "sweetalert";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -47,10 +48,6 @@ export default function Signin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const response = await loginUser({
-    //   email,
-    //   password,
-    // });
 
     const { data } = await axios.post("/api/v1/auth/sign-in", {
       email,
@@ -64,7 +61,7 @@ export default function Signin() {
       }).then((value) => {
         localStorage.setItem("accessToken", data["token"]);
         // localStorage.setItem("user", JSON.stringify(response["user"]));
-        // window.location.href = "/profile";
+        window.location.href = "/userprofile";
 
         console.log(data);
       });
@@ -78,7 +75,7 @@ export default function Signin() {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
-          Sign in xxx
+          Sign in
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField

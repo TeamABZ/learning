@@ -1,5 +1,4 @@
-import React from "react";
-import Avatar from "@material-ui/core/Avatar";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -12,6 +11,8 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import swal from "sweetalert";
+import axios from "axios";
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -34,7 +35,35 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Signup() {
   const classes = useStyles();
+  const [email, setEmail] = useState();
+  const [name, setName] = useState();
+  const [password, setPassword] = useState();
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    await axios
+      .post("api/v1/auth/sign-up", {
+        email,
+        password,
+        name,
+      })
+      .then((response) => {
+        const data = response.data;
+        console.log(data);
+        swal("Success", "regis Success", "success", {
+          buttons: false,
+          timer: 1000,
+        }).then((value) => {
+          // localStorage.setItem("user", JSON.stringify(response["user"]));
+          window.location.href = "/signin";
+        });
+      })
+      .catch((error) => {
+        swal("Failed", "Email  duplicate", "error");
+        console.log("duplicate");
+      });
+  };
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -42,7 +71,7 @@ export default function Signup() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -54,6 +83,7 @@ export default function Signup() {
                 id="username"
                 label="username"
                 autoFocus
+                onChange={(e) => setName(e.target.value)}
               />
             </Grid>
 
@@ -66,6 +96,7 @@ export default function Signup() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={(e) => setEmail(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -78,6 +109,7 @@ export default function Signup() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </Grid>
           </Grid>

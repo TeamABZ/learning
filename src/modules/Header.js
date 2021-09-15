@@ -11,20 +11,70 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#66FCF1",
 
     marginLeft: theme.spacing(1),
+    "&:hover": {
+      backgroundColor: "#66FCf6",
+    },
   },
   toolbars: {
     backgroundColor: "#141414",
     color: "#fff",
     padding: theme.spacing(0, 2),
   },
+  linkA: {
+    color: "#fff",
+    textDecoration: "none",
+  },
 }));
 
 export default function Header(props) {
   const classes = useStyles();
   const { title } = props;
+  const token = localStorage.getItem("accessToken");
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    window.location.href = "/";
+  };
+
+  if (!token) {
+    return (
+      <React.Fragment>
+        <Toolbar className={classes.toolbars}>
+          <Typography
+            component="h2"
+            variant="h5"
+            color="inherit"
+            noWrap
+            className={classes.toolbarTitle}
+          >
+            <a href="/" className={classes.linkA}>
+              {title}{" "}
+            </a>
+          </Typography>
+
+          <Button
+            size="medium"
+            variant="outlined"
+            className={classes.btnheader}
+            href="/signup"
+          >
+            Sign up
+          </Button>
+          <Button
+            size="medium"
+            variant="outlined"
+            className={classes.btnheader}
+            href="/signin"
+          >
+            Sign In
+          </Button>
+        </Toolbar>
+      </React.Fragment>
+    );
+  }
 
   return (
-    <React.Fragment>
+    <>
       <Toolbar className={classes.toolbars}>
         <Typography
           component="h2"
@@ -33,25 +83,11 @@ export default function Header(props) {
           noWrap
           className={classes.toolbarTitle}
         >
-          {title}
+          <a href="/" className={classes.linkA}>
+            {title}
+          </a>
         </Typography>
 
-        <Button
-          size="medium"
-          variant="outlined"
-          className={classes.btnheader}
-          href="/singup"
-        >
-          Sign up
-        </Button>
-        <Button
-          size="medium"
-          variant="outlined"
-          className={classes.btnheader}
-          href="/signin"
-        >
-          Login
-        </Button>
         <Button
           size="medium"
           variant="outlined"
@@ -64,11 +100,11 @@ export default function Header(props) {
           size="medium"
           variant="outlined"
           className={classes.btnheader}
-          href="/adminprofile"
+          onClick={handleLogout}
         >
-          Admin Profile
+          Log out
         </Button>
       </Toolbar>
-    </React.Fragment>
+    </>
   );
 }

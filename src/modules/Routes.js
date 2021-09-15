@@ -13,7 +13,7 @@ import TaskSetting from "./dashboard/admin/TaskSetting";
 import UserSetting from "./dashboard/admin/UserSetting";
 import UpdateUser from "./dashboard/admin/UpdateUser";
 
-import SingUp from "./Signup";
+import SignUp from "./Signup";
 export default function Routes() {
   return (
     <Switch>
@@ -23,8 +23,8 @@ export default function Routes() {
       <Route path="/Signin">
         <Signin></Signin>
       </Route>
-      <Route path="/singup">
-        <SingUp></SingUp>
+      <Route path="/SignUp">
+        <SignUp></SignUp>
       </Route>
       <Route path="/userprofile">
         <UserProfile></UserProfile>
