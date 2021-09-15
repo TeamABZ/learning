@@ -52,13 +52,10 @@ export default function Signin() {
     //   password,
     // });
 
-    const { data } = await axios.post(
-      "https://msitapi.azurewebsites.net/api/v1/auth/sign-in",
-      {
-        email,
-        password,
-      }
-    );
+    const { data } = await axios.post("/api/v1/auth/sign-in", {
+      email,
+      password,
+    });
     console.log(data);
     if ("token" in data) {
       swal("Success", "login Success", "success", {
