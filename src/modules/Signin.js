@@ -11,7 +11,6 @@ import Container from "@material-ui/core/Container";
 
 import swal from "sweetalert";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -46,6 +45,18 @@ export default function Signin() {
   const [email, setUserName] = useState();
   const [password, setPassword] = useState();
 
+  // const profile = async () => {
+  //   const token = JSON.parse(localStorage.getItem("accessToken"));
+
+  //   await axios
+  //     .get("/api/v1/auth/profile", {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     })
+  //     .then((res) => {
+  //       console.log(res.data);
+  //     });
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -53,17 +64,33 @@ export default function Signin() {
       email,
       password,
     });
-    console.log(data);
     if ("token" in data) {
       swal("Success", "login Success", "success", {
         buttons: false,
-        timer: 2000,
-      }).then((value) => {
+        timer: 3000,
+      }).then(async (value) => {
         localStorage.setItem("accessToken", data["token"]);
-        // localStorage.setItem("user", JSON.stringify(response["user"]));
-        window.location.href = "/userprofile";
 
+        // localStorage.setItem("user", JSON.stringify(response["user"]));
+
+        // window.location.href = "/userprofile";
         console.log(data);
+
+        await axios
+          .get("/api/v1/auth/profile", {
+            headers: { Authorization: `Bearer ${data["token"]}` },
+          })
+          .then((res) => {
+            const { user } = res.data;
+            localStorage.setItem("user", JSON.stringify(user));
+
+            console.log(user);
+            if (user["role"] === "Member") {
+              window.location.href = "/userprofile";
+            } else if (user["role"] === "Admin") {
+              window.location.href = "/adminprofile";
+            }
+          });
       });
     } else {
       swal("Failed", "user or password failed", "error");

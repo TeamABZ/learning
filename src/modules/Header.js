@@ -30,9 +30,11 @@ export default function Header(props) {
   const classes = useStyles();
   const { title } = props;
   const token = localStorage.getItem("accessToken");
-
+  const user = JSON.parse(localStorage.getItem("user"));
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("user");
+
     window.location.href = "/";
   };
 
@@ -73,38 +75,75 @@ export default function Header(props) {
     );
   }
 
-  return (
-    <>
-      <Toolbar className={classes.toolbars}>
-        <Typography
-          component="h2"
-          variant="h5"
-          color="inherit"
-          noWrap
-          className={classes.toolbarTitle}
-        >
-          <a href="/" className={classes.linkA}>
-            {title}
-          </a>
-        </Typography>
+  if (user.role === "Admin") {
+    return (
+      <>
+        <Toolbar className={classes.toolbars}>
+          <Typography
+            component="h2"
+            variant="h5"
+            color="inherit"
+            noWrap
+            className={classes.toolbarTitle}
+          >
+            <a href="/" className={classes.linkA}>
+              {title}
+            </a>
+          </Typography>
 
-        <Button
-          size="medium"
-          variant="outlined"
-          className={classes.btnheader}
-          href="/userprofile"
-        >
-          User Profile
-        </Button>
-        <Button
-          size="medium"
-          variant="outlined"
-          className={classes.btnheader}
-          onClick={handleLogout}
-        >
-          Log out
-        </Button>
-      </Toolbar>
-    </>
-  );
+          <Button
+            size="medium"
+            variant="outlined"
+            className={classes.btnheader}
+            href="/adminprofile"
+          >
+            Admin Profile
+          </Button>
+          <Button
+            size="medium"
+            variant="outlined"
+            className={classes.btnheader}
+            onClick={handleLogout}
+          >
+            Log out
+          </Button>
+        </Toolbar>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Toolbar className={classes.toolbars}>
+          <Typography
+            component="h2"
+            variant="h5"
+            color="inherit"
+            noWrap
+            className={classes.toolbarTitle}
+          >
+            <a href="/" className={classes.linkA}>
+              {title}
+            </a>
+          </Typography>
+
+          <Button
+            size="medium"
+            variant="outlined"
+            className={classes.btnheader}
+            href="/userprofile"
+          >
+            User Profile
+          </Button>
+          <Button
+            size="medium"
+            variant="outlined"
+            className={classes.btnheader}
+            onClick={handleLogout}
+          >
+            Log out
+          </Button>
+        </Toolbar>
+      </>
+    );
+  }
 }
