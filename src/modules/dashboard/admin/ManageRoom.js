@@ -24,19 +24,24 @@ export default function ManageRoom() {
     },
   }));
   const classes = useStyles();
-  const [course, setCourse] = useState(null);
+  const [course, setCourse] = useState([]);
   const token = localStorage.getItem("accessToken");
-  console.log(token);
+  const numbers = [1, 2, 3, 4, 5];
+
   useEffect(() => {
     const getCourse = async () => {
       const { data } = await axios.get("/api/v1/courses", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setCourse(data);
-      console.log(data);
+      setCourse(data.courses);
+      console.log(data.courses);
     };
     getCourse();
   }, []);
+
+  const listRooms = course.map((item, i) => (
+    <ListRoom key={i} {...item}></ListRoom>
+  ));
 
   return (
     <div className={classes.root}>
@@ -47,9 +52,7 @@ export default function ManageRoom() {
       </Grid>
       <Grid container className={classes.room}>
         <Grid item xl={6}>
-          <ListRoom></ListRoom>
-          <ListRoom></ListRoom>
-          <ListRoom></ListRoom>
+          {listRooms}
         </Grid>
       </Grid>
     </div>

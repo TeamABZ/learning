@@ -7,7 +7,7 @@ import ImageIcon from "@material-ui/icons/Image";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 
-export default function ListRoom() {
+export default function ListRoom({ name, desc }) {
   const useStyles = makeStyles((theme) => ({
     allRoom: {
       alignItems: "center",
@@ -23,18 +23,18 @@ export default function ListRoom() {
   return (
     <Grid container className={classes.allRoom}>
       <Grid item xl={4}>
-        <Avatar>
+        {/* <Avatar>
           <ImageIcon />
-        </Avatar>
+        </Avatar> */}
       </Grid>
 
       <Grid item xl={5}>
         <Link color="inherit" noWrap variant="h6" href="/updateroom">
           <Typography variant="subtitle1" color="initial">
-            Name Room
+            {name}
           </Typography>
           <Typography variant="subtitle1" color="initial">
-            Description
+            {desc}
           </Typography>
         </Link>
       </Grid>
