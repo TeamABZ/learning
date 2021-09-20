@@ -24,9 +24,9 @@ export default function ManageRoom() {
     },
   }));
   const classes = useStyles();
+
   const [course, setCourse] = useState([]);
   const token = localStorage.getItem("accessToken");
-  const numbers = [1, 2, 3, 4, 5];
 
   useEffect(() => {
     const getCourse = async () => {
@@ -34,10 +34,11 @@ export default function ManageRoom() {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCourse(data.courses);
-      console.log(data.courses);
+      console.log(data);
     };
+
     getCourse();
-  }, []);
+  }, [token]);
 
   const listRooms = course.map((item, i) => (
     <ListRoom key={i} {...item}></ListRoom>

@@ -5,9 +5,15 @@ import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import ImageIcon from "@material-ui/icons/Image";
 import Button from "@material-ui/core/Button";
-import Link from "@material-ui/core/Link";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams,
+} from "react-router-dom";
 
-export default function ListRoom({ name, desc }) {
+export default function ListRoom({ id, name, desc }) {
   const useStyles = makeStyles((theme) => ({
     allRoom: {
       alignItems: "center",
@@ -29,7 +35,10 @@ export default function ListRoom({ name, desc }) {
       </Grid>
 
       <Grid item xl={5}>
-        <Link color="inherit" noWrap variant="h6" href="/updateroom">
+        <Link
+          color="inherit"
+          to={{ pathname: `updateroom/${id}`, state: { id } }}
+        >
           <Typography variant="subtitle1" color="initial">
             {name}
           </Typography>

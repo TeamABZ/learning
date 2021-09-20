@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Typography, Grid, TextField } from "@material-ui/core";
 import ToobarAdmin from "./ToobarAdmin";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import axios from "axios";
+import swal from "sweetalert";
 
 export default function CrateRoom() {
   const useStyles = makeStyles((theme) => ({
@@ -27,7 +29,52 @@ export default function CrateRoom() {
     },
   }));
   const classes = useStyles();
+  const token = localStorage.getItem("accessToken");
+  const [name, setCourse] = useState();
+  const [desc, setDesc] = useState();
+  const [data, setData] = useState();
+  const createRoom = async (e) => {
+    e.preventDefault();
+    console.log(token);
 
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+
+    const bodyParameters = { name, desc };
+
+    await axios
+      .post("/api/v1/courses", bodyParameters, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        setData(response.data);
+        console.log(data);
+        swal("Success", "Create Success", "success", {
+          buttons: false,
+          timer: 1000,
+        }).then((value) => {
+          // localStorage.setItem("user", JSON.stringify(response["user"]));
+          window.location.href = "/adminprofile";
+        });
+      })
+      .catch((error) => {
+        swal("Failed", "Email  duplicate", "error");
+
+        console.log(error.response.status); // 401
+        console.log(error.response.data.error);
+      });
+
+    // if ("course" in data) {
+    //   swal("Success", "Create Course", "success", {
+    //     buttons: false,
+    //     timer: 2000,
+    //   });
+    //   console.log(data);
+    // } else {
+    //   swal("Failed", "Course name duoplicate ", "error");
+    // }
+  };
   return (
     <div>
       <ToobarAdmin></ToobarAdmin>
@@ -39,15 +86,21 @@ export default function CrateRoom() {
       </div>
 
       <Grid container className={classes.formCrate}>
-        <form noValidate autoComplete="off">
+        <form noValidate autoComplete="off" onSubmit={createRoom}>
           <div>
-            <TextField id="title" label="Title" className={classes.textField} />
+            <TextField
+              id="title"
+              label="Title"
+              className={classes.textField}
+              onChange={(e) => setCourse(e.target.value)}
+            />
           </div>
           <div>
             <TextField
               id="description"
               label="Description"
               className={classes.textField}
+              onChange={(e) => setDesc(e.target.value)}
             />
           </div>
           <div>
@@ -70,7 +123,7 @@ export default function CrateRoom() {
             </label>
           </div>
           <div>
-            <Button variant="contained" color="secondary">
+            <Button variant="contained" color="secondary" type="submit">
               Create Room
             </Button>
           </div>

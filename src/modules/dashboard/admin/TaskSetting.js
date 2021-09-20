@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { Grid, Button } from "@material-ui/core";
@@ -9,6 +9,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ToobarAdmin from "./ToobarAdmin";
 import LeftBar from "./LeftBar";
 import TaskDetail from "./TaskDetail";
+import axios from "axios";
 export default function TaskSetting() {
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -48,6 +49,22 @@ export default function TaskSetting() {
     },
   }));
   const classes = useStyles();
+  const [course, setCourse] = useState([]);
+  const token = localStorage.getItem("accessToken");
+
+  useEffect(() => {
+    const getCourse = async () => {
+      const { data } = await axios.get("/api/v1/courses", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setCourse(data.courses);
+    };
+    getCourse();
+  }, [course]);
+
+  const listRooms = course.map((item, i) => (
+    <TaskDetail key={i} {...item}></TaskDetail>
+  ));
   return (
     <div className={classes.root}>
       <ToobarAdmin></ToobarAdmin>

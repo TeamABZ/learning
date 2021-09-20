@@ -7,7 +7,7 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import QandA from "./QandA";
-export default function TaskDetail() {
+export default function TaskDetail({ id, title, desc }) {
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,

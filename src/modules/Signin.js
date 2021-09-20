@@ -31,31 +31,11 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(2, 0, 2),
   },
 }));
-// async function loginUser(credentials) {
-//   return fetch("https://msitapi.azurewebsites.net/api/v1/auth/sign-in", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(credentials),
-//   }).then((data) => data.json());
-// }
+
 export default function Signin() {
   const classes = useStyles();
   const [email, setUserName] = useState();
   const [password, setPassword] = useState();
-
-  // const profile = async () => {
-  //   const token = JSON.parse(localStorage.getItem("accessToken"));
-
-  //   await axios
-  //     .get("/api/v1/auth/profile", {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     })
-  //     .then((res) => {
-  //       console.log(res.data);
-  //     });
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();

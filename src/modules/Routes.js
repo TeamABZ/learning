@@ -56,6 +56,9 @@ export default function Routes() {
       <Route path="/updateuser">
         <UpdateUser></UpdateUser>
       </Route>
+
+      <Route path="/updateuser/:id" exact component={UpdateUser} />
+      <Route path="/updateroom/:id" exact component={UpdateRoom} />
     </Switch>
   );
 }
