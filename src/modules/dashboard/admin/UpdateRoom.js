@@ -100,7 +100,8 @@ export default function UpdateRoom() {
             Ganaral setting
           </Typography>
           <Grid container>
-            <GanaralSetting key={id} {...course}></GanaralSetting>
+            xxx
+            <GanaralSetting key={id} {...course} id={id}></GanaralSetting>
           </Grid>
         </Grid>
       </Grid>

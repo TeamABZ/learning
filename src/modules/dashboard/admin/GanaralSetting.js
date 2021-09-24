@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Typography, Grid, TextField } from "@material-ui/core";
 import axios from "axios";
+import swal from "sweetalert";
 
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 export default function GanaralSetting({ id, name, desc, tasks }) {
@@ -27,8 +28,61 @@ export default function GanaralSetting({ id, name, desc, tasks }) {
     },
   }));
   const classes = useStyles();
-  console.log(tasks);
+  const token = localStorage.getItem("accessToken");
 
+  const [datas, setData] = useState();
+  const [names, setName] = useState(name);
+  const [descs, setDesc] = useState(desc);
+  const [ids, setId] = useState(id);
+  console.log(id);
+  useEffect(() => {
+    const getCoure = async () => {
+      const { data } = await axios.get(`/api/v1/courses/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      setData(data.course);
+      setName(data.course.name);
+      setDesc(data.course.desc);
+      setId(id);
+      console.log(data.course);
+    };
+
+    getCoure();
+  }, []);
+
+  // const Update = async (e) => {
+  //   e.preventDefault();
+  //   console.log(token);
+
+  //   const config = {
+  //     headers: { Authorization: `Bearer ${token}` },
+  //   };
+
+  //   const bodyParameters = { name, desc };
+
+  //   await axios
+  //     .post("/api/v1/courses", bodyParameters, {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     })
+  //     .then((response) => {
+  //       setData(response.data);
+  //       console.log(data);
+  //       swal("Success", "Create Success", "success", {
+  //         buttons: false,
+  //         timer: 1000,
+  //       }).then((value) => {
+  //         // localStorage.setItem("user", JSON.stringify(response["user"]));
+  //         window.location.href = "/adminprofile";
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       swal("Failed", "Email  duplicate", "error");
+
+  //       console.log(error.response.status); // 401
+  //       console.log(error.response.data.error);
+  //     });
+  // };
   return (
     <div className={classes.formCrate}>
       <form noValidate autoComplete="off">
@@ -37,7 +91,8 @@ export default function GanaralSetting({ id, name, desc, tasks }) {
             variant="outlined"
             id="title"
             label="Title"
-            value={name}
+            value={names}
+            onChange={(e) => setName(e.target.value)}
             className={classes.textField}
           />
         </div>
@@ -46,7 +101,8 @@ export default function GanaralSetting({ id, name, desc, tasks }) {
             variant="outlined"
             id="description"
             label="Description"
-            value={desc}
+            value={descs}
+            onChange={(e) => setDesc(e.target.value)}
             className={classes.textField}
           />
         </div>
@@ -70,7 +126,7 @@ export default function GanaralSetting({ id, name, desc, tasks }) {
           </label>
         </div>
         <div>
-          <Button variant="contained" color="secondary">
+          <Button variant="contained" color="secondary" type="submit">
             Update
           </Button>
         </div>

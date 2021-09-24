@@ -43,22 +43,22 @@ export default function Routes() {
       </Route>
       <Route path="/createroom">
         <CrateRoom></CrateRoom>
-      </Route>
-      <Route path="/updateroom">
-        <UpdateRoom></UpdateRoom>
-      </Route>
 
-      <Route path="/usersetting">
-        <UserSetting></UserSetting>
+        <Route path="/usersetting">
+          <UserSetting></UserSetting>
+
+          <Route path="/updateuser/:id" exact component={UpdateUser}></Route>
+          {/* <Route path="/updateroom/:id" exact component={UpdateRoom}></Route> */}
+
+          <Route path="/tasksetting/:id" exact component={TaskSetting}></Route>
+        </Route>
+      </Route>
+      <Route path="/updateroom/:id">
+        <UpdateRoom></UpdateRoom>
       </Route>
       <Route path="/updateuser">
         <UpdateUser></UpdateUser>
       </Route>
-
-      <Route path="/updateuser/:id" exact component={UpdateUser} />
-      <Route path="/updateroom/:id" exact component={UpdateRoom} />
-
-      <Route path="/tasksetting/:id" exact component={TaskSetting}></Route>
     </Switch>
   );
 }

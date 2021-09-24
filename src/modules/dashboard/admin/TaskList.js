@@ -148,6 +148,7 @@ export default function TaskList({ id, name, desc, no }) {
                       id="title"
                       label="Title"
                       variant="outlined"
+                      value={name}
                     />
                   </div>
                   <div>
