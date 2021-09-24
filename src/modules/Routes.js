@@ -47,9 +47,7 @@ export default function Routes() {
       <Route path="/updateroom">
         <UpdateRoom></UpdateRoom>
       </Route>
-      <Route path="/tasksetting">
-        <TaskSetting></TaskSetting>
-      </Route>
+
       <Route path="/usersetting">
         <UserSetting></UserSetting>
       </Route>
@@ -59,6 +57,8 @@ export default function Routes() {
 
       <Route path="/updateuser/:id" exact component={UpdateUser} />
       <Route path="/updateroom/:id" exact component={UpdateRoom} />
+
+      <Route path="/tasksetting/:id" exact component={TaskSetting}></Route>
     </Switch>
   );
 }

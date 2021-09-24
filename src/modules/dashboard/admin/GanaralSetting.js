@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Typography, Grid, TextField } from "@material-ui/core";
+import axios from "axios";
 
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-export default function GanaralSetting() {
+export default function GanaralSetting({ id, name, desc, tasks }) {
   const useStyles = makeStyles((theme) => ({
     titlepage: {
       padding: theme.spacing(3, 2),
@@ -26,16 +27,26 @@ export default function GanaralSetting() {
     },
   }));
   const classes = useStyles();
+  console.log(tasks);
+
   return (
     <div className={classes.formCrate}>
       <form noValidate autoComplete="off">
         <div>
-          <TextField id="title" label="Title" className={classes.textField} />
+          <TextField
+            variant="outlined"
+            id="title"
+            label="Title"
+            value={name}
+            className={classes.textField}
+          />
         </div>
         <div>
           <TextField
+            variant="outlined"
             id="description"
             label="Description"
+            value={desc}
             className={classes.textField}
           />
         </div>

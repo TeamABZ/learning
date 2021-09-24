@@ -77,7 +77,7 @@ export default function UpdateUser() {
         console.log("xx");
         setUsers(data.user);
 
-        console.log(data.user);
+        console.log(users);
         setAvatar(data.user.avatar);
         setEmail(data.user.email);
         setName(data.user.name);

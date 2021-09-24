@@ -37,14 +37,14 @@ export default function UserSetting() {
     };
     getUsers();
   }, []);
-  console.log(users);
-  const listuser = users.map((item, i) => (
-    <Userlist key={i} {...item}></Userlist>
+
+  const listuser = users.map((item) => (
+    <Userlist key={item.id} {...item}></Userlist>
   ));
+
   return (
     <div className={classes.root}>
       <ToobarAdmin></ToobarAdmin>
-
       <div className={classes.titlepage}>
         <Typography variant="h4">Setting User</Typography>
         <Typography variant="h6">update user account</Typography>

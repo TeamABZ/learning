@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Toolbar from "@material-ui/core/Toolbar";
-import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import ToobarAdmin from "./ToobarAdmin";
 import GanaralSetting from "./GanaralSetting";
 import LeftBar from "./LeftBar";
+import axios from "axios";
+import { useLocation } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams,
+} from "react-router-dom";
 
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
 export default function UpdateRoom() {
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,6 +36,35 @@ export default function UpdateRoom() {
     rightBar: {},
   }));
   const classes = useStyles();
+  const location = useLocation();
+  const token = localStorage.getItem("accessToken");
+
+  const { id } = location.state;
+  const [course, setCourse] = useState([]);
+
+  const [name, setName] = useState("");
+  const [desc, setDesc] = useState("");
+  const [tasks, setTasks] = useState();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await axios.get(`/api/v1/courses/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        setCourse(data.course);
+        setName(data.course.name);
+        setDesc(data.course.desc);
+        setTasks(data.course.tasks);
+      } catch (error) {
+        console.log(error.response.status); // 401
+        console.log(error.response.data.error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className={classes.root}>
       <ToobarAdmin></ToobarAdmin>
@@ -35,14 +75,32 @@ export default function UpdateRoom() {
       </div>
       <Grid container className={classes.updateRoom}>
         <Grid container item xl={3}>
-          <LeftBar></LeftBar>
+          <List dense>
+            <ListItem button>
+              <Link
+                color="inherit"
+                to={{ pathname: `/updateroom/${id}`, state: { id } }}
+              >
+                Setting
+              </Link>
+            </ListItem>
+            <ListItem button>
+              <Link
+                color="inherit"
+                to={{ pathname: `/tasksetting/${id}`, state: { id } }}
+              >
+                Task
+              </Link>
+            </ListItem>
+          </List>
         </Grid>
+
         <Grid container item xl={9}>
           <Typography variant="h5" color="initial">
             Ganaral setting
           </Typography>
           <Grid container>
-            <GanaralSetting></GanaralSetting>
+            <GanaralSetting key={id} {...course}></GanaralSetting>
           </Grid>
         </Grid>
       </Grid>

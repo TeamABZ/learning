@@ -9,7 +9,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import QandA from "./QandA";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
-export default function TaskDetail() {
+export default function TaskList({ id, name, desc, no }) {
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -62,12 +62,9 @@ export default function TaskDetail() {
 
   const token = localStorage.getItem("accessToken");
   const [tasks, setTasks] = useState([]);
-  const location = useLocation();
 
-  const { id } = location.state;
-
-  const [name, setName] = useState("");
-  const [desc, setDesc] = useState("");
+  //   const [name, setName] = useState("");
+  //   const [desc, setDesc] = useState("");
   const [objective, setObjective] = useState("");
   const [courseId, setCourseId] = useState(id);
 
@@ -133,7 +130,7 @@ export default function TaskDetail() {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
         >
-          <Typography variant="h5">Task</Typography>
+          <Typography variant="h5">Task {no}</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Grid container className={classes.contentTask}>
@@ -151,7 +148,6 @@ export default function TaskDetail() {
                       id="title"
                       label="Title"
                       variant="outlined"
-                      onChange={(e) => setName(e.target.value)}
                     />
                   </div>
                   <div>
@@ -162,7 +158,6 @@ export default function TaskDetail() {
                       multiline
                       rows={4}
                       variant="outlined"
-                      onChange={(e) => setDesc(e.target.value)}
                     />
                   </div>
                   <div>
@@ -171,7 +166,6 @@ export default function TaskDetail() {
                       id="objective"
                       label="objective"
                       variant="outlined"
-                      onChange={(e) => setObjective(e.target.value)}
                     />
                   </div>
                   <div>

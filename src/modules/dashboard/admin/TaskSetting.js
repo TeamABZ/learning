@@ -9,7 +9,23 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ToobarAdmin from "./ToobarAdmin";
 import LeftBar from "./LeftBar";
 import TaskDetail from "./TaskDetail";
+import TaskList from "./TaskList";
+
 import axios from "axios";
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams,
+} from "react-router-dom";
+import { useLocation } from "react-router-dom";
+
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+
 export default function TaskSetting() {
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -49,22 +65,56 @@ export default function TaskSetting() {
     },
   }));
   const classes = useStyles();
-  const [course, setCourse] = useState([]);
+  const location = useLocation();
   const token = localStorage.getItem("accessToken");
+  const { id } = location.state;
+
+  const [tasks, setTasks] = useState([]);
+
+  const [name, setName] = useState("");
+  const [desc, setDesc] = useState("");
 
   useEffect(() => {
-    const getCourse = async () => {
-      const { data } = await axios.get("/api/v1/courses", {
+    const getTask = async () => {
+      const { data } = await axios.get("/api/v1/tasks", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setCourse(data.courses);
+      setTasks(data.tasks);
+      console.log(data.tasks);
     };
-    getCourse();
-  }, [course]);
 
-  const listRooms = course.map((item, i) => (
-    <TaskDetail key={i} {...item}></TaskDetail>
+    getTask();
+  }, []);
+  const taskList = tasks.map((item, i) => (
+    <TaskList key={i} {...item} no={i + 1}></TaskList>
   ));
+
+  const [fields, setFields] = useState([]);
+
+  function handleChange(i, event) {
+    const values = [...fields];
+    values[i].value = event.target.value;
+    setFields(values);
+  }
+
+  function handleAdd() {
+    const values = [...fields];
+    values.push({ value: null });
+    setFields(values);
+    console.log(values);
+  }
+
+  function handleRemove(i) {
+    const values = [...fields];
+    values.splice(i, 1);
+    setFields(values);
+  }
+
+  const AddTask = fields.map((idx) => {
+    if (fields.length > 0) return <TaskDetail></TaskDetail>;
+    return <div></div>;
+  });
+
   return (
     <div className={classes.root}>
       <ToobarAdmin></ToobarAdmin>
@@ -75,7 +125,28 @@ export default function TaskSetting() {
       </div>
       <Grid container className={classes.updateRoom}>
         <Grid container item xl={2}>
-          <LeftBar></LeftBar>
+          <Grid container className={classes.updateRoom}>
+            <Grid container item xl={3}>
+              <List dense>
+                <ListItem button>
+                  <Link
+                    color="inherit"
+                    to={{ pathname: `/updateroom/${id}`, state: { id } }}
+                  >
+                    Setting
+                  </Link>
+                </ListItem>
+                <ListItem button>
+                  <Link
+                    color="inherit"
+                    to={{ pathname: `/tasksetting/${id}`, state: { id } }}
+                  >
+                    Task
+                  </Link>
+                </ListItem>
+              </List>
+            </Grid>
+          </Grid>
         </Grid>
         <Grid container item xl={10}>
           <Grid container item>
@@ -85,14 +156,19 @@ export default function TaskSetting() {
               </Typography>
             </Grid>
             <Grid item xl={6} className={classes.addbtn}>
-              <Button variant="contained" color="primary">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => handleAdd()}
+              >
                 Add Task
               </Button>
             </Grid>
           </Grid>
 
           <Grid container item>
-            <TaskDetail></TaskDetail>
+            {taskList}
+            {AddTask}
           </Grid>
         </Grid>
       </Grid>
