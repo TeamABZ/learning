@@ -76,11 +76,12 @@ export default function TaskSetting() {
 
   useEffect(() => {
     const getTask = async () => {
-      const { data } = await axios.get("/api/v1/tasks", {
+      const { data } = await axios.get(`/api/v1/courses/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setTasks(data.tasks);
-      console.log(data.tasks);
+
+      setTasks(data.course.tasks);
+      console.log(data.course.tasks);
     };
 
     getTask();

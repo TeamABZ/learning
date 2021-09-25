@@ -9,7 +9,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import QandA from "./QandA";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
-export default function TaskList({ id, name, desc, no }) {
+export default function TaskList({ id, name, desc, objective, status, no }) {
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -63,14 +63,30 @@ export default function TaskList({ id, name, desc, no }) {
   const token = localStorage.getItem("accessToken");
   const [tasks, setTasks] = useState([]);
 
-  //   const [name, setName] = useState("");
-  //   const [desc, setDesc] = useState("");
-  const [objective, setObjective] = useState("");
+  const [names, setName] = useState(name);
+  const [descs, setDesc] = useState(desc);
+  const [objectives, setObjective] = useState(objective);
+  const [statusTask, setStatusTask] = useState(status);
+
   const [courseId, setCourseId] = useState(id);
 
-  const [fields, setFields] = useState([]);
+  const [Qfield, setFields] = useState([]);
   const [data, setData] = useState();
   console.log(id);
+
+  // useEffect(() => {
+  //   const getTask = async () => {
+  //     const { data } = await axios.get("/api/v1/tasks", {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     });
+
+  //     setTasks(data.tasks);
+  //     console.log(data.tasks);
+  //   };
+
+  //   getTask();
+  // }, []);
+
   const createTask = async (e) => {
     e.preventDefault();
     console.log(token);
@@ -101,26 +117,26 @@ export default function TaskList({ id, name, desc, no }) {
   };
 
   function handleChange(i, event) {
-    const values = [...fields];
+    const values = [...Qfield];
     values[i].value = event.target.value;
     setFields(values);
   }
 
   function handleAdd() {
-    const values = [...fields];
+    const values = [...Qfield];
     values.push({ value: null });
     setFields(values);
     console.log(values);
   }
 
   function handleRemove(i) {
-    const values = [...fields];
+    const values = [...Qfield];
     values.splice(i, 1);
     setFields(values);
   }
 
-  const AddQuestion = fields.map((id) => {
-    if (fields.length > 0) return <QandA></QandA>;
+  const AddQuestion = Qfield.map((id) => {
+    if (Qfield.length > 0) return <QandA></QandA>;
     return <div></div>;
   });
   return (
@@ -148,7 +164,8 @@ export default function TaskList({ id, name, desc, no }) {
                       id="title"
                       label="Title"
                       variant="outlined"
-                      value={name}
+                      value={names}
+                      onChange={(e) => setName(e.target.value)}
                     />
                   </div>
                   <div>
@@ -159,6 +176,8 @@ export default function TaskList({ id, name, desc, no }) {
                       multiline
                       rows={4}
                       variant="outlined"
+                      value={descs}
+                      onChange={(e) => setDesc(e.target.value)}
                     />
                   </div>
                   <div>
@@ -167,6 +186,8 @@ export default function TaskList({ id, name, desc, no }) {
                       id="objective"
                       label="objective"
                       variant="outlined"
+                      value={objectives}
+                      onChange={(e) => setObjective(e.target.value)}
                     />
                   </div>
                   <div>
@@ -183,13 +204,17 @@ export default function TaskList({ id, name, desc, no }) {
                       </Typography>
                     </Grid>
                     <Grid item xl={6} className={classes.addbtn}>
-                      <Button variant="contained" color="primary">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleAdd}
+                      >
                         Add Questions
                       </Button>
                     </Grid>
                   </Grid>
                   <Grid item xl={12}>
-                    <QandA></QandA>
+                    {AddQuestion}
                   </Grid>
                 </Grid>
               </Grid>

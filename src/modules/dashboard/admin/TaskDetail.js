@@ -71,7 +71,7 @@ export default function TaskDetail() {
   const [objective, setObjective] = useState("");
   const [courseId, setCourseId] = useState(id);
 
-  const [fields, setFields] = useState([]);
+  const [Qfields, setFields] = useState([]);
   const [data, setData] = useState();
   console.log(id);
   const createTask = async (e) => {
@@ -104,26 +104,26 @@ export default function TaskDetail() {
   };
 
   function handleChange(i, event) {
-    const values = [...fields];
+    const values = [...Qfields];
     values[i].value = event.target.value;
     setFields(values);
   }
 
   function handleAdd() {
-    const values = [...fields];
+    const values = [...Qfields];
     values.push({ value: null });
     setFields(values);
     console.log(values);
   }
 
   function handleRemove(i) {
-    const values = [...fields];
+    const values = [...Qfields];
     values.splice(i, 1);
     setFields(values);
   }
 
-  const AddQuestion = fields.map((id) => {
-    if (fields.length > 0) return <QandA></QandA>;
+  const AddQuestion = Qfields.map((id) => {
+    if (Qfields.length > 0) return <QandA></QandA>;
     return <div></div>;
   });
   return (
@@ -188,13 +188,18 @@ export default function TaskDetail() {
                       </Typography>
                     </Grid>
                     <Grid item xl={6} className={classes.addbtn}>
-                      <Button variant="contained" color="primary">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => handleAdd()}
+                      >
                         Add Questions
                       </Button>
                     </Grid>
                   </Grid>
                   <Grid item xl={12}>
                     <QandA></QandA>
+                    {AddQuestion}
                   </Grid>
                 </Grid>
               </Grid>
