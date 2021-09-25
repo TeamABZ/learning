@@ -3,7 +3,7 @@ import { Grid, Button, TextField } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
-export default function QandA() {
+export default function ListQuestion({ id, name, answer, Status }) {
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -27,40 +27,14 @@ export default function QandA() {
   }));
   const classes = useStyles();
   const token = localStorage.getItem("accessToken");
-  const [quests, setQuests] = useState([]);
-  const [courseId, setCourseId] = useState(id);
+  const [quests, setQuest] = useState([]);
 
-  const [Qfield, setFields] = useState([]);
+  const [Qnames, setQName] = useState(name);
+  const [Qanswer, setAnswer] = useState(answer);
+
+  const [Qfield, setQFields] = useState([]);
   const [data, setData] = useState();
-  console.log(id);
-  //   const createTask = async (e) => {
-  //     e.preventDefault();
-  //     console.log(token);
-  //     console.log(id);
 
-  //     setCourseId(id);
-
-  //     const bodyParameters = { name, desc, objective, courseId };
-  //     console.log(bodyParameters);
-  //     await axios
-  //       .post("/api/v1/tasks", bodyParameters, {
-  //         headers: { Authorization: `Bearer ${token}` },
-  //       })
-  //       .then((response) => {
-  //         setData(response.data.task);
-  //         // console.log(response);
-  //         // console.log(response.data);
-
-  //         // console.log(response.data.task);
-
-  //         // localStorage.setItem("user", JSON.stringify(response["user"]));
-  //         // window.location.href = "/adminprofile";
-  //       })
-  //       .catch((error) => {
-  //         console.log(error.response.status); // 401
-  //         console.log(error.response.data.error);
-  //       });
-  //   };
   return (
     <Grid container>
       <Grid item xl={9} className={classes.all}>
@@ -69,12 +43,16 @@ export default function QandA() {
             className={classes.txtFildQandA}
             label="Questions #1"
             variant="outlined"
+            value={Qnames}
+            onChange={(e) => setQName(e.target.value)}
           />
 
           <TextField
             className={classes.txtFildQandA}
             label="Answers #1"
             variant="outlined"
+            value={Qanswer}
+            onChange={(e) => setAnswer(e.target.value)}
           />
         </form>
       </Grid>

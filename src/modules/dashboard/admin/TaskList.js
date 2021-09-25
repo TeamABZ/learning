@@ -8,6 +8,7 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import QandA from "./QandA";
 import axios from "axios";
+import ListQuestion from "./ListQuestion";
 import { useLocation } from "react-router-dom";
 export default function TaskList({ id, name, desc, objective, status, no }) {
   const useStyles = makeStyles((theme) => ({
@@ -61,7 +62,7 @@ export default function TaskList({ id, name, desc, objective, status, no }) {
   const classes = useStyles();
 
   const token = localStorage.getItem("accessToken");
-  const [tasks, setTasks] = useState([]);
+  const [quests, setQuest] = useState([]);
 
   const [names, setName] = useState(name);
   const [descs, setDesc] = useState(desc);
@@ -72,21 +73,23 @@ export default function TaskList({ id, name, desc, objective, status, no }) {
 
   const [Qfield, setFields] = useState([]);
   const [data, setData] = useState();
-  console.log(id);
 
-  // useEffect(() => {
-  //   const getTask = async () => {
-  //     const { data } = await axios.get("/api/v1/tasks", {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     });
+  useEffect(() => {
+    const getQuestion = async () => {
+      const { data } = await axios.get(`/api/v1/tasks/3`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log(id);
+      setQuest(data.task.question);
+      console.log(data.task.question);
+      console.log("xxxx");
+    };
 
-  //     setTasks(data.tasks);
-  //     console.log(data.tasks);
-  //   };
-
-  //   getTask();
-  // }, []);
-
+    getQuestion();
+  }, []);
+  const listQuest = quests.map((item, i) => (
+    <ListQuestion key={i} {...item}></ListQuestion>
+  ));
   const createTask = async (e) => {
     e.preventDefault();
     console.log(token);
@@ -139,6 +142,7 @@ export default function TaskList({ id, name, desc, objective, status, no }) {
     if (Qfield.length > 0) return <QandA></QandA>;
     return <div></div>;
   });
+
   return (
     <Grid container className={classes.rootTask} xl={12}>
       <Accordion className={classes.headTask}>
@@ -200,7 +204,7 @@ export default function TaskList({ id, name, desc, objective, status, no }) {
                   <Grid container className={classes.groupQandA}>
                     <Grid item xl={6}>
                       <Typography variant="subtitle1" color="initial">
-                        Questions, Answers and Hints
+                        Questions and Answers
                       </Typography>
                     </Grid>
                     <Grid item xl={6} className={classes.addbtn}>
@@ -214,6 +218,7 @@ export default function TaskList({ id, name, desc, objective, status, no }) {
                     </Grid>
                   </Grid>
                   <Grid item xl={12}>
+                    {listQuest}
                     {AddQuestion}
                   </Grid>
                 </Grid>
