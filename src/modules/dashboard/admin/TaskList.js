@@ -90,33 +90,34 @@ export default function TaskList({ id, name, desc, objective, status, no }) {
   const listQuest = quests.map((item, i) => (
     <ListQuestion key={i} {...item}></ListQuestion>
   ));
-  const createTask = async (e) => {
+
+  const updateTask = async (e) => {
     e.preventDefault();
     console.log(token);
     console.log(id);
 
     setCourseId(id);
 
-    const bodyParameters = { name, desc, objective, courseId };
+    const bodyParameters = { names, descs, objectives, courseId };
     console.log(bodyParameters);
-    await axios
-      .post("/api/v1/tasks", bodyParameters, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        setData(response.data.task);
-        // console.log(response);
-        // console.log(response.data);
+    // await axios
+    //   .patch("/api/v1/tasks/{idtask}", bodyParameters, {
+    //     headers: { Authorization: `Bearer ${token}` },
+    //   })
+    //   .then((response) => {
+    //     setData(response.data.task);
+    //     // console.log(response);
+    //     // console.log(response.data);
 
-        // console.log(response.data.task);
+    //     // console.log(response.data.task);
 
-        // localStorage.setItem("user", JSON.stringify(response["user"]));
-        // window.location.href = "/adminprofile";
-      })
-      .catch((error) => {
-        console.log(error.response.status); // 401
-        console.log(error.response.data.error);
-      });
+    //     // localStorage.setItem("user", JSON.stringify(response["user"]));
+    //     // window.location.href = "/adminprofile";
+    //   })
+    //   .catch((error) => {
+    //     console.log(error.response.status); // 401
+    //     console.log(error.response.data.error);
+    //   });
   };
 
   function handleChange(i, event) {
@@ -160,7 +161,7 @@ export default function TaskList({ id, name, desc, objective, status, no }) {
                   className={classes.root}
                   noValidate
                   autoComplete="off"
-                  onSubmit={createTask}
+                  onSubmit={updateTask}
                 >
                   <div>
                     <TextField
