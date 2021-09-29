@@ -73,6 +73,7 @@ export default function TaskSetting() {
 
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
+  const [isDelete, setDelete] = useState(false);
 
   useEffect(() => {
     const getTask = async () => {
@@ -85,9 +86,15 @@ export default function TaskSetting() {
     };
 
     getTask();
-  }, []);
+  }, [isDelete]);
   const taskList = (tasks || []).map((item, i) => (
-    <TaskList key={i} {...item} no={i + 1}></TaskList>
+    <TaskList
+      key={i}
+      {...item}
+      no={i + 1}
+      isDelete={isDelete}
+      setDelete={setDelete}
+    ></TaskList>
   ));
 
   const [fields, setFields] = useState([]);

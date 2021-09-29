@@ -34,6 +34,7 @@ export default function ManageRoom() {
   const expirationTime = exp * 1000 - 60000;
   console.log(expirationTime);
   console.log(Date.now());
+  const [isDeletes, setDeletes] = useState(false);
 
   useEffect(() => {
     const getCourse = async () => {
@@ -45,10 +46,15 @@ export default function ManageRoom() {
     };
 
     getCourse();
-  }, []);
+  }, [isDeletes]);
 
   const listRooms = course.map((item, i) => (
-    <ListRoom key={i} {...item}></ListRoom>
+    <ListRoom
+      key={i}
+      {...item}
+      isDeletes={isDeletes}
+      setDeletes={setDeletes}
+    ></ListRoom>
   ));
 
   return (

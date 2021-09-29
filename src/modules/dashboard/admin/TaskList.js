@@ -13,7 +13,16 @@ import { useLocation } from "react-router-dom";
 import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
 import swal from "sweetalert";
 
-export default function TaskList({ id, name, desc, objective, status, no }) {
+export default function TaskList({
+  id,
+  name,
+  desc,
+  objective,
+  status,
+  no,
+  isDelete,
+  setDelete,
+}) {
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -152,6 +161,38 @@ export default function TaskList({ id, name, desc, objective, status, no }) {
     if (Qfield.length > 0) return <QandA></QandA>;
     return <div></div>;
   });
+  console.log(isDelete);
+
+  const fnDelete = async () => {
+    try {
+      const { data } = await axios.delete(`api/v1/tasks/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setDelete(!isDelete);
+      console.log(isDelete);
+    } catch (error) {
+      console.log(error.response.status); // 401
+      console.log(error.response.data.error);
+    }
+  };
+
+  const confirmDelete = () => {
+    swal({
+      title: "Are you sure delete?",
+      text: "You will delete this Task",
+      icon: "warning",
+      buttons: ["No", "Yes"],
+      dangerMode: true,
+    }).then(function (isConfirm) {
+      /*Your Code Here*/
+      if (isConfirm) {
+        fnDelete();
+        console.log(" Yes");
+      } else {
+        console.log(" No");
+      }
+    });
+  };
 
   return (
     <Grid container className={classes.rootTask} xl={12}>
@@ -216,7 +257,11 @@ export default function TaskList({ id, name, desc, objective, status, no }) {
                     >
                       Update Task
                     </Button>
-                    <Button variant="contained" color="secondary">
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={confirmDelete}
+                    >
                       Delete Task
                     </Button>
                   </div>
