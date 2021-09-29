@@ -65,6 +65,7 @@ export default function Userlist({ id, email, avatar, name, role }) {
         userDelete();
         console.log(isDelete);
         console.log(" Yes");
+        window.location.reload();
       } else {
         console.log(" No");
       }

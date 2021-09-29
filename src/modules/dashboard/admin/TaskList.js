@@ -10,7 +10,7 @@ import QandA from "./QandA";
 import axios from "axios";
 import ListQuestion from "./ListQuestion";
 import { useLocation } from "react-router-dom";
-
+import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
 import swal from "sweetalert";
 
 export default function TaskList({ id, name, desc, objective, status, no }) {
@@ -105,7 +105,7 @@ export default function TaskList({ id, name, desc, objective, status, no }) {
     await axios
       .patch(
         `/api/v1/tasks/${id}`,
-        { naem: names, desc: descs, objective: objectives },
+        { name: names, desc: descs, objective: objectives },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -119,6 +119,7 @@ export default function TaskList({ id, name, desc, objective, status, no }) {
           timer: 1000,
         }).then((value) => {
           console.log("UPDATE");
+          window.location.reload();
         });
       })
       .catch((error) => {
@@ -159,7 +160,10 @@ export default function TaskList({ id, name, desc, objective, status, no }) {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
         >
-          <Typography variant="h5">Task {no}</Typography>
+          <Typography variant="h5">
+            {" "}
+            <RadioButtonCheckedIcon></RadioButtonCheckedIcon> {name}
+          </Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Grid container className={classes.contentTask}>

@@ -56,9 +56,10 @@ export default function ListQuestion({ id, name, answer, Status }) {
         // console.log(response.data) ;
         swal("Success", "Update Success", "success", {
           buttons: false,
-          timer: 1000,
+          timer: 2000,
         }).then((value) => {
           console.log("UPDATE");
+          window.location.reload();
         });
       })
       .catch((error) => {

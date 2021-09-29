@@ -89,13 +89,7 @@ export default function TaskDetail() {
       })
       .then((response) => {
         setData(response.data.task);
-        // console.log(response);
-        // console.log(response.data);
-
-        // console.log(response.data.task);
-
-        // localStorage.setItem("user", JSON.stringify(response["user"]));
-        // window.location.href = "/adminprofile";
+        window.location.reload();
       })
       .catch((error) => {
         console.log(error.response.status); // 401
@@ -133,7 +127,7 @@ export default function TaskDetail() {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
         >
-          <Typography variant="h5">Task</Typography>
+          <Typography variant="h5">New Task</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Grid container className={classes.contentTask}>
@@ -175,8 +169,13 @@ export default function TaskDetail() {
                     />
                   </div>
                   <div>
-                    <Button variant="contained" color="secondary" type="submit">
-                      update Task
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      type="submit"
+                      onSubmit={createTask}
+                    >
+                      Save Task
                     </Button>
                   </div>
                 </form>

@@ -86,7 +86,7 @@ export default function TaskSetting() {
 
     getTask();
   }, []);
-  const taskList = tasks.map((item, i) => (
+  const taskList = (tasks || []).map((item, i) => (
     <TaskList key={i} {...item} no={i + 1}></TaskList>
   ));
 

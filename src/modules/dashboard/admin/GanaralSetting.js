@@ -74,9 +74,11 @@ export default function GanaralSetting({ id, name, desc, tasks }) {
         console.log(datas);
         swal("Success", "Update Success", "success", {
           buttons: false,
-          timer: 1000,
+          timer: 2000,
         }).then((value) => {
           console.log("UPDATE");
+          window.location.reload();
+
           // localStorage.setItem("user", JSON.stringify(response["user"]));
           // window.location.href = "/adminprofile";
         });

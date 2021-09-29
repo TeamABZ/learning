@@ -123,7 +123,7 @@ export default function UpdateUser() {
                 id="icon-button-file"
                 type="file"
               />
-            </div>{" "}
+            </div>
             <div className={classes.txtFildUser}>
               <TextField
                 label="Name"

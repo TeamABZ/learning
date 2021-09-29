@@ -58,6 +58,7 @@ export default function ListRoom({ id, name, desc }) {
         userDelete();
         console.log(isDelete);
         console.log(" Yes");
+        window.location.reload();
       } else {
         console.log(" No");
       }
