@@ -25,7 +25,7 @@ import { useLocation } from "react-router-dom";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-
+import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 export default function TaskSetting() {
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -62,6 +62,9 @@ export default function TaskSetting() {
     },
     addbtn: {
       textAlign: "right",
+    },
+    linkSetting: {
+      textDecoration: "none",
     },
   }));
   const classes = useStyles();
@@ -134,22 +137,27 @@ export default function TaskSetting() {
       <Grid container className={classes.updateRoom}>
         <Grid container item xl={2}>
           <Grid container className={classes.updateRoom}>
-            <Grid container item xl={3}>
+            <Grid container item xl={12}>
               <List dense>
                 <ListItem button>
+                  <ArrowRightIcon></ArrowRightIcon>
                   <Link
                     color="inherit"
                     to={{ pathname: `/updateroom/${id}`, state: { id } }}
+                    className={classes.linkSetting}
                   >
-                    Setting
+                    <Typography variant="subtitle1">Course Setting</Typography>
                   </Link>
                 </ListItem>
                 <ListItem button>
+                  {" "}
+                  <ArrowRightIcon></ArrowRightIcon>
                   <Link
                     color="inherit"
                     to={{ pathname: `/tasksetting/${id}`, state: { id } }}
+                    className={classes.linkSetting}
                   >
-                    Task
+                    <Typography variant="subtitle1"> Task Setting</Typography>
                   </Link>
                 </ListItem>
               </List>
