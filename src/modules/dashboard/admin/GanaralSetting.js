@@ -51,41 +51,46 @@ export default function GanaralSetting({ id, name, desc, tasks }) {
     getCoure();
   }, []);
 
-  // const Update = async (e) => {
-  //   e.preventDefault();
-  //   console.log(token);
+  const Update = async (e) => {
+    e.preventDefault();
+    console.log(token);
 
-  //   const config = {
-  //     headers: { Authorization: `Bearer ${token}` },
-  //   };
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
 
-  //   const bodyParameters = { name, desc };
+    const bodyParameters = { names, descs };
+    console.log(bodyParameters);
+    await axios
+      .patch(
+        `/api/v1/courses/${id}`,
+        { name: names, desc: descs },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      .then((response) => {
+        setData(response.data);
+        console.log(datas);
+        swal("Success", "Update Success", "success", {
+          buttons: false,
+          timer: 1000,
+        }).then((value) => {
+          console.log("UPDATE");
+          // localStorage.setItem("user", JSON.stringify(response["user"]));
+          // window.location.href = "/adminprofile";
+        });
+      })
+      .catch((error) => {
+        swal("Failed", "Error", "error");
 
-  //   await axios
-  //     .post("/api/v1/courses", bodyParameters, {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     })
-  //     .then((response) => {
-  //       setData(response.data);
-  //       console.log(data);
-  //       swal("Success", "Create Success", "success", {
-  //         buttons: false,
-  //         timer: 1000,
-  //       }).then((value) => {
-  //         // localStorage.setItem("user", JSON.stringify(response["user"]));
-  //         window.location.href = "/adminprofile";
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       swal("Failed", "Email  duplicate", "error");
-
-  //       console.log(error.response.status); // 401
-  //       console.log(error.response.data.error);
-  //     });
-  // };
+        console.log(error.response.status); // 401
+        console.log(error.response.data.error);
+      });
+  };
   return (
     <div className={classes.formCrate}>
-      <form noValidate autoComplete="off">
+      <form noValidate autoComplete="off" onSubmit={Update}>
         <div>
           <TextField
             variant="outlined"
@@ -106,8 +111,9 @@ export default function GanaralSetting({ id, name, desc, tasks }) {
             className={classes.textField}
           />
         </div>
+
         <div>
-          <input
+          {/* <input
             accept="image/*"
             className={classes.input}
             id="contained-button-file"
@@ -123,7 +129,7 @@ export default function GanaralSetting({ id, name, desc, tasks }) {
             >
               Upload image
             </Button>
-          </label>
+          </label> */}
         </div>
         <div>
           <Button variant="contained" color="secondary" type="submit">

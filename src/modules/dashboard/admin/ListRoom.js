@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -12,7 +13,8 @@ import {
   Link,
   useParams,
 } from "react-router-dom";
-
+import swal from "sweetalert";
+import axios from "axios";
 export default function ListRoom({ id, name, desc }) {
   const useStyles = makeStyles((theme) => ({
     allRoom: {
@@ -25,7 +27,42 @@ export default function ListRoom({ id, name, desc }) {
     },
   }));
   const classes = useStyles();
+  const token = localStorage.getItem("accessToken");
 
+  const [isDelete, setDelete] = useState(false);
+  useEffect(() => {
+    console.log(isDelete);
+  }, [isDelete]);
+  const userDelete = async () => {
+    try {
+      const { data } = await axios.delete(`api/v1/courses/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setDelete(!isDelete);
+    } catch (error) {
+      console.log(error.response.status); // 401
+      console.log(error.response.data.error);
+    }
+  };
+
+  const confirmDelete = () => {
+    swal({
+      title: "Are you sure?",
+      text: "You will delete this Course",
+      icon: "warning",
+      buttons: ["No", "Yes"],
+      dangerMode: true,
+    }).then(function (isConfirm) {
+      /*Your Code Here*/
+      if (isConfirm) {
+        userDelete();
+        console.log(isDelete);
+        console.log(" Yes");
+      } else {
+        console.log(" No");
+      }
+    });
+  };
   return (
     <Grid container className={classes.allRoom}>
       <Grid item xl={4}>
@@ -47,7 +84,12 @@ export default function ListRoom({ id, name, desc }) {
           </Typography>
         </Link>
       </Grid>
-      <Button variant="contained" color="secondary">
+      <Button
+        variant="contained"
+        color="secondary"
+        onClick={confirmDelete}
+        key={id}
+      >
         Delete
       </Button>
     </Grid>

@@ -10,6 +10,9 @@ import QandA from "./QandA";
 import axios from "axios";
 import ListQuestion from "./ListQuestion";
 import { useLocation } from "react-router-dom";
+
+import swal from "sweetalert";
+
 export default function TaskList({ id, name, desc, objective, status, no }) {
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -62,62 +65,67 @@ export default function TaskList({ id, name, desc, objective, status, no }) {
   const classes = useStyles();
 
   const token = localStorage.getItem("accessToken");
-  const [quests, setQuest] = useState([]);
 
   const [names, setName] = useState(name);
   const [descs, setDesc] = useState(desc);
+  const [idtask, setIdtask] = useState("");
+
   const [objectives, setObjective] = useState(objective);
   const [statusTask, setStatusTask] = useState(status);
 
-  const [courseId, setCourseId] = useState(id);
+  // const [courseId, setCourseId] = useState(id);
+  const [quests, setQuest] = useState([]);
 
   const [Qfield, setFields] = useState([]);
-  const [data, setData] = useState();
+  const [datas, setData] = useState([]);
+  console.log("list");
 
+  console.log(id);
   useEffect(() => {
     const getQuestion = async () => {
-      const { data } = await axios.get(`/api/v1/tasks/3`, {
+      const { data } = await axios.get(`/api/v1/tasks/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log(id);
       setQuest(data.task.question);
-      console.log(data.task.question);
-      console.log("xxxx");
     };
 
     getQuestion();
   }, []);
-  const listQuest = quests.map((item, i) => (
+  const listQuest = (quests || []).map((item, i) => (
     <ListQuestion key={i} {...item}></ListQuestion>
   ));
 
   const updateTask = async (e) => {
     e.preventDefault();
-    console.log(token);
-    console.log(id);
 
-    setCourseId(id);
+    // setCourseId(id);
 
-    const bodyParameters = { names, descs, objectives, courseId };
-    console.log(bodyParameters);
-    // await axios
-    //   .patch("/api/v1/tasks/{idtask}", bodyParameters, {
-    //     headers: { Authorization: `Bearer ${token}` },
-    //   })
-    //   .then((response) => {
-    //     setData(response.data.task);
-    //     // console.log(response);
-    //     // console.log(response.data);
+    const bodyParameters = { names, descs, objectives };
 
-    //     // console.log(response.data.task);
-
-    //     // localStorage.setItem("user", JSON.stringify(response["user"]));
-    //     // window.location.href = "/adminprofile";
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.response.status); // 401
-    //     console.log(error.response.data.error);
-    //   });
+    await axios
+      .patch(
+        `/api/v1/tasks/${id}`,
+        { naem: names, desc: descs, objective: objectives },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      .then((response) => {
+        setData(response.data.task);
+        // console.log(response);
+        // console.log(response.data);
+        swal("Success", "Update Success", "success", {
+          buttons: false,
+          timer: 1000,
+        }).then((value) => {
+          console.log("UPDATE");
+        });
+      })
+      .catch((error) => {
+        swal("Failed", "Error", "error");
+        console.log(error.response.status); // 401
+        console.log(error.response.data.error);
+      });
   };
 
   function handleChange(i, event) {
@@ -196,8 +204,16 @@ export default function TaskList({ id, name, desc, objective, status, no }) {
                     />
                   </div>
                   <div>
-                    <Button variant="contained" color="secondary" type="submit">
-                      Save Task
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      type="submit"
+                      onSubmit={updateTask}
+                    >
+                      Update Task
+                    </Button>
+                    <Button variant="contained" color="secondary">
+                      Delete Task
                     </Button>
                   </div>
                 </form>

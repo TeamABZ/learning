@@ -3,6 +3,8 @@ import { Grid, Button, TextField } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
+import swal from "sweetalert";
+
 export default function ListQuestion({ id, name, answer, Status }) {
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -40,24 +42,31 @@ export default function ListQuestion({ id, name, answer, Status }) {
 
     const bodyParameters = { Qnames, Qanswer, id };
     console.log(bodyParameters);
-    // await axios
-    //   .patch("/api/v1/tasks/{idtask}", bodyParameters, {
-    //     headers: { Authorization: `Bearer ${token}` },
-    //   })
-    //   .then((response) => {
-    //     setData(response.data.task);
-    //     // console.log(response);
-    //     // console.log(response.data);
+    await axios
+      .patch(
+        `/api/v1/questions/${id}`,
+        { name: Qnames, answer: Qanswer },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      .then((response) => {
+        setData(response.data.task);
+        // console.log(response);
+        // console.log(response.data) ;
+        swal("Success", "Update Success", "success", {
+          buttons: false,
+          timer: 1000,
+        }).then((value) => {
+          console.log("UPDATE");
+        });
+      })
+      .catch((error) => {
+        swal("Failed", "Error", "error");
 
-    //     // console.log(response.data.task);
-
-    //     // localStorage.setItem("user", JSON.stringify(response["user"]));
-    //     // window.location.href = "/adminprofile";
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.response.status); // 401
-    //     console.log(error.response.data.error);
-    //   });
+        console.log(error.response.status); // 401
+        console.log(error.response.data.error);
+      });
   };
   return (
     <Grid container>
@@ -65,14 +74,14 @@ export default function ListQuestion({ id, name, answer, Status }) {
         <form noValidate autoComplete="off" onSubmit={updateQuest}>
           <TextField
             className={classes.txtFildQandA}
-            label="Questions #1"
+            label="Questions"
             variant="outlined"
             value={Qnames}
             onChange={(e) => setQName(e.target.value)}
           />
           <TextField
             className={classes.txtFildQandA}
-            label="Answers #1"
+            label="Answers"
             variant="outlined"
             value={Qanswer}
             onChange={(e) => setAnswer(e.target.value)}
@@ -84,7 +93,7 @@ export default function ListQuestion({ id, name, answer, Status }) {
             className={classes.savebtn}
             type="submit"
           >
-            save
+            update
           </Button>
           <Button variant="contained" color="secondary">
             Delete

@@ -33,13 +33,13 @@ export default function QandA() {
         <form noValidate autoComplete="off">
           <TextField
             className={classes.txtFildQandA}
-            label="Questions #1"
+            label="Questions"
             variant="outlined"
           />
 
           <TextField
             className={classes.txtFildQandA}
-            label="Answers #1"
+            label="Answers"
             variant="outlined"
           />
         </form>

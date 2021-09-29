@@ -81,7 +81,7 @@ export default function TaskSetting() {
       });
 
       setTasks(data.course.tasks);
-      // console.log(data.course.tasks);
+      console.log(data.course.tasks);
     };
 
     getTask();

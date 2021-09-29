@@ -176,7 +176,7 @@ export default function TaskDetail() {
                   </div>
                   <div>
                     <Button variant="contained" color="secondary" type="submit">
-                      Save Task
+                      update Task
                     </Button>
                   </div>
                 </form>
