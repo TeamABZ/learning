@@ -70,6 +70,9 @@ export default function TaskList({
     addbtn: {
       textAlign: "right",
     },
+    btnTask: {
+      marginRight: "0.5em",
+    },
   }));
   const classes = useStyles();
 
@@ -87,6 +90,7 @@ export default function TaskList({
 
   const [Qfield, setFields] = useState([]);
   const [datas, setData] = useState([]);
+  const [disabledTask, setDisabledTask] = useState(true);
   console.log("list");
 
   console.log(id);
@@ -193,7 +197,47 @@ export default function TaskList({
       }
     });
   };
-
+  const editTask = () => {
+    setDisabledTask(false);
+  };
+  const cancleEditTask = () => {
+    setDisabledTask(true);
+  };
+  const BtnUpdatTask = () => {
+    return (
+      <>
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          onSubmit={updateTask}
+          className={classes.btnTask}
+        >
+          Update Task
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={cancleEditTask}
+          className={classes.btnTask}
+        >
+          Cancle
+        </Button>
+      </>
+    );
+  };
+  const BtnEditTask = () => {
+    return (
+      <Button
+        variant="contained"
+        color="primary"
+        className={classes.btnTask}
+        onClick={editTask}
+      >
+        Edit Task
+      </Button>
+    );
+  };
   return (
     <Grid container className={classes.rootTask} xl={12}>
       <Accordion className={classes.headTask}>
@@ -202,7 +246,6 @@ export default function TaskList({
           aria-controls="panel1a-content"
         >
           <Typography variant="h5">
-            {" "}
             <RadioButtonCheckedIcon></RadioButtonCheckedIcon> {name}
           </Typography>
         </AccordionSummary>
@@ -223,6 +266,7 @@ export default function TaskList({
                       label="Title"
                       variant="outlined"
                       value={names}
+                      disabled={disabledTask}
                       onChange={(e) => setName(e.target.value)}
                     />
                   </div>
@@ -235,6 +279,7 @@ export default function TaskList({
                       rows={4}
                       variant="outlined"
                       value={descs}
+                      disabled={disabledTask}
                       onChange={(e) => setDesc(e.target.value)}
                     />
                   </div>
@@ -245,19 +290,14 @@ export default function TaskList({
                       label="objective"
                       variant="outlined"
                       value={objectives}
+                      disabled={disabledTask}
                       onChange={(e) => setObjective(e.target.value)}
                     />
                   </div>
                   <div>
+                    {disabledTask ? <BtnEditTask /> : <BtnUpdatTask />}
                     <Button
-                      variant="contained"
-                      color="primary"
-                      type="submit"
-                      onSubmit={updateTask}
-                    >
-                      Update Task
-                    </Button>
-                    <Button
+                      className={classes.btnTask}
                       variant="contained"
                       color="secondary"
                       onClick={confirmDelete}
