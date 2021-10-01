@@ -8,6 +8,8 @@ import Container from "@material-ui/core/Container";
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
     padding: 0,
+    minHeight: "100%",
+    marginBottom: "1em",
   },
 }));
 export default function Layout() {
@@ -18,7 +20,9 @@ export default function Layout() {
       <CssBaseline></CssBaseline>
       <Container maxWidth="lg" className={classes.mainGrid}>
         <Header title="Leaning" />
+
         <Content></Content>
+
         <Footer></Footer>
       </Container>
     </>

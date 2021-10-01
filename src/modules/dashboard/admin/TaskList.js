@@ -92,7 +92,7 @@ export default function TaskList({
   const [datas, setData] = useState([]);
   const [disabledTask, setDisabledTask] = useState(true);
   console.log("list");
-
+  const [isDelQuest, setDelQuest] = useState();
   console.log(id);
   useEffect(() => {
     const getQuestion = async () => {
@@ -105,7 +105,12 @@ export default function TaskList({
     getQuestion();
   }, []);
   const listQuest = (quests || []).map((item, i) => (
-    <ListQuestion key={i} {...item}></ListQuestion>
+    <ListQuestion
+      key={i}
+      {...item}
+      isDelQuest={isDelQuest}
+      setDelQuest={setDelQuest}
+    ></ListQuestion>
   ));
 
   const updateTask = async (e) => {
@@ -217,7 +222,6 @@ export default function TaskList({
         </Button>
         <Button
           variant="contained"
-          color="primary"
           onClick={cancleEditTask}
           className={classes.btnTask}
         >
@@ -309,7 +313,7 @@ export default function TaskList({
                 <Grid container>
                   <Grid container className={classes.groupQandA}>
                     <Grid item xl={6}>
-                      <Typography variant="subtitle1" color="initial">
+                      <Typography variant="h6" color="initial">
                         Questions and Answers
                       </Typography>
                     </Grid>

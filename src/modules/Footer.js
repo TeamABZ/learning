@@ -14,9 +14,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#000",
     padding: theme.spacing(2),
     color: "#fff",
+    bottom: "0",
     width: "100%",
     maxWidth: "1280px",
-    bottom: "0",
     position: "fixed",
   },
 }));

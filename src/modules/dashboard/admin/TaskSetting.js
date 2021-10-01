@@ -30,6 +30,7 @@ export default function TaskSetting() {
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
+      marginBottom: "2.5em",
     },
     titlepage: {
       padding: theme.spacing(2, 2),
@@ -150,7 +151,6 @@ export default function TaskSetting() {
                   </Link>
                 </ListItem>
                 <ListItem button>
-                  {" "}
                   <ArrowRightIcon></ArrowRightIcon>
                   <Link
                     color="inherit"
