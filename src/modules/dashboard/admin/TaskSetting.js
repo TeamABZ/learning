@@ -30,27 +30,25 @@ export default function TaskSetting() {
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
-      marginBottom: "2.5em",
+      marginBottom: "2em",
     },
     titlepage: {
       padding: theme.spacing(2, 2),
       color: "#fff",
       background: "#000",
     },
-    updateRoom: {
-      padding: "2em 0",
-    },
+    updateRoom: { padding: "2em 0" },
     leftBar: {},
     rightBar: {},
     rootTask: {
-      margin: "1rem 0",
+      margin: "1em 0",
     },
     headTask: {
       width: "100%",
     },
     contentTask: {
       border: "1px solid #2f2f2f",
-      padding: "2rem",
+      padding: "2em",
     },
     btnMachine: {
       justifyContent: "center",
@@ -137,7 +135,7 @@ export default function TaskSetting() {
       </div>
       <Grid container className={classes.updateRoom}>
         <Grid container item xl={2}>
-          <Grid container className={classes.updateRoom}>
+          <Grid container>
             <Grid container item xl={12}>
               <List dense>
                 <ListItem button>

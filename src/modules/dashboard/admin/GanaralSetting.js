@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Button, Typography, Grid, TextField } from "@material-ui/core";
+import {
+  Button,
+  Typography,
+  Grid,
+  TextField,
+  InputLabel,
+} from "@material-ui/core";
 import axios from "axios";
 import swal from "sweetalert";
 
@@ -17,10 +23,12 @@ export default function GanaralSetting({ id, name, desc, tasks }) {
     },
     formCrate: {
       justifyContent: "center",
-      textAlign: "center",
       "& div": {
         padding: theme.spacing(1),
       },
+    },
+    btnSetting: {
+      textAlign: "center",
     },
     textField: {
       width: "30em",
@@ -94,20 +102,20 @@ export default function GanaralSetting({ id, name, desc, tasks }) {
     <div className={classes.formCrate}>
       <form noValidate autoComplete="off" onSubmit={Update}>
         <div>
+          <InputLabel htmlFor="Title">Title</InputLabel>
           <TextField
             variant="outlined"
             id="title"
-            label="Title"
             value={names}
             onChange={(e) => setName(e.target.value)}
             className={classes.textField}
           />
         </div>
         <div>
+          <InputLabel htmlFor="description">Description</InputLabel>
           <TextField
-            variant="outlined"
             id="description"
-            label="Description"
+            variant="outlined"
             value={descs}
             onChange={(e) => setDesc(e.target.value)}
             className={classes.textField}
@@ -133,7 +141,7 @@ export default function GanaralSetting({ id, name, desc, tasks }) {
             </Button>
           </label> */}
         </div>
-        <div>
+        <div className={classes.btnSetting}>
           <Button variant="contained" color="secondary" type="submit">
             Update
           </Button>

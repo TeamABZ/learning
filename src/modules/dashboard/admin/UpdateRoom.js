@@ -15,6 +15,7 @@ import {
   Link,
   useParams,
 } from "react-router-dom";
+import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -34,6 +35,9 @@ export default function UpdateRoom() {
     },
     leftBar: {},
     rightBar: {},
+    linkSetting: {
+      textDecoration: "none",
+    },
   }));
   const classes = useStyles();
   const location = useLocation();
@@ -74,30 +78,34 @@ export default function UpdateRoom() {
         <Typography variant="h6">Update Room and Setting</Typography>
       </div>
       <Grid container className={classes.updateRoom}>
-        <Grid container item xl={3}>
+        <Grid container item xl={2}>
           <List dense>
             <ListItem button>
+              <ArrowRightIcon></ArrowRightIcon>
               <Link
                 color="inherit"
                 to={{ pathname: `/updateroom/${id}`, state: { id } }}
+                className={classes.linkSetting}
               >
-                Setting
+                <Typography variant="subtitle1">Course Setting</Typography>
               </Link>
             </ListItem>
             <ListItem button>
+              <ArrowRightIcon></ArrowRightIcon>
               <Link
                 color="inherit"
                 to={{ pathname: `/tasksetting/${id}`, state: { id } }}
+                className={classes.linkSetting}
               >
-                Task
+                <Typography variant="subtitle1"> Task Setting</Typography>
               </Link>
             </ListItem>
           </List>
         </Grid>
 
-        <Grid container item xl={9}>
+        <Grid container item xl={10}>
           <Typography variant="h5" color="initial">
-            Ganaral setting
+            Course setting
           </Typography>
           <Grid container>
             <GanaralSetting key={id} {...course} id={id}></GanaralSetting>
