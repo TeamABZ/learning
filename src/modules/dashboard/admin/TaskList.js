@@ -92,7 +92,7 @@ export default function TaskList({
   const [datas, setData] = useState([]);
   const [disabledTask, setDisabledTask] = useState(true);
   console.log("list");
-  const [isDelQuest, setDelQuest] = useState();
+  const [isDelQuest, setDelQuest] = useState(false);
   console.log(id);
   useEffect(() => {
     const getQuestion = async () => {
@@ -103,7 +103,7 @@ export default function TaskList({
     };
 
     getQuestion();
-  }, []);
+  }, [isDelete]);
   const listQuest = (quests || []).map((item, i) => (
     <ListQuestion
       key={i}

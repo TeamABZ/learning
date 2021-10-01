@@ -21,6 +21,7 @@ export default function UserSetting() {
 
   const [users, setUsers] = useState([]);
   const token = localStorage.getItem("accessToken");
+  const [isDelUser, setDelUser] = useState(false);
 
   useEffect(() => {
     const getUsers = async () => {
@@ -36,10 +37,15 @@ export default function UserSetting() {
       }
     };
     getUsers();
-  }, []);
+  }, [isDelUser]);
 
   const listuser = users.map((item) => (
-    <Userlist key={item.id} {...item}></Userlist>
+    <Userlist
+      key={item.id}
+      {...item}
+      isDelUser={isDelUser}
+      setDelUser={setDelUser}
+    ></Userlist>
   ));
 
   return (

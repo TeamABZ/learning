@@ -13,7 +13,15 @@ import {
 import Avatar from "@material-ui/core/Avatar";
 import swal from "sweetalert";
 import axios from "axios";
-export default function Userlist({ id, email, avatar, name, role }) {
+export default function Userlist({
+  id,
+  email,
+  avatar,
+  name,
+  role,
+  isDelUser,
+  setDelUser,
+}) {
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -36,16 +44,13 @@ export default function Userlist({ id, email, avatar, name, role }) {
   }));
   const classes = useStyles();
   const token = localStorage.getItem("accessToken");
-  const [isDelete, setDelete] = useState(false);
-  useEffect(() => {
-    console.log(isDelete);
-  }, [isDelete]);
+
   const userDelete = async () => {
     try {
       const { data } = await axios.delete(`api/v1/users/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setDelete(!isDelete);
+      setDelUser(!isDelUser);
     } catch (error) {
       console.log(error.response.status); // 401
       console.log(error.response.data.error);
@@ -63,9 +68,8 @@ export default function Userlist({ id, email, avatar, name, role }) {
       /*Your Code Here*/
       if (isConfirm) {
         userDelete();
-        console.log(isDelete);
+        console.log(isDelUser);
         console.log(" Yes");
-        window.location.reload();
       } else {
         console.log(" No");
       }
