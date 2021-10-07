@@ -7,7 +7,6 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import ListRoom from "./ListRoom";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 
 export default function ManageRoom() {
   const useStyles = makeStyles((theme) => ({
@@ -28,12 +27,7 @@ export default function ManageRoom() {
 
   const [course, setCourse] = useState([]);
   const token = localStorage.getItem("accessToken");
-  var decoded = jwt_decode(token);
-  console.log(decoded);
-  const { exp } = jwt_decode(token);
-  const expirationTime = exp * 1000 - 60000;
-  console.log(expirationTime);
-  console.log(Date.now());
+
   const [isDeletes, setDeletes] = useState(false);
 
   useEffect(() => {
