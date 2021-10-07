@@ -36,45 +36,115 @@ export default function Signin() {
   const classes = useStyles();
   const [email, setUserName] = useState();
   const [password, setPassword] = useState();
+  const [datas, setData] = useState([]);
+  // await axios
+  // .patch(
+  //   `/api/v1/courses/${id}`,
+  //   { name: names, desc: descs },
+  //   {
+  //     headers: { Authorization: `Bearer ${token}` },
+  //   }
+  // )
+  // .then((response) => {
+  //   setData(response.data);
+  //   console.log(datas);
+  //   swal("Success", "Update Success", "success", {
+  //     buttons: false,
+  //     timer: 2000,
+  //   }).then((value) => {
+  //     console.log("UPDATE");
+  //     window.location.reload();
 
+  //     // localStorage.setItem("user", JSON.stringify(response["user"]));
+  //     // window.location.href = "/adminprofile";
+  //   });
+  // })
+  // .catch((error) => {
+  //   swal("Failed", "Error", "error");
+
+  //   console.log(error.response.status); // 401
+  //   console.log(error.response.data.error);
+  // });
   const handleSubmit = async (e) => {
     e.preventDefault();
+    await axios
+      .post("/api/v1/auth/sign-in", {
+        email,
+        password,
+      })
+      .then((response) => {
+        setData(response.data);
+        console.log(response.data);
+        if ("token" in response.data) {
+          swal("Success", "Login Success", "success", {
+            buttons: false,
+            timer: 2000,
+          }).then(async (value) => {
+            localStorage.setItem("accessToken", datas["token"]);
 
-    const { data } = await axios.post("/api/v1/auth/sign-in", {
-      email,
-      password,
-    });
-    if ("token" in data) {
-      swal("Success", "login Success", "success", {
-        buttons: false,
-        timer: 3000,
-      }).then(async (value) => {
-        localStorage.setItem("accessToken", data["token"]);
+            console.log(datas);
 
-        // localStorage.setItem("user", JSON.stringify(response["user"]));
+            await axios
+              .get("/api/v1/auth/profile", {
+                headers: { Authorization: `Bearer ${response.data["token"]}` },
+              })
+              .then((res) => {
+                const { user } = res.data;
+                localStorage.setItem("user", JSON.stringify(user));
 
-        // window.location.href = "/userprofile";
-        console.log(data);
-
-        await axios
-          .get("/api/v1/auth/profile", {
-            headers: { Authorization: `Bearer ${data["token"]}` },
-          })
-          .then((res) => {
-            const { user } = res.data;
-            localStorage.setItem("user", JSON.stringify(user));
-
-            console.log(user);
-            if (user["role"] === "Member") {
-              window.location.href = "/userprofile";
-            } else if (user["role"] === "Admin") {
-              window.location.href = "/adminprofile";
-            }
+                console.log(user);
+                if (user["role"] === "Member") {
+                  window.location.href = "/userprofile";
+                } else if (user["role"] === "Admin") {
+                  window.location.href = "/adminprofile";
+                }
+              });
           });
+        } else {
+          swal("Missing ", "user or password failed", "error");
+        }
+      })
+      .catch((error) => {
+        swal("Missing ", "user or password failed", "error");
+
+        console.log(error.response.status); // 401
+        console.log(error.response.data.error);
       });
-    } else {
-      swal("Failed", "user or password failed", "error");
-    }
+    // const { data } = await axios.post("/api/v1/auth/sign-in", {
+    //   email,
+    //   password,
+    // });
+    // if ("token" in data) {
+    //   swal("Success", "login Success", "success", {
+    //     buttons: false,
+    //     timer: 3000,
+    //   }).then(async (value) => {
+    //     localStorage.setItem("accessToken", data["token"]);
+
+    //     // localStorage.setItem("user", JSON.stringify(response["user"]));
+
+    //     // window.location.href = "/userprofile";
+    //     console.log(data);
+
+    //     await axios
+    //       .get("/api/v1/auth/profile", {
+    //         headers: { Authorization: `Bearer ${data["token"]}` },
+    //       })
+    //       .then((res) => {
+    //         const { user } = res.data;
+    //         localStorage.setItem("user", JSON.stringify(user));
+
+    //         console.log(user);
+    //         if (user["role"] === "Member") {
+    //           window.location.href = "/userprofile";
+    //         } else if (user["role"] === "Admin") {
+    //           window.location.href = "/adminprofile";
+    //         }
+    //       });
+    //   });
+    // } else {
+    //   swal("Failed", "user or password failed", "error");
+    // }
   };
 
   return (
