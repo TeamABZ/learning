@@ -47,10 +47,9 @@ export default function Routes() {
       <Route path="/usersetting">
         <UserSetting></UserSetting>
       </Route>
-      <Route path="/updateuser/:id" exact component={UpdateUser}></Route>
-      {/* <Route path="/updateroom/:id" exact component={UpdateRoom}></Route> */}
-
-      {/* <Route path="/tasksetting/:id" exact component={TaskSetting}></Route> */}
+      <Route path="/updateuser/:id">
+        <UpdateUser></UpdateUser>
+      </Route>
 
       <Route path="/tasksetting/:id">
         <TaskSetting></TaskSetting>

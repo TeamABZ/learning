@@ -42,6 +42,8 @@ export default function GanaralSetting({ id, name, desc, tasks }) {
   const [names, setName] = useState(name);
   const [descs, setDesc] = useState(desc);
   const [ids, setId] = useState(id);
+  const [disabledCourse, setDisabledCourse] = useState(true);
+
   console.log(id);
   useEffect(() => {
     const getCoure = async () => {
@@ -98,6 +100,36 @@ export default function GanaralSetting({ id, name, desc, tasks }) {
         console.log(error.response.data.error);
       });
   };
+  const editCourse = () => {
+    setDisabledCourse(false);
+  };
+  const cancleEditCourse = () => {
+    setDisabledCourse(true);
+  };
+  const BtnUpdatCourse = () => {
+    return (
+      <>
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          onSubmit={Update}
+        >
+          Update Course
+        </Button>
+        <Button variant="contained" onClick={cancleEditCourse}>
+          Cancle
+        </Button>
+      </>
+    );
+  };
+  const BtnEditCourse = () => {
+    return (
+      <Button variant="contained" color="primary" onClick={editCourse}>
+        Edit Course
+      </Button>
+    );
+  };
   return (
     <div className={classes.formCrate}>
       <form noValidate autoComplete="off" onSubmit={Update}>
@@ -107,6 +139,7 @@ export default function GanaralSetting({ id, name, desc, tasks }) {
             variant="outlined"
             id="title"
             value={names}
+            disabled={disabledCourse}
             onChange={(e) => setName(e.target.value)}
             className={classes.textField}
           />
@@ -118,6 +151,7 @@ export default function GanaralSetting({ id, name, desc, tasks }) {
             variant="outlined"
             value={descs}
             onChange={(e) => setDesc(e.target.value)}
+            disabled={disabledCourse}
             className={classes.textField}
           />
         </div>
@@ -142,9 +176,7 @@ export default function GanaralSetting({ id, name, desc, tasks }) {
           </label> */}
         </div>
         <div className={classes.btnSetting}>
-          <Button variant="contained" color="secondary" type="submit">
-            Update
-          </Button>
+          {disabledCourse ? <BtnEditCourse /> : <BtnUpdatCourse />}
         </div>
       </form>
     </div>

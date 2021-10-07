@@ -22,7 +22,7 @@ export default function UserSetting() {
   const [users, setUsers] = useState([]);
   const token = localStorage.getItem("accessToken");
   const [isDelUser, setDelUser] = useState(false);
-
+  console.log(token);
   useEffect(() => {
     const getUsers = async () => {
       try {

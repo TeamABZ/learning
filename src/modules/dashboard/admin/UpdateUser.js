@@ -12,6 +12,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import axios from "axios";
+import swal from "sweetalert";
+
 export default function UpdateUser() {
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -60,7 +62,10 @@ export default function UpdateUser() {
   const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+
   const [avatar, setAvatar] = useState("");
+  const [disabledUser, setDisabledUser] = useState(true);
 
   const handleChange = (event) => {
     setRole(event.target.value);
@@ -72,9 +77,9 @@ export default function UpdateUser() {
         const { data } = await axios.get(`/api/v1/users/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        console.log("zz");
+
         console.log(data);
-        console.log("xx");
+
         setUsers(data.user);
 
         console.log(users);
@@ -88,8 +93,67 @@ export default function UpdateUser() {
       }
     };
     getUsers();
-  }, []);
+  }, [disabledUser]);
 
+  const updateUsers = async (e) => {
+    e.preventDefault();
+    console.log(role);
+    await axios
+      .patch(
+        `/api/v1/users/${id}`,
+        { email, Password: password, name, role },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      .then((response) => {
+        setUsers(response.data.user);
+        setDisabledUser(true);
+
+        swal("Success", "Update Success", "success", {
+          buttons: false,
+          timer: 1000,
+        }).then((value) => {
+          console.log("UPDATE");
+        });
+      })
+      .catch((error) => {
+        swal("Failed", "Error", "error");
+        console.log(error.response.status); // 401
+        console.log(error.response.data.error);
+      });
+  };
+
+  const editUser = () => {
+    setDisabledUser(false);
+  };
+  const cancleEditUser = () => {
+    setDisabledUser(true);
+  };
+  const BtnUpdatUser = () => {
+    return (
+      <>
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          onSubmit={updateUsers}
+        >
+          Update User
+        </Button>
+        <Button variant="contained" onClick={cancleEditUser}>
+          Cancle
+        </Button>
+      </>
+    );
+  };
+  const BtnEditUser = () => {
+    return (
+      <Button variant="contained" color="primary" onClick={editUser}>
+        Edit User
+      </Button>
+    );
+  };
   return (
     <div className={classes.root}>
       <ToobarAdmin></ToobarAdmin>
@@ -100,7 +164,7 @@ export default function UpdateUser() {
       </div>
       <Grid container className={classes.allGroup}>
         <Grid item xl={12}>
-          <form noValidate autoComplete="off">
+          <form noValidate autoComplete="off" onSubmit={updateUsers}>
             <div>
               <Avatar alt="Remy Sharp" src={avatar} className={classes.large} />
             </div>
@@ -129,7 +193,9 @@ export default function UpdateUser() {
                 label="Name"
                 variant="outlined"
                 value={name}
+                disabled={disabledUser}
                 className={classes.inputText}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div className={classes.txtFildUser}>
@@ -138,6 +204,8 @@ export default function UpdateUser() {
                 variant="outlined"
                 value={email}
                 className={classes.inputText}
+                disabled={disabledUser}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className={classes.txtFildUser}>
@@ -145,36 +213,38 @@ export default function UpdateUser() {
                 label="Password"
                 variant="outlined"
                 type="password"
+                disabled={disabledUser}
                 className={classes.inputText}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div>
-              <RadioGroup
-                className={classes.radioBox}
-                aria-label="Role"
-                name="Roles"
-                value={role}
-                onChange={handleChange}
-              >
-                <FormControlLabel
-                  value="Member"
-                  control={<Radio />}
-                  label="Member"
-                />
-                <FormControlLabel
-                  value="Admin"
-                  control={<Radio />}
-                  label="Admin"
-                />
-              </RadioGroup>
+              <FormControl component="fieldset">
+                <RadioGroup
+                  className={classes.radioBox}
+                  aria-label="Role"
+                  name="Roles"
+                  value={role}
+                  onChange={handleChange}
+                >
+                  <FormControlLabel
+                    disabled={disabledUser}
+                    value="Member"
+                    control={<Radio />}
+                    label="Member"
+                  />
+                  <FormControlLabel
+                    disabled={disabledUser}
+                    value="Admin"
+                    control={<Radio />}
+                    label="Admin"
+                  />
+                </RadioGroup>
+              </FormControl>
             </div>
-            <Button
-              variant="contained"
-              color="secondary"
-              className={classes.btnUser}
-            >
-              Save
-            </Button>
+
+            {disabledUser ? <BtnEditUser /> : <BtnUpdatUser />}
             <Link href="/usersetting">
               <Button
                 variant="contained"
