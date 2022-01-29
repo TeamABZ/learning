@@ -5,7 +5,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Grid from "@material-ui/core/Grid";
 import ToobarAdmin from "./ToobarAdmin";
 import GanaralSetting from "./GanaralSetting";
-import LeftBar from "./LeftBar";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import {

@@ -7,7 +7,6 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ToobarAdmin from "./ToobarAdmin";
-import LeftBar from "./LeftBar";
 import TaskDetail from "./TaskDetail";
 import TaskList from "./TaskList";
 
