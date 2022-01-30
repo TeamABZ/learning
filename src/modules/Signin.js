@@ -107,7 +107,7 @@ export default function Signin() {
       .catch((error) => {
         swal("Missing ", "user or password failed", "error");
 
-        console.log(error.response.status); // 401
+        // console.log(error.response.status); // 401
         console.log(error.response.data.error);
       });
     // const { data } = await axios.post("/api/v1/auth/sign-in", {

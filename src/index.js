@@ -4,7 +4,12 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import axios from "axios";
+
+require('dotenv').config()
+
 axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
+
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

@@ -35,11 +35,18 @@ export default function ManageRoom() {
       const { data } = await axios.get("/api/v1/courses", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setCourse(data.courses);
       console.log(data);
-    };
+    if(data.course!=null){
 
+      setCourse(data.courses);
+      
+    }
+     
+  
+    
+    };
     getCourse();
+    
   }, [isDeletes]);
 
   const listRooms = course.map((item, i) => (
