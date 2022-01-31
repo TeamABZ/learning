@@ -4,6 +4,8 @@ import Typography from "@material-ui/core/Typography";
 import Toolbar from "@material-ui/core/Toolbar";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+
 import Button from "@material-ui/core/Button";
 import ListRoom from "./ListRoom";
 import axios from "axios";
@@ -19,8 +21,8 @@ export default function ManageRoom() {
       marginTop: "1em",
     },
     room: {
-      justifyContent: "center",
       padding: "2em",
+
     },
   }));
   const classes = useStyles();
@@ -36,7 +38,7 @@ export default function ManageRoom() {
         headers: { Authorization: `Bearer ${token}` },
       });
       console.log(data);
-    if(data.course!=null){
+    if(data.courses!=null){
 
       setCourse(data.courses);
       
@@ -64,12 +66,14 @@ export default function ManageRoom() {
         <Button size="medium" variant="outlined" href="/createroom">
           Create Room
         </Button>
-      </Grid>
+      </Grid>  
       <Grid container className={classes.room}>
-        <Grid item xl={6}>
-          {listRooms}
-        </Grid>
+    {listRooms}
+
+     
       </Grid>
+
+      
     </div>
   );
 }

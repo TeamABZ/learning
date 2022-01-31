@@ -6,6 +6,8 @@ import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import ImageIcon from "@material-ui/icons/Image";
 import Button from "@material-ui/core/Button";
+import Paper from "@material-ui/core/Paper";
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,13 +19,29 @@ import swal from "sweetalert";
 import axios from "axios";
 export default function ListRoom({ id, name, desc, isDeletes, setDeletes }) {
   const useStyles = makeStyles((theme) => ({
+    root: {
+      flexGrow:1,
+      paddingRight:"0.5em",
+     
+    },
     allRoom: {
       alignItems: "center",
       justifyContent: "center",
       border: "1px solid #c1c1c1",
       borderRadius: "25px",
       margin: "1em 0",
-      padding: "2em 0",
+      padding: "1em",
+      width: "600px"
+    },
+    linkClick1:{
+      textDecoration:"none",
+      color: "#000",
+      "&:hover": {
+        color: "#000",
+        textshadow:" 2px 2px 5px #fff",
+
+    }
+
     },
   }));
   const classes = useStyles();
@@ -59,26 +77,33 @@ export default function ListRoom({ id, name, desc, isDeletes, setDeletes }) {
     });
   };
   return (
-    <Grid container className={classes.allRoom}>
-      <Grid item xl={4}>
-        {/* <Avatar>
-          <ImageIcon />
-        </Avatar> */}
+    <div className={classes.root}>
+
+    <Grid container  className={classes.allRoom} >
+      <Grid item xs={1}>
+      
       </Grid>
 
-      <Grid item xl={5}>
-        <Link
+      <Grid item xs={8}>
+        <Link className={classes.linkClick1} 
           color="inherit"
           to={{ pathname: `updateroom/${id}`, state: { id } }}
         >
           <Typography variant="subtitle1" color="initial">
             {name}
           </Typography>
+          </Link>
+          <Link className={classes.linkClick1} 
+          color="inherit"
+          to={{ pathname: `updateroom/${id}`, state: { id } }}
+        >
           <Typography variant="subtitle1" color="initial">
             {desc}
           </Typography>
         </Link>
       </Grid>
+      <Grid item xs>
+
       <Button
         variant="contained"
         color="secondary"
@@ -87,6 +112,9 @@ export default function ListRoom({ id, name, desc, isDeletes, setDeletes }) {
       >
         Delete
       </Button>
+      </Grid>
+
     </Grid>
+    </div>
   );
 }
