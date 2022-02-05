@@ -8,8 +8,8 @@ import swal from "sweetalert";
 export default function ListQuestion({
   id,
   name,
-  answer,
-  Status,
+  answer, 
+  hint,
   isDelQuest,
   setDelQuest,
 }) {
@@ -38,8 +38,10 @@ export default function ListQuestion({
   const classes = useStyles();
   const token = localStorage.getItem("accessToken");
   const [quests, setQuest] = useState([]);
-
+  
   const [Qnames, setQName] = useState(name);
+  const [Qhint, setQHint] = useState(hint);
+
   const [Qanswer, setAnswer] = useState(answer);
   const [disabledQuest, setDisabledQuest] = useState(true);
 
@@ -55,7 +57,7 @@ export default function ListQuestion({
     await axios
       .patch(
         `/api/v1/questions/${id}`,
-        { name: Qnames, answer: Qanswer },
+        { name: Qnames, answer: Qanswer, hint: Qhint },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -150,14 +152,15 @@ export default function ListQuestion({
   };
   return (
     <Grid container>
-      <Grid container className={classes.all} item xl={12}>
+      <Grid container  item xl={12}>
+        
         <form noValidate autoComplete="off" onSubmit={updateQuest}>
           <TextField
             className={classes.txtFildQandA}
             label="Questions"
             variant="outlined"
             value={Qnames}
-            disabled={disabledQuest}
+            // disabled={disabledQuest}
             onChange={(e) => setQName(e.target.value)}
           />
           <TextField
@@ -165,7 +168,7 @@ export default function ListQuestion({
             label="Answers"
             variant="outlined"
             value={Qanswer}
-            disabled={disabledQuest}
+            // disabled={disabledQuest}
             onChange={(e) => setAnswer(e.target.value)}
           />
           <div>

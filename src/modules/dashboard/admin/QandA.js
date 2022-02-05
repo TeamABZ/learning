@@ -33,25 +33,31 @@ export default function QandA() {
   const location = useLocation();
   const { id } = location.state;
   const [data, setData] = useState();
-  const [taskId, setTaskId] = useState(id);
+  const [datatask, setDataTask] = useState();
 
-  const [question, setQuestion] = useState("");
+  const [taskID, setTaskId] = useState(id);
+
+  const [name, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
+
+  const [hint, setHint] = useState("");
   const createQandA = async (e) => {
     e.preventDefault();
+    console.log("xxxxzz"+id);
+
     console.log(token);
     console.log(id);
 
     setTaskId(id);
 
-    const bodyParameters = {  };
+    const bodyParameters = { name, answer,hint, taskID };
     console.log(bodyParameters);
     await axios
-      .post("/api/v1/tasks", bodyParameters, {
+      .post("/api/v1/questions", bodyParameters, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
-        setData(response.data.task);
+        setDataTask(response.data.task);
         window.location.reload();
       })
       .catch((error) => {
@@ -70,7 +76,7 @@ export default function QandA() {
             className={classes.txtFildQandA}
             label="Question"
             variant="outlined"
-            id="question"
+            id="name"
             onChange={(e) => setQuestion(e.target.value)}
 
           />
@@ -84,18 +90,31 @@ export default function QandA() {
             onChange={(e) => setAnswer(e.target.value)}
 
           />
+
+<TextField
+            className={classes.txtFildQandA}
+            label="Hint"
+            variant="outlined"
+            id="hint"
+
+            onChange={(e) => setHint(e.target.value)}
+
+          />
         </form>
       </Grid>
 
       <Grid item xl={3}>
         <Button variant="contained"
                 color="primary"
-             
-                onSubmit={createQandA}
+                type="submit"
+                onClick={createQandA}
 
                 className={classes.savebtn}>
           save
+
+          
         </Button>
+
         <Button variant="contained" color="secondary">
           Delete
         </Button>

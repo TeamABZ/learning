@@ -9,7 +9,6 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ToobarAdmin from "./ToobarAdmin";
 import TaskDetail from "./TaskDetail";
 import TaskList from "./TaskList";
-
 import axios from "axios";
 
 import {
@@ -83,7 +82,7 @@ export default function TaskSetting() {
       });
 
       setTasks(data.course.tasks);
-      console.log(data.course.tasks);
+      console.log(JSON.stringify(data.course.tasks));
     };
 
     getTask();
@@ -95,6 +94,7 @@ export default function TaskSetting() {
       no={i + 1}
       isDelete={isDelete}
       setDelete={setDelete}
+
     ></TaskList>
   ));
 

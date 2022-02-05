@@ -13,6 +13,7 @@ import { useLocation } from "react-router-dom";
 import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
 import swal from "sweetalert";
 
+
 export default function TaskList({
   id,
   name,
@@ -80,6 +81,7 @@ export default function TaskList({
 
   const [names, setName] = useState(name);
   const [descs, setDesc] = useState(desc);
+  
   const [idtask, setIdtask] = useState("");
 
   const [objectives, setObjective] = useState(objective);
@@ -91,28 +93,35 @@ export default function TaskList({
   const [Qfield, setFields] = useState([]);
   const [datas, setData] = useState([]);
   const [disabledTask, setDisabledTask] = useState(true);
-  console.log("list");
   const [isDelQuest, setDelQuest] = useState(false);
-  console.log(id);
+
+
   useEffect(() => {
-    const getQuestion = async () => {
+
+    // Get question each task by id task 
+    const getQuestion = async () => {  
+      console.log("id task ="+id)
       const { data } = await axios.get(`/api/v1/tasks/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setQuest(data.task.question);
+
     };
 
-    getQuestion();
-  }, [isDelete]);
-  const listQuest = (quests || []).map((item, i) => (
-    <ListQuestion
-      key={i}
-      {...item}
-      isDelQuest={isDelQuest}
-      setDelQuest={setDelQuest}
-    ></ListQuestion>
-  ));
 
+
+    getQuestion();
+
+
+
+  }, [isDelete]);
+  // list question
+ 
+  console.log(JSON.stringify(quests));
+
+
+  
+  // Update Task
   const updateTask = async (e) => {
     e.preventDefault();
 
@@ -157,7 +166,8 @@ export default function TaskList({
     const values = [...Qfield];
     values.push({ value: null });
     setFields(values);
-    console.log(values);
+    console.log(
+      values);
   }
 
   function handleRemove(i) {
@@ -170,8 +180,32 @@ export default function TaskList({
     if (Qfield.length > 0) return <QandA></QandA>;
     return <div></div>;
   });
-  console.log(isDelete);
+  const listQuest = (quests || []).map((item, i) => {
+    
+      return(
+          <ListQuestion key={i} {...item} isDelQuest={isDelQuest} setDelQuest={setDelQuest}/>
+      );
 
+    
+    
+    // return <div>    {item.name}
+    // </div>;
+ 
+  });
+
+  // const taskList = (tasks || []).map((item, i) => (
+  //   <TaskList
+  //     key={i}
+  //     {...item}
+  //     no={i + 1}
+  //     isDelete={isDelete}
+  //     setDelete={setDelete}
+
+  //   ></TaskList>
+  // ));
+
+
+//Delete Task
   const fnDelete = async () => {
     try {
       const { data } = await axios.delete(`api/v1/tasks/${id}`, {
@@ -193,7 +227,6 @@ export default function TaskList({
       buttons: ["No", "Yes"],
       dangerMode: true,
     }).then(function (isConfirm) {
-      /*Your Code Here*/
       if (isConfirm) {
         fnDelete();
         console.log(" Yes");
@@ -316,6 +349,7 @@ export default function TaskList({
                       <Typography variant="h6" color="initial">
                         Questions and Answers
                       </Typography>
+
                     </Grid>
                     <Grid item xl={6} className={classes.addbtn}>
                       <Button
@@ -328,8 +362,9 @@ export default function TaskList({
                     </Grid>
                   </Grid>
                   <Grid item xl={12}>
-                    {listQuest}
                     {AddQuestion}
+                    {listQuest}
+
                   </Grid>
                 </Grid>
               </Grid>
@@ -338,6 +373,7 @@ export default function TaskList({
           </Grid>
         </AccordionDetails>
       </Accordion>
+    
     </Grid>
   );
 }

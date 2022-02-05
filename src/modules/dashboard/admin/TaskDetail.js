@@ -116,7 +116,7 @@ export default function TaskDetail() {
     setFields(values);
   }
 
-  const AddQuestion = Qfields.map((id) => {
+  const ListQuestion = Qfields.map((id) => {
     if (Qfields.length > 0) return <QandA></QandA>;
     return <div></div>;
   });
@@ -197,8 +197,8 @@ export default function TaskDetail() {
                     </Grid>
                   </Grid>
                   <Grid item xl={12}>
-                    <QandA></QandA>
-                    {AddQuestion}
+                      {/* <QandA></QandA>
+                      {ListQuestion} */}
                   </Grid>
                 </Grid>
               </Grid>
