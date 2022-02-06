@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-export default function QandA() {
+export default function QandA({idtask}) {
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -31,11 +31,11 @@ export default function QandA() {
 
   const token = localStorage.getItem("accessToken");
   const location = useLocation();
-  const { id } = location.state;
+  // const { id } = location.state;
   const [data, setData] = useState();
   const [datatask, setDataTask] = useState();
 
-  const [taskID, setTaskId] = useState(id);
+  const [taskID, setTaskId] = useState(idtask);
 
   const [name, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
@@ -43,12 +43,12 @@ export default function QandA() {
   const [hint, setHint] = useState("");
   const createQandA = async (e) => {
     e.preventDefault();
-    console.log("xxxxzz"+id);
+    console.log("xxxxzz"+idtask);
 
     console.log(token);
-    console.log(id);
+    console.log(idtask);
 
-    setTaskId(id);
+    setTaskId(idtask);
 
     const bodyParameters = { name, answer,hint, taskID };
     console.log(bodyParameters);

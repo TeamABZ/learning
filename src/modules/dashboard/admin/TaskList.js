@@ -82,7 +82,7 @@ export default function TaskList({
   const [names, setName] = useState(name);
   const [descs, setDesc] = useState(desc);
   
-  const [idtask, setIdtask] = useState("");
+  const [idtask, setIdtask] = useState();
 
   const [objectives, setObjective] = useState(objective);
   const [statusTask, setStatusTask] = useState(status);
@@ -97,7 +97,7 @@ export default function TaskList({
 
 
   useEffect(() => {
-
+    setIdtask(id);
     // Get question each task by id task 
     const getQuestion = async () => {  
       console.log("id task ="+id)
@@ -177,7 +177,7 @@ export default function TaskList({
   }
 
   const AddQuestion = Qfield.map((id) => {
-    if (Qfield.length > 0) return <QandA></QandA>;
+    if (Qfield.length > 0) return <QandA idtask={idtask}></QandA>;
     return <div></div>;
   });
   const listQuest = (quests || []).map((item, i) => {

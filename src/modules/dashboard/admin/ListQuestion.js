@@ -160,7 +160,7 @@ export default function ListQuestion({
             label="Questions"
             variant="outlined"
             value={Qnames}
-            // disabled={disabledQuest}
+            disabled={disabledQuest}
             onChange={(e) => setQName(e.target.value)}
           />
           <TextField
@@ -168,7 +168,7 @@ export default function ListQuestion({
             label="Answers"
             variant="outlined"
             value={Qanswer}
-            // disabled={disabledQuest}
+            disabled={disabledQuest}
             onChange={(e) => setAnswer(e.target.value)}
           />
           <div>
