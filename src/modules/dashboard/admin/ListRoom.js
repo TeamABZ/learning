@@ -47,18 +47,23 @@ export default function ListRoom({ id, name, desc, isDeletes, setDeletes }) {
   const classes = useStyles();
   const token = localStorage.getItem("accessToken");
 
-  const userDelete = async () => {
-    try {
-      const { data } = await axios.delete(`api/v1/courses/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setDeletes(!isDeletes);
-    } catch (error) {
-      console.log(error.response.status); // 401
-      console.log(error.response.data.error);
-    }
-  };
 
+
+
+const userDelete = async () => {
+  try {
+    const { data } = await axios.delete(`api/v1/courses/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log("XX"+id);
+    setDeletes(id);
+
+  } catch (error) {
+    console.log(error.response.status); // 401
+    console.log(error.response.data.error);
+
+  }
+};
   const confirmDelete = () => {
     swal({
       title: "Are you sure?",
@@ -70,7 +75,9 @@ export default function ListRoom({ id, name, desc, isDeletes, setDeletes }) {
       /*Your Code Here*/
       if (isConfirm) {
         userDelete();
+
         console.log(" Yes");
+
       } else {
         console.log(" No");
       }

@@ -29,7 +29,7 @@ export default function ManageRoom() {
 
   const [course, setCourse] = useState([]);
   const token = localStorage.getItem("accessToken");
-
+const [cCount,setCount] = useState(0)
   const [isDeletes, setDeletes] = useState(false);
 
   useEffect(() => {
@@ -38,27 +38,30 @@ export default function ManageRoom() {
         headers: { Authorization: `Bearer ${token}` },
       });
       console.log(data);
-    if(data.courses!=null){
 
       setCourse(data.courses);
       
-    }
+
+
      
   
     
     };
     getCourse();
     
-  }, [isDeletes]);
+  },[isDeletes]);
 
-  const listRooms = course.map((item, i) => (
+  const listRooms = (course ||[]).map((item, i) => (
     <ListRoom
       key={i}
+   
       {...item}
       isDeletes={isDeletes}
       setDeletes={setDeletes}
     ></ListRoom>
+  
   ));
+
 
   return (
     <div className={classes.root}>
@@ -68,6 +71,7 @@ export default function ManageRoom() {
         </Button>
       </Grid>  
       <Grid container className={classes.room}>
+      
     {listRooms}
 
      
@@ -76,4 +80,5 @@ export default function ManageRoom() {
       
     </div>
   );
+
 }
