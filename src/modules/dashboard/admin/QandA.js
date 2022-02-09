@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-export default function QandA({idtask}) {
+export default function QandA({idtask,isAddQ,setAddQ}) {
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -14,8 +14,8 @@ export default function QandA({idtask}) {
       paddingBottom: "1em",
     },
     txtFildQandA: {
-      paddingRight: "3em",
-      width: "25em",
+      marginBottom: "1.5em",
+      width: "65em",
     },
     groupQandA: {
       padding: "2em 0",
@@ -26,6 +26,10 @@ export default function QandA({idtask}) {
     savebtn: {
       marginRight: "0.5em",
     },
+    groupBtn:{
+      textAlign:"center",
+      paddingBottom:"2em"
+    }
   }));
   const classes = useStyles();
 
@@ -57,8 +61,15 @@ export default function QandA({idtask}) {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
+       
         setDataTask(response.data.task);
-        window.location.reload();
+        setQuestion("");
+        setAnswer("");
+        setHint("");
+
+        setAddQ(!isAddQ);
+        // window.location.reload();
+       
       })
       .catch((error) => {
         console.log(error.response.status); // 401
@@ -68,7 +79,7 @@ export default function QandA({idtask}) {
 
   return (
     <Grid container>
-      <Grid item xl={9} className={classes.all}>
+      <Grid item xl={12} className={classes.all}>
         <form noValidate autoComplete="off"                   
         onSubmit={createQandA}
 >
@@ -77,6 +88,7 @@ export default function QandA({idtask}) {
             label="Question"
             variant="outlined"
             id="name"
+            value={name}
             onChange={(e) => setQuestion(e.target.value)}
 
           />
@@ -86,16 +98,18 @@ export default function QandA({idtask}) {
             label="Answer"
             variant="outlined"
             id="answer"
+            value={answer}
 
             onChange={(e) => setAnswer(e.target.value)}
 
           />
 
-<TextField
+        <TextField
             className={classes.txtFildQandA}
             label="Hint"
             variant="outlined"
             id="hint"
+            value={hint}
 
             onChange={(e) => setHint(e.target.value)}
 
@@ -103,21 +117,19 @@ export default function QandA({idtask}) {
         </form>
       </Grid>
 
-      <Grid item xl={3}>
+      <Grid item xl={12}     className={classes.groupBtn}>
         <Button variant="contained"
                 color="primary"
                 type="submit"
                 onClick={createQandA}
 
                 className={classes.savebtn}>
-          save
+          Save Question
 
           
         </Button>
 
-        <Button variant="contained" color="secondary">
-          Delete
-        </Button>
+    
       </Grid>
     </Grid>
   );

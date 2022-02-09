@@ -4,12 +4,14 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import swal from "sweetalert";
+import { BorderBottom } from "@material-ui/icons";
 
 export default function ListQuestion({
   id,
   name,
   answer, 
   hint,
+  
   isDelQuest,
   setDelQuest,
 }) {
@@ -18,11 +20,14 @@ export default function ListQuestion({
       flexGrow: 1,
     },
     all: {
-      paddingBottom: "1em",
+      paddingBottom:"2em",
+      marginTop:"2em",
+borderBottom:"1px black solid"
+    
     },
     txtFildQandA: {
-      paddingRight: "3em",
-      width: "34em",
+      paddingRight: "0.5em",
+      width: "45em",
       margin: "1em 0",
     },
     groupQandA: {
@@ -33,7 +38,10 @@ export default function ListQuestion({
     },
     savebtn: {
       marginRight: "0.5em",
-    },
+    }, groupBtn:{
+      textAlign:"center",
+      paddingBottom:"2em"
+    }
   }));
   const classes = useStyles();
   const token = localStorage.getItem("accessToken");
@@ -43,6 +51,7 @@ export default function ListQuestion({
   const [Qhint, setQHint] = useState(hint);
 
   const [Qanswer, setAnswer] = useState(answer);
+
   const [disabledQuest, setDisabledQuest] = useState(true);
 
   const [Qfield, setQFields] = useState([]);
@@ -151,9 +160,10 @@ export default function ListQuestion({
     );
   };
   return (
-    <Grid container>
-      <Grid container  item xl={12}>
-        
+    <Grid container className={classes.all}>
+      
+      <Grid container  item xl={8} > 
+     
         <form noValidate autoComplete="off" onSubmit={updateQuest}>
           <TextField
             className={classes.txtFildQandA}
@@ -171,7 +181,17 @@ export default function ListQuestion({
             disabled={disabledQuest}
             onChange={(e) => setAnswer(e.target.value)}
           />
-          <div>
+             <TextField
+            className={classes.txtFildQandA}
+            label="Hint"
+            variant="outlined"
+            id="hint"
+            value={hint}
+            disabled={disabledQuest}
+
+            onChange={(e) => setQHint(e.target.value)}
+
+          />
             {/* <Button
             variant="contained"
             color="primary"
@@ -180,7 +200,14 @@ export default function ListQuestion({
           >
             update
           </Button> */}
-            {disabledQuest ? <BtnEditQuest /> : <BtnUpdatQuest />}
+
+
+        
+        </form>
+      </Grid>
+
+      <Grid item xl={4}     className={classes.groupBtn}>
+      {disabledQuest ? <BtnEditQuest /> : <BtnUpdatQuest />}
             <Button
               variant="contained"
               color="secondary"
@@ -188,9 +215,7 @@ export default function ListQuestion({
             >
               Delete
             </Button>{" "}
-          </div>
-        </form>
-      </Grid>
+</Grid> 
     </Grid>
   );
 }

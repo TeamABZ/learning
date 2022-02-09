@@ -24,9 +24,9 @@ export default function AdminProfile() {
       <ToobarAdmin></ToobarAdmin>
 
       <div className={classes.titlepage}>
-        <Typography variant="h4">Setting Leaning</Typography>
+        <Typography variant="h4">Setting Course</Typography>
         <Typography variant="h6">
-          Create a room ,upload your material and assign task
+          Create a Course ,upload your material and assign task
         </Typography>
       </div>
       <Grid container>

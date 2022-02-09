@@ -95,6 +95,7 @@ export default function TaskList({
   const [disabledTask, setDisabledTask] = useState(true);
   const [isDelQuest, setDelQuest] = useState(false);
 
+  const [isAddQ, setAddQ] = useState(false);
 
   useEffect(() => {
     setIdtask(id);
@@ -114,7 +115,7 @@ export default function TaskList({
 
 
 
-  }, [isDelete]);
+  }, [isDelete,isAddQ]);
   // list question
  
   console.log(JSON.stringify(quests));
@@ -177,33 +178,19 @@ export default function TaskList({
   }
 
   const AddQuestion = Qfield.map((id) => {
-    if (Qfield.length > 0) return <QandA idtask={idtask}></QandA>;
+    if (Qfield.length > 0) return <QandA idtask={idtask} isAddQ={isAddQ} setAddQ={setAddQ}></QandA>;
     return <div></div>;
   });
   const listQuest = (quests || []).map((item, i) => {
     
       return(
-          <ListQuestion key={i} {...item} isDelQuest={isDelQuest} setDelQuest={setDelQuest}/>
+          <ListQuestion key={i} {...item}  isDelQuest={isDelQuest} setDelQuest={setDelQuest}/>
       );
 
     
-    
-    // return <div>    {item.name}
-    // </div>;
+ 
  
   });
-
-  // const taskList = (tasks || []).map((item, i) => (
-  //   <TaskList
-  //     key={i}
-  //     {...item}
-  //     no={i + 1}
-  //     isDelete={isDelete}
-  //     setDelete={setDelete}
-
-  //   ></TaskList>
-  // ));
-
 
 //Delete Task
   const fnDelete = async () => {

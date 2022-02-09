@@ -117,7 +117,7 @@ export default function TaskDetail() {
   }
 
   const ListQuestion = Qfields.map((id) => {
-    if (Qfields.length > 0) return <QandA></QandA>;
+    if (Qfields.length > 0) return <QandA ></QandA>;
     return <div></div>;
   });
   return (
