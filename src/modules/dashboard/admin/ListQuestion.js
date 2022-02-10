@@ -14,6 +14,8 @@ export default function ListQuestion({
   
   isDelQuest,
   setDelQuest,
+  setDisabledQuest,
+  disabledQuest
 }) {
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -52,7 +54,7 @@ borderBottom:"1px black solid"
 
   const [Qanswer, setAnswer] = useState(answer);
 
-  const [disabledQuest, setDisabledQuest] = useState(true);
+  const [disabledQuests, setDisabledQuests] = useState(true);
 
   const [Qfield, setQFields] = useState([]);
   const [data, setData] = useState();
@@ -73,6 +75,7 @@ borderBottom:"1px black solid"
       )
       .then((response) => {
         setData(response.data.task);
+       
         // console.log(response);
         // console.log(response.data) ;
         swal("Success", "Update Success", "success", {
@@ -80,7 +83,9 @@ borderBottom:"1px black solid"
           timer: 2000,
         }).then((value) => {
           console.log("UPDATE");
-          window.location.reload();
+          setDisabledQuest(!disabledQuest);
+          setDisabledQuests(!disabledQuests);
+
         });
       })
       .catch((error) => {
@@ -96,7 +101,7 @@ borderBottom:"1px black solid"
         headers: { Authorization: `Bearer ${token}` },
       });
       setDelQuest(!isDelQuest);
-      console.log(isDelQuest);
+      console.log("delete "+isDelQuest);
     } catch (error) {
       console.log(error.response.status); // 401
       console.log(error.response.data.error);
@@ -121,10 +126,10 @@ borderBottom:"1px black solid"
     });
   };
   const editQuest = () => {
-    setDisabledQuest(false);
+    setDisabledQuests(false);
   };
   const cancleEditTask = () => {
-    setDisabledQuest(true);
+    setDisabledQuests(true);
   };
   const BtnUpdatQuest = () => {
     return (
@@ -134,6 +139,7 @@ borderBottom:"1px black solid"
           color="primary"
           type="submit"
           className={classes.savebtn}
+          onClick={updateQuest}
         >
           Update
         </Button>
@@ -154,7 +160,7 @@ borderBottom:"1px black solid"
         className={classes.savebtn}
         onClick={editQuest}
         color="primary"
-      >
+         >
         Edit
       </Button>
     );
@@ -170,7 +176,7 @@ borderBottom:"1px black solid"
             label="Questions"
             variant="outlined"
             value={Qnames}
-            disabled={disabledQuest}
+            disabled={disabledQuests}
             onChange={(e) => setQName(e.target.value)}
           />
           <TextField
@@ -178,7 +184,7 @@ borderBottom:"1px black solid"
             label="Answers"
             variant="outlined"
             value={Qanswer}
-            disabled={disabledQuest}
+            disabled={disabledQuests}
             onChange={(e) => setAnswer(e.target.value)}
           />
              <TextField
@@ -186,8 +192,8 @@ borderBottom:"1px black solid"
             label="Hint"
             variant="outlined"
             id="hint"
-            value={hint}
-            disabled={disabledQuest}
+            value={Qhint}
+            disabled={disabledQuests}
 
             onChange={(e) => setQHint(e.target.value)}
 
@@ -207,7 +213,7 @@ borderBottom:"1px black solid"
       </Grid>
 
       <Grid item xl={4}     className={classes.groupBtn}>
-      {disabledQuest ? <BtnEditQuest /> : <BtnUpdatQuest />}
+      {disabledQuests ? <BtnEditQuest /> : <BtnUpdatQuest />}
             <Button
               variant="contained"
               color="secondary"

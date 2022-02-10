@@ -94,6 +94,7 @@ export default function TaskList({
   const [datas, setData] = useState([]);
   const [disabledTask, setDisabledTask] = useState(true);
   const [isDelQuest, setDelQuest] = useState(false);
+  const [disabledQuest, setDisabledQuest] = useState(true);
 
   const [isAddQ, setAddQ] = useState(false);
 
@@ -101,6 +102,7 @@ export default function TaskList({
     setIdtask(id);
     // Get question each task by id task 
     const getQuestion = async () => {  
+      setQuest([])
       console.log("id task ="+id)
       const { data } = await axios.get(`/api/v1/tasks/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -115,7 +117,7 @@ export default function TaskList({
 
 
 
-  }, [isDelete,isAddQ,isDelQuest]);
+  }, [isDelete,isAddQ,isDelQuest,disabledQuest]);
   // list question
  
   console.log(JSON.stringify(quests));
@@ -184,7 +186,7 @@ export default function TaskList({
   const listQuest = (quests || []).map((item, i) => {
     
       return(
-          <ListQuestion key={i} {...item}  isDelQuest={isDelQuest} setDelQuest={setDelQuest}/>
+          <ListQuestion key={i} {...item}  isDelQuest={isDelQuest} setDelQuest={setDelQuest} setDisabledQuest={setDisabledQuest} disabledQuest={disabledQuest} />
       );
 
     
