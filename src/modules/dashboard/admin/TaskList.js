@@ -115,7 +115,7 @@ export default function TaskList({
 
 
 
-  }, [isDelete,isAddQ]);
+  }, [isDelete,isAddQ,isDelQuest]);
   // list question
  
   console.log(JSON.stringify(quests));
