@@ -32,7 +32,7 @@ export default function Routes() {
       <Route path="/adminprofile">
         <AdminProfile></AdminProfile>
       </Route>
-      <Route path="/moduledetail">
+      <Route path="/moduledetail/:id">
         <ModuleDetail></ModuleDetail>
       </Route>
       <Route path="/LeaningDetail">

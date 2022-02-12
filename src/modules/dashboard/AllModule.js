@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import axios from "axios";
 
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
@@ -32,44 +33,68 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MyModule() {
   const classes = useStyles();
-  const moduleItems = [
-    {
-      titleModule: "Cyber security training",
-      descModule:
-        "Making it easier to break into security, all through your browser.",
-      imageModule: network,
-    },
-    {
-      titleModule: "Cyber security training",
-      descModule:
-        "Making it easier to break into security, all through your browser.",
-      imageModule: network,
-    },
-    {
-      titleModule: "Cyber security training",
-      descModule:
-        "Making it easier to break into security, all through your browser.",
-      imageModule: network,
-    },
-    {
-      titleModule: "Cyber security training",
-      descModule:
-        "Making it easier to break into security, all through your browser.",
-      imageModule: network,
-    },
-    {
-      titleModule: "Cyber security training",
-      descModule:
-        "Making it easier to break into security, all through your browser.",
-      imageModule: network,
-    },
-    {
-      titleModule: "Cyber security training",
-      descModule:
-        "Making it easier to break into security, all through your browser.",
-      imageModule: network,
-    },
-  ];
+  // const moduleItems = [
+  //   {
+  //     titleModule: "Cyber security training",
+  //     descModule:
+  //       "Making it easier to break into security, all through your browser.",
+  //     imageModule: network,
+  //   },
+  //   {
+  //     titleModule: "Cyber security training",
+  //     descModule:
+  //       "Making it easier to break into security, all through your browser.",
+  //     imageModule: network,
+  //   },
+  //   {
+  //     titleModule: "Cyber security training",
+  //     descModule:
+  //       "Making it easier to break into security, all through your browser.",
+  //     imageModule: network,
+  //   },
+  //   {
+  //     titleModule: "Cyber security training",
+  //     descModule:
+  //       "Making it easier to break into security, all through your browser.",
+  //     imageModule: network,
+  //   },
+  //   {
+  //     titleModule: "Cyber security training",
+  //     descModule:
+  //       "Making it easier to break into security, all through your browser.",
+  //     imageModule: network,
+  //   },
+  //   {
+  //     titleModule: "Cyber security training",
+  //     descModule:
+  //       "Making it easier to break into security, all through your browser.",
+  //     imageModule: network,
+  //   },
+  // ];
+  const [course, setCourse] = useState([]);
+
+  const token = localStorage.getItem("accessToken");
+
+  useEffect(() => {
+    const getCourse = async () => {
+      const { data } = await axios.get("/api/v1/courses", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log(data);
+
+      setCourse(data.courses);
+      
+
+
+     
+  
+    
+    };
+    getCourse();
+    
+  },[]);
+
+
 
   return (
     <div className={classes.root}>
@@ -80,9 +105,9 @@ export default function MyModule() {
         </Typography>
       </div>
       <Grid container className={classes.allitem} spacing={2}>
-        {moduleItems.map((data) => (
+        {course.map((item, i) => (
           <Grid item className={classes.item} md={4}>
-            <ModuleItem key={data.titleModule} {...data} />
+            <ModuleItem key={i} {...item} />
           </Grid>
         ))}
       </Grid>
