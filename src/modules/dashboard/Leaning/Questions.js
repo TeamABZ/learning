@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { Grid, Button, Input, TextField } from "@material-ui/core";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import axios from "axios";
 
-export default function Questions() {
+import { useLocation } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams,
+} from "react-router-dom";
+
+export default function Questions({id,name,hint}) {
   const useStyles = makeStyles((theme) => ({
     root: {
       "& > *": {
@@ -17,7 +32,17 @@ export default function Questions() {
     },
   }));
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  
   return (
     <Grid container>
       <Grid item container xl={12}>
@@ -26,22 +51,44 @@ export default function Questions() {
             Questions
           </Typography>
           <Typography variant="subtitle1">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
-            aspernatur a sunt pariatur culpa. Autem iure ipsa magni velit
-            consequatur accusamus sit nihil harum, aperiam, maxime quos, numquam
-            unde quasi?
+          {name}
           </Typography>
           <form className={classes.root} noValidate autoComplete="off">
             <TextField id="standard-basic" label="Answer" />
           </form>
         </Grid>
         <Grid item container xl={2} className={classes.btnAns}>
-          <Button variant="outlined">Hint</Button>
+          <Button variant="outlined"  onClick={handleClickOpen}>
+     Hint
+      </Button>
+      <div>
+     
+     <Dialog
+       open={open}
+       onClose={handleClose}
+       aria-labelledby="alert-dialog-title"
+       aria-describedby="alert-dialog-description"
+     >
+       <DialogTitle id="alert-dialog-title">{"HINT"}</DialogTitle>
+       <DialogContent>
+         <DialogContentText id="alert-dialog-description">
+        {hint}
+         </DialogContentText>
+       </DialogContent>
+       <DialogActions>
+         <Button onClick={handleClose} color="primary">
+           close
+         </Button>
+        
+       </DialogActions>
+     </Dialog>
+   </div>
           <Button variant="contained" color="secondary">
             Submit
           </Button>
         </Grid>
       </Grid>
     </Grid>
+  
   );
 }

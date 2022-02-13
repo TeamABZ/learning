@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { Grid, Button } from "@material-ui/core";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Task from "./Task";
+import axios from "axios";
+import { useLocation } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams,
+} from "react-router-dom";
+
 
 export default function LeaningDetail() {
   const useStyles = makeStyles((theme) => ({
@@ -38,6 +48,30 @@ export default function LeaningDetail() {
     },
   }));
   const classes = useStyles();
+
+  
+  const location = useLocation();
+const token = localStorage.getItem("accessToken");
+const { id } = location.state;
+const [tasks, setTasks] = useState([]);
+
+const [name, setName] = useState("");
+const [desc, setDesc] = useState("");
+const [isDelete, setDelete] = useState(false);
+
+useEffect(() => {
+  const getTask = async () => {
+    const { data } = await axios.get(`/api/v1/courses/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    setTasks(data.course.tasks);
+    console.log(JSON.stringify(data.course.tasks));
+  };
+
+  getTask();
+}, [isDelete]);
+
   const BorderLinearProgress = withStyles((theme) => ({
     root: {
       height: 10,
@@ -52,31 +86,37 @@ export default function LeaningDetail() {
       backgroundColor: "#1a90ff",
     },
   }))(LinearProgress);
-  const itemTask = [
-    {
-      no: "Task 1",
-      titleTask: "Methodology",
-      desc: "Learn how the web works",
-    },
-    {
-      no: "Task 2",
-      titleTask: "Section 2: Running Commands - Basic Command Execution",
+  // const itemTask = [
+  //   {
+  //     no: "Task 1",
+  //     titleTask: "Methodology",
+  //     desc: "Learn how the web works",
+  //   },
+  //   {
+  //     no: "Task 2",
+  //     titleTask: "Section 2: Running Commands - Basic Command Execution",
 
-      desc: "Learn about and exploit each of the OWASP Top 10 vulnerabilities; the 10 most critical web security risks.",
-    },
-    {
-      no: "Task 3",
-      titleTask: "Methodology",
+  //     desc: "Learn about and exploit each of the OWASP Top 10 vulnerabilities; the 10 most critical web security risks.",
+  //   },
+  //   {
+  //     no: "Task 3",
+  //     titleTask: "Methodology",
 
-      desc: "Learn how the web works",
-    },
-    {
-      no: "Task 4",
-      titleTask: "Methodology",
+  //     desc: "Learn how the web works",
+  //   },
+  //   {
+  //     no: "Task 4",
+  //     titleTask: "Methodology",
 
-      desc: "Learn about and exploit each of the OWASP Top 10 vulnerabilities; the 10 most critical web security risks. the 10 most critical web security risks.",
-    },
-  ];
+  //     desc: "Learn about and exploit each of the OWASP Top 10 vulnerabilities; the 10 most critical web security risks. the 10 most critical web security risks.",
+  //   },
+  // ];
+  const taskList =  (tasks || []).map((data,id) => (
+            
+    <Task key={id} no={id+1} {...data} />
+   
+  ));
+
   return (
     <div className={classes.root}>
       <div className={classes.titlepage}>
@@ -96,9 +136,7 @@ export default function LeaningDetail() {
             </Typography>
           </Grid>
           <Grid className={classes.secAtk} item xl={6}>
-            <Button variant="contained" color="primary">
-              Start Attackbox
-            </Button>
+           
           </Grid>
         </Grid>
         <Grid container item spacing={1}>
@@ -108,9 +146,7 @@ export default function LeaningDetail() {
         </Grid>
         <Grid container item>
           <Grid item xl={12}>
-            {itemTask.map((data) => (
-              <Task key={data.titleTask} {...data} />
-            ))}
+            { taskList}
           </Grid>
         </Grid>
       </Grid>

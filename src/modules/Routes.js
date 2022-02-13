@@ -35,7 +35,7 @@ export default function Routes() {
       <Route path="/moduledetail/:id">
         <ModuleDetail></ModuleDetail>
       </Route>
-      <Route path="/LeaningDetail">
+      <Route path="/LeaningDetail/:id">
         <LeaningDetail></LeaningDetail>
       </Route>
       <Route path="/allmodule">

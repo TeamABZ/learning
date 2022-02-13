@@ -29,7 +29,7 @@ export default function ModuleItem({ id,name, desc }) {
     <Grid className={classes.itemModule}>
       <Link color="inherit" 
       
-      to={{ pathname: `moduledetail/${id}`, state: { id } }}
+      to={{ pathname: `LeaningDetail/${id}`, state: { id } }}
 
       >
         <img className={classes.media} />

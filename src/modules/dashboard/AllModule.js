@@ -95,6 +95,12 @@ export default function MyModule() {
   },[]);
 
 
+  const courselist = (course || []).map((item, i) => (
+    <Grid item className={classes.item} md={4}>
+      <ModuleItem key={i} {...item} />
+    </Grid>
+  ))
+
 
   return (
     <div className={classes.root}>
@@ -105,11 +111,7 @@ export default function MyModule() {
         </Typography>
       </div>
       <Grid container className={classes.allitem} spacing={2}>
-        {course.map((item, i) => (
-          <Grid item className={classes.item} md={4}>
-            <ModuleItem key={i} {...item} />
-          </Grid>
-        ))}
+        {courselist}
       </Grid>
     </div>
   );
