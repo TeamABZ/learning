@@ -9,6 +9,8 @@ import {
   Link,
   useParams,
 } from "react-router-dom";
+import axios from "axios";
+import { useLocation } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   itemModule: {
     textAlign: "center",
@@ -25,6 +27,50 @@ const useStyles = makeStyles((theme) => ({
 export default function ModuleItem({ id,name, desc }) {
   const classes = useStyles();
   // const { titleModule, descModule, imageModule } = dataitem;
+
+  const token = localStorage.getItem("accessToken");
+  const users = localStorage.getItem("user");
+
+  const [courseId, setCourseId] = useState(id);
+  const [data, setData] = useState();
+  const [datauser,setDatauser] = useState("");
+  const [user, setUser] = useState(() => {
+    // getting stored value
+    const saved = localStorage.getItem("user");
+    const initialValue = JSON.parse(saved);
+
+    return initialValue || "";
+
+  });
+
+
+const userId=user.id;
+
+  console.log(userId);
+  const bodyParameters = { userId,courseId };
+
+  // console.log(bodyParameters);
+
+  const createEnroll = async (e) => {
+    // e.preventDefault();
+  await axios
+    .post("/api/v1/progress", bodyParameters, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((response) => {
+      setData(response.data);
+      console.log(response.data);
+
+      // window.location.reload();
+    })
+    .catch((error) => {
+      console.log(error.response.status); // 401
+      console.log(error.response.data.error);
+    });
+};
+
+
+
   return (
     <Grid className={classes.itemModule}>
       <Link color="inherit" 
@@ -43,6 +89,7 @@ export default function ModuleItem({ id,name, desc }) {
       <Button
                         variant="contained"
                         color="primary"
+                        onClick={() => createEnroll()}
                     
                       >
                         Enroll

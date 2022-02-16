@@ -31,7 +31,7 @@ const mainFeaturedPost = {
   linkText: "Continue reading…",
 };
 
-export default function MyModule() {
+export default function MyModule({id,name}) {
   const classes = useStyles();
 
   return (
@@ -43,24 +43,9 @@ export default function MyModule() {
               <ImageIcon />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="Networking Fundamentals" />
+          <ListItemText primary={name} />
         </ListItem>
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar>
-              <WorkIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Linux Fundamentals" />
-        </ListItem>
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar>
-              <BeachAccessIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Web Hacking Fundamentals" />
-        </ListItem>
+        
       </List>
     </div>
   );

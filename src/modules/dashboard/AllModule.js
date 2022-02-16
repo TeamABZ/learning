@@ -84,9 +84,6 @@ export default function MyModule() {
 
       setCourse(data.courses);
       
-
-
-     
   
     
     };
