@@ -86,9 +86,11 @@ export default function MyModule() {
 
   const getGithubData = () => {
    
-    Promise.all( [axios.get('/api/v1/courses'),axios.get('/api/v1/progress')]).then(([ {data: courses}, {data: progress}] )=> {
-      setCourse(courses);
-      setProgress(progress);
+    Promise.all( [axios.get('/api/v1/courses'),axios.get('/api/v1/progress')]).then(([ {data: ccourse}, {data: pprogres}] )=> {
+      setCourse(Object.values(ccourse.courses));
+
+      setProgress(Object.values(pprogres.progress));
+
     });
 
   }
@@ -112,17 +114,18 @@ export default function MyModule() {
     
     getGithubData();
 
-    console.log(course); 
-    console.log(progress); 
-
+    
   },[]);
 
+  console.log(course); 
+  console.log(progress); 
 
-  // const courselist = (course || []).map((item, i) => (
-  //   <Grid item className={classes.item} md={4}>
-  //     <ModuleItem key={i} {...item} />
-  //   </Grid>
-  // ))
+  const courselist = (course || []).map((item, i) => (
+    <Grid item className={classes.item} md={4}>
+      <ModuleItem key={i} {...item} />
+    </Grid>
+  ));
+
 
 
   return (
@@ -134,7 +137,7 @@ export default function MyModule() {
         </Typography>
       </div>
       <Grid container className={classes.allitem} spacing={2}>
-        {/* {courselist} */}
+        {courselist}
       </Grid>
     </div>
   );

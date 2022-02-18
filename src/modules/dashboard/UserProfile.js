@@ -54,7 +54,7 @@ const [course, setCourse] = useState([]);
     getCourse();
     
   },[]);
-
+console.log(course);
   const courselist = (course || []).map((item, i) => (
       <Mymodule key={i} {...item} />
 
