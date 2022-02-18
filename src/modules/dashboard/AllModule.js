@@ -73,7 +73,7 @@ export default function MyModule() {
   // ];
   const [course, setCourse] = useState([]);
   const [progress, setProgress] = useState([]);
-
+const ppo=[];
   const token = localStorage.getItem("accessToken");
   const requestOne = axios.get("/api/v1/courses", {
     headers: { Authorization: `Bearer ${token}` },
@@ -84,35 +84,45 @@ export default function MyModule() {
 
 
 
-  const getGithubData = () => {
+  // const getGithubData = () => {
    
-    Promise.all( [axios.get('/api/v1/courses'),axios.get('/api/v1/progress')]).then(([ {data: ccourse}, {data: pprogres}] )=> {
-      setCourse(Object.values(ccourse.courses));
+  //   Promise.all( [axios.get('/api/v1/courses'),axios.get('/api/v1/progress')]).then(([ {data: ccourse}, {data: pprogres}] )=> {
+  //     setCourse(Object.values(ccourse.courses));
 
-      setProgress(Object.values(pprogres.progress));
+  //     setProgress(Object.values(pprogres.progress));
 
-    });
 
-  }
+  //   });
+
+  // }
 
 
   useEffect(() => {
 
 
-    // const getCourse = async () => {
-    //   const { data } = await axios.get("/api/v1/courses", {
-    //     headers: { Authorization: `Bearer ${token}` },
-    //   });
-    //   console.log(data);
+    const getCourse = async () => {
+      const { data } = await axios.get("/api/v1/courses", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
-    //   setCourse(data.courses);
+      setCourse(data.courses);
       
   
     
-    // };
-    // getCourse();
+    };
+    const getProgress = async () => {
+      const { data } = await axios.get("/api/v1/progress", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      setProgress(data.progress);
+      
+  
     
-    getGithubData();
+    };
+    getCourse();
+    getProgress();
+    
 
     
   },[]);
@@ -120,12 +130,47 @@ export default function MyModule() {
   console.log(course); 
   console.log(progress); 
 
-  const courselist = (course || []).map((item, i) => (
-    <Grid item className={classes.item} md={4}>
-      <ModuleItem key={i} {...item} />
-    </Grid>
-  ));
+  var x="";
 
+  const courselist = (course || []).map((item, i) => {
+     
+    var cc = item.id;
+
+   var enroll;
+const aa=(progress ||[]).map((item2,j)=>{
+  
+  if(item2.courseId===cc){
+    return true 
+  
+  }
+  else{
+    return false 
+
+  }
+
+
+});
+
+
+if (aa.includes(true)) {
+  enroll=true;
+}
+else{
+  enroll=false;
+}
+
+console.log("loop "+cc+" have "+enroll);
+
+
+
+
+
+    return( <ModuleItem key={i} {...item} btn={enroll} /> );
+    
+
+});
+
+  
 
 
   return (
@@ -137,7 +182,7 @@ export default function MyModule() {
         </Typography>
       </div>
       <Grid container className={classes.allitem} spacing={2}>
-        {courselist}
+      {courselist} 
       </Grid>
     </div>
   );

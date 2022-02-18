@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import { render } from "@testing-library/react";
 const useStyles = makeStyles((theme) => ({
   itemModule: {
     textAlign: "center",
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     height: 130,
   },
 }));
-export default function ModuleItem({ id,name, desc }) {
+export default function ModuleItem({ id,name, desc ,btn}) {
   const classes = useStyles();
   // const { titleModule, descModule, imageModule } = dataitem;
 
@@ -69,6 +70,12 @@ const userId=user.id;
     });
 };
 
+ 
+    
+
+  
+ 
+
 
 
   return (
@@ -84,16 +91,22 @@ const userId=user.id;
         <Typography variant="h5">{name} </Typography>
     
         <Typography>{desc}</Typography>
-     
+        <Typography>{btn}</Typography>
+
       </Link>
-      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => createEnroll()}
-                    
-                      >
-                        Enroll
-                      </Button>
+
+                     {!btn ? (
+        <Button
+        variant="contained"
+        color="primary"
+        onClick={() => createEnroll()}
+     
+      >
+        Enroll 
+      </Button>
+      ) : (
+    <></>
+      )}
     </Grid>
   );
 }
