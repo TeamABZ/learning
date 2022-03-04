@@ -33,74 +33,27 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MyModule() {
   const classes = useStyles();
-  // const moduleItems = [
-  //   {
-  //     titleModule: "Cyber security training",
-  //     descModule:
-  //       "Making it easier to break into security, all through your browser.",
-  //     imageModule: network,
-  //   },
-  //   {
-  //     titleModule: "Cyber security training",
-  //     descModule:
-  //       "Making it easier to break into security, all through your browser.",
-  //     imageModule: network,
-  //   },
-  //   {
-  //     titleModule: "Cyber security training",
-  //     descModule:
-  //       "Making it easier to break into security, all through your browser.",
-  //     imageModule: network,
-  //   },
-  //   {
-  //     titleModule: "Cyber security training",
-  //     descModule:
-  //       "Making it easier to break into security, all through your browser.",
-  //     imageModule: network,
-  //   },
-  //   {
-  //     titleModule: "Cyber security training",
-  //     descModule:
-  //       "Making it easier to break into security, all through your browser.",
-  //     imageModule: network,
-  //   },
-  //   {
-  //     titleModule: "Cyber security training",
-  //     descModule:
-  //       "Making it easier to break into security, all through your browser.",
-  //     imageModule: network,
-  //   },
-  // ];
+  const users = localStorage.getItem("user");
+  const [updateEnroll, setupdateEnroll] = useState(false);
+
   const [course, setCourse] = useState([]);
   const [progress, setProgress] = useState([]);
-const ppo=[];
   const token = localStorage.getItem("accessToken");
-  const requestOne = axios.get("/api/v1/courses", {
-    headers: { Authorization: `Bearer ${token}` },
+
+  const [user, setUser] = useState(() => {
+    // getting stored value
+    const saved = localStorage.getItem("user");
+    const initialValue = JSON.parse(saved);
+
+    return initialValue || "";
+
   });
-  const requestTwo = axios.get("/api/v1/progress", {
-    headers: { Authorization: `Bearer ${token}` },
-  });
 
+  const id=user.id;
 
+  console.log("user id = "+id);
 
-  // const getGithubData = () => {
-   
-  //   Promise.all( [axios.get('/api/v1/courses'),axios.get('/api/v1/progress')]).then(([ {data: ccourse}, {data: pprogres}] )=> {
-  //     setCourse(Object.values(ccourse.courses));
-
-  //     setProgress(Object.values(pprogres.progress));
-
-
-  //   });
-
-  // }
-
-
-  useEffect(() => {
-
-
-    const getCourse = async () => {
+ const getCourse = async () => {
       const { data } = await axios.get("/api/v1/courses", {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -111,26 +64,28 @@ const ppo=[];
     
     };
     const getProgress = async () => {
-      const { data } = await axios.get("/api/v1/progress", {
+    
+      const { data } =   await axios.get(`/api/v1/progresses/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
       setProgress(data.progress);
-      
-  
-    
+      console.log(data)
     };
+  useEffect(() => {
+  
+   
     getCourse();
     getProgress();
     
 
     
-  },[]);
+  },[updateEnroll]);
 
   console.log(course); 
   console.log(progress); 
 
-  var x="";
+
 
   const courselist = (course || []).map((item, i) => {
      
@@ -165,7 +120,7 @@ console.log("loop "+cc+" have "+enroll);
 
 
 
-    return( <ModuleItem key={i} {...item} btn={enroll} /> );
+    return( <ModuleItem key={i} updateEnroll={updateEnroll} setupdateEnroll={setupdateEnroll} {...item}  btn={enroll} /> );
     
 
 });

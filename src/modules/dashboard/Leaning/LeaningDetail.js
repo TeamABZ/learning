@@ -41,7 +41,8 @@ export default function LeaningDetail() {
         backgroundColor: "#1a90ff",
       },
     },
-    secAtk: { textAlign: "right" },
+    secAtk: { textAlign: "right" ,
+  marginTop:10},
     txtHead: {
       padding: "2.5em 0",
       alignItems: "center",
@@ -54,6 +55,7 @@ export default function LeaningDetail() {
 const token = localStorage.getItem("accessToken");
 const { id } = location.state;
 const [tasks, setTasks] = useState([]);
+const [course, setCourse] = useState([]);
 
 const [name, setName] = useState("");
 const [desc, setDesc] = useState("");
@@ -66,6 +68,7 @@ useEffect(() => {
     });
 
     setTasks(data.course.tasks);
+    setCourse(data.course)
     console.log(JSON.stringify(data.course.tasks));
   };
 
@@ -86,31 +89,7 @@ useEffect(() => {
       backgroundColor: "#1a90ff",
     },
   }))(LinearProgress);
-  // const itemTask = [
-  //   {
-  //     no: "Task 1",
-  //     titleTask: "Methodology",
-  //     desc: "Learn how the web works",
-  //   },
-  //   {
-  //     no: "Task 2",
-  //     titleTask: "Section 2: Running Commands - Basic Command Execution",
-
-  //     desc: "Learn about and exploit each of the OWASP Top 10 vulnerabilities; the 10 most critical web security risks.",
-  //   },
-  //   {
-  //     no: "Task 3",
-  //     titleTask: "Methodology",
-
-  //     desc: "Learn how the web works",
-  //   },
-  //   {
-  //     no: "Task 4",
-  //     titleTask: "Methodology",
-
-  //     desc: "Learn about and exploit each of the OWASP Top 10 vulnerabilities; the 10 most critical web security risks. the 10 most critical web security risks.",
-  //   },
-  // ];
+ 
   const taskList =  (tasks || []).map((data,id) => (
             
     <Task key={id} no={id+1} {...data} />
@@ -122,25 +101,15 @@ useEffect(() => {
       <div className={classes.titlepage}>
         Back to all modules
         <Typography variant="h6"></Typography>
-        <Typography variant="h4">Networking Fundamentals</Typography>
+        <Typography variant="h4">{course.name}</Typography>
         <Typography variant="h6">
-          Understand the core security issues with web applications, and learn
-          how to exploit them using industry tools and techniques
+        {course.desc}
         </Typography>
       </div>
       <Grid container>
-        <Grid container item className={classes.txtHead}>
-          <Grid item xl={6}>
-            <Typography variant="h5">
-              Learn the Linux Fundamentals Part 1
-            </Typography>
-          </Grid>
-          <Grid className={classes.secAtk} item xl={6}>
-           
-          </Grid>
-        </Grid>
+      
         <Grid container item spacing={1}>
-          <Grid item xl={12}>
+          <Grid item xl={12} className={classes.secAtk}>
             <BorderLinearProgress variant="determinate" value={50} />
           </Grid>
         </Grid>

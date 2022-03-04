@@ -32,7 +32,12 @@ export default function Questions({id,name,hint}) {
     },
   }));
   const classes = useStyles();
+  const token = localStorage.getItem("accessToken");
+  const [result,setResults] = useState();
+
   const [open, setOpen] = useState(false);
+
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -41,8 +46,30 @@ export default function Questions({id,name,hint}) {
   const handleClose = () => {
     setOpen(false);
   };
+  // const bodyParameters = { userId,courseId };
 
+  const sendAws = async (e) => {
+     await axios
+    .get("/api/v1/progresses", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((response) => {
+      setResults(response.data);
+      console.log(response.data);
+
+      // window.location.reload();
+    })
+    .catch((error) => {
+      console.log(error.response.status); // 401
+      console.log(error.response.data.error);
+    });
+  };
+useEffect(() => {
   
+  
+    
+  }, []);
+ 
   return (
     <Grid container>
       <Grid item container xl={12}>

@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     height: 130,
   },
 }));
-export default function ModuleItem({ id,name, desc ,btn}) {
+export default function ModuleItem({ id,name, desc ,btn,updateEnroll,setupdateEnroll}) {
   const classes = useStyles();
   // const { titleModule, descModule, imageModule } = dataitem;
 
@@ -47,7 +47,6 @@ export default function ModuleItem({ id,name, desc ,btn}) {
 
 const userId=user.id;
 
-  console.log(userId);
   const bodyParameters = { userId,courseId };
 
   // console.log(bodyParameters);
@@ -55,12 +54,13 @@ const userId=user.id;
   const createEnroll = async (e) => {
     // e.preventDefault();
   await axios
-    .post("/api/v1/progress", bodyParameters, {
+    .post("/api/v1/progresses", bodyParameters, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((response) => {
       setData(response.data);
       console.log(response.data);
+      setupdateEnroll(!updateEnroll);
 
       // window.location.reload();
     })
@@ -99,7 +99,7 @@ const userId=user.id;
         <Button
         variant="contained"
         color="primary"
-        onClick={() => createEnroll()}
+        onClick={createEnroll}
      
       >
         Enroll 
