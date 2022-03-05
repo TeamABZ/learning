@@ -52,7 +52,7 @@ const userId=user.id;
   // console.log(bodyParameters);
 
   const createEnroll = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
   await axios
     .post("/api/v1/progresses", bodyParameters, {
       headers: { Authorization: `Bearer ${token}` },
