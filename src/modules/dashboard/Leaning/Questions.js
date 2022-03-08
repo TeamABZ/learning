@@ -10,15 +10,8 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import axios from "axios";
 
 import { useLocation } from "react-router-dom";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams,
-} from "react-router-dom";
 
-export default function Questions({ id, name, hint }) {
+export default function Questions({ id, name, hint,taskIds }) {
   const useStyles = makeStyles((theme) => ({
     root: {
       "& > *": {
@@ -33,8 +26,13 @@ export default function Questions({ id, name, hint }) {
   }));
   const classes = useStyles();
   const token = localStorage.getItem("accessToken");
+  const users = localStorage.getItem("user");
+  const user = JSON.parse(users);
+
   const [result, setResults] = useState();
   const [answer, setAnswer] = useState("");
+  const [taskId, setTaskId] = useState(taskIds);
+  const [userId, setUserId] = useState(user.id);
 
   const [open, setOpen] = useState(false);
 
@@ -48,9 +46,10 @@ export default function Questions({ id, name, hint }) {
 
   const sendAns = async (e) => {
     e.preventDefault();
-    const bodyParameters = { id, answer };
+    const bodyParameters = { id, answer ,taskId,userId};
+    console.log(userId);
 
-    console.log(bodyParameters);
+    console.log("bodyParameters"+JSON.stringify(bodyParameters));
     await axios
       .post("/api/v1/questions/CheckAns", bodyParameters, {
         headers: { Authorization: `Bearer ${token}` },
@@ -70,31 +69,26 @@ export default function Questions({ id, name, hint }) {
     <Grid container>
       <Grid item container xl={12}>
         <Grid item xl={10}>
-          <form
-            className={classes.root}
-            noValidate
-            autoComplete="off"
-            onSubmit={sendAns}
-          >
-            <Typography variant="h5" component="h2" gutterBottom>
-              Questions
+      
+            <Typography variant="subtitle1" component="h2" gutterBottom>
+              <b>Questions : </b>{name}
             </Typography>
-            <Typography variant="subtitle1">{name}</Typography>
 
-            <TextField
+            <TextField 
               id="standard-basic"
               label="Answer"
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
             />
+         </Grid>
 
             <Grid item container xl={2} className={classes.btnAns}>
               <Button variant="outlined" onClick={handleClickOpen}>
                 Hint
-              </Button>{" "}
-            </Grid>
+              </Button>
+        
 
-            <div>
+           
               <Dialog
                 open={open}
                 onClose={handleClose}
@@ -113,17 +107,16 @@ export default function Questions({ id, name, hint }) {
                   </Button>
                 </DialogActions>
               </Dialog>
-            </div>
+            
             <Button
               variant="contained"
               color="secondary"
-              type="submit"
-              onSubmit={sendAns}
+             
+              onClick={sendAns}
             >
               Submit
             </Button>
-          </form>
-        </Grid>
+            </Grid>
       </Grid>
     </Grid>
   );

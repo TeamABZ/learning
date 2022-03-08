@@ -3,17 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import ListModule from "./ListModule";
-import network from "assets/images/network.png";
-import ModuleItem from "./ModuleItem";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams,
-} from "react-router-dom";
 
 
 const useStyles = makeStyles((theme) => ({

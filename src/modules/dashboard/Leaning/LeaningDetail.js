@@ -6,13 +6,6 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import Task from "./Task";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams,
-} from "react-router-dom";
 
 
 export default function LeaningDetail() {
@@ -69,7 +62,6 @@ useEffect(() => {
 
     setTasks(data.course.tasks);
     setCourse(data.course)
-    console.log(JSON.stringify(data.course.tasks));
   };
 
   getTask();

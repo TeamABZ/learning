@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { Grid, Button } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
@@ -9,14 +9,6 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Questions from "./Questions";
 import axios from "axios";
 
-import { useLocation } from "react-router-dom";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams,
-} from "react-router-dom";
 
 
 export default function Task({ no, name, desc,id }) {
@@ -46,6 +38,7 @@ export default function Task({ no, name, desc,id }) {
   
 const token = localStorage.getItem("accessToken");
 const [question, setQuest] = useState([]);
+const [taskId, setTaskId] = useState(id);
 
 
   useEffect(() => {
@@ -53,16 +46,16 @@ const [question, setQuest] = useState([]);
       const { data } = await axios.get(`/api/v1/tasks/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-  
+
       setQuest(data.task.question);
-      console.log(JSON.stringify(data.task.question));
+      console.log(JSON.stringify(data.task));
     };
   
     getQuest();
   }, []);
   const questionlist =  (question || []).map((data,id) => (
             
-    <Questions key={id} {...data} />
+    <Questions key={id} {...data} taskIds={taskId}/>
    
   ));
 

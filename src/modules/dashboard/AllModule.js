@@ -46,87 +46,65 @@ export default function MyModule() {
     const initialValue = JSON.parse(saved);
 
     return initialValue || "";
-
   });
 
-  const id=user.id;
+  const id = user.id;
 
-  console.log("user id = "+id);
+  console.log("user id = " + id);
 
- const getCourse = async () => {
-      const { data } = await axios.get("/api/v1/courses", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+  const getCourse = async () => {
+    const { data } = await axios.get("/api/v1/courses", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
 
-      setCourse(data.courses);
-      
-  
-    
-    };
-    const getProgress = async () => {
-    
-      const { data } =   await axios.get(`/api/v1/progresses/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+    setCourse(data.courses);
+  };
+  const getProgress = async () => {
+    const { data } = await axios.get(`/api/v1/progresses/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
 
-      setProgress(data.progress);
-      console.log(data)
-    };
+    setProgress(data.progress);
+    console.log(data);
+  };
   useEffect(() => {
-  
-   
     getCourse();
     getProgress();
-    
+  }, [updateEnroll]);
 
-    
-  },[updateEnroll]);
-
-  console.log(course); 
-  console.log(progress); 
-
-
+  console.log(course);
+  console.log(progress);
 
   const courselist = (course || []).map((item, i) => {
-     
     var cc = item.id;
 
-   var enroll;
-const aa=(progress ||[]).map((item2,j)=>{
-  
-  if(item2.courseId===cc){
-    return true 
-  
-  }
-  else{
-    return false 
+    var enroll;
+    const aa = (progress || []).map((item2, j) => {
+      if (item2.courseId === cc) {
+        return true;
+      } else {
+        return false;
+      }
+    });
 
-  }
+    if (aa.includes(true)) {
+      enroll = true;
+    } else {
+      enroll = false;
+    }
 
+    console.log("loop " + cc + " have " + enroll);
 
-});
-
-
-if (aa.includes(true)) {
-  enroll=true;
-}
-else{
-  enroll=false;
-}
-
-console.log("loop "+cc+" have "+enroll);
-
-
-
-
-
-    return( <ModuleItem key={i} updateEnroll={updateEnroll} setupdateEnroll={setupdateEnroll} {...item}  btn={enroll} /> );
-    
-
-});
-
-  
-
+    return (
+      <ModuleItem
+        key={i}
+        updateEnroll={updateEnroll}
+        setupdateEnroll={setupdateEnroll}
+        {...item}
+        btn={enroll}
+      />
+    );
+  });
 
   return (
     <div className={classes.root}>
@@ -137,7 +115,7 @@ console.log("loop "+cc+" have "+enroll);
         </Typography>
       </div>
       <Grid container className={classes.allitem} spacing={2}>
-      {courselist} 
+        {courselist}
       </Grid>
     </div>
   );
