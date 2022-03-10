@@ -39,25 +39,75 @@ export default function Task({ no, name, desc,id }) {
 const token = localStorage.getItem("accessToken");
 const [question, setQuest] = useState([]);
 const [taskId, setTaskId] = useState(id);
+const [questionall, setQuestall] = useState([]);
+const [progressDetail, setProgressDetail] = useState([]);
+const users = localStorage.getItem("user");
+const user = JSON.parse(users);
+const [userId, setUserId] = useState(user.id);
+const [updateQuestion, setupdateQuestion] = useState(false);
+
+// const getQuestion = async () => {
+//   const { data } = await axios.get("/api/v1/questionall", {
+//     headers: { Authorization: `Bearer ${token}` },
+//   });
+
+//   setQuestall(data.question);
+//   console.log(data);
+
+// };
+const getProgressDetail = async () => {
+  const { data } = await axios.get(`/api/v1/progressesdetail/${userId}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  setProgressDetail(data.progressdetail);  
+
+};
+const getQuest = async () => {
+  const { data } = await axios.get(`/api/v1/tasks/${id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  setQuest(data.task.question);
+  console.log(JSON.stringify(data.task.question));
+};
+
 
 
   useEffect(() => {
-    const getQuest = async () => {
-      const { data } = await axios.get(`/api/v1/tasks/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
 
-      setQuest(data.task.question);
-      console.log(JSON.stringify(data.task));
-    };
-  
     getQuest();
-  }, []);
-  const questionlist =  (question || []).map((data,id) => (
-            
-    <Questions key={id} {...data} taskIds={taskId}/>
-   
-  ));
+    getProgressDetail();
+
+  },[]);
+
+  const questionlist =  (question || []).map((item,i) => {
+    var cc = item.id;
+
+    var statusQ;
+    const aa = ( progressDetail|| []).map((item2, j) => {
+
+      console.log(item2)
+
+      if (item2.questionId === cc) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+
+    if (aa.includes(true)) {
+      statusQ = true;
+    } else {
+      statusQ = false;
+    }
+    console.log("task qution id."+ cc)
+    console.log("loop " + cc + " have " + statusQ);
+
+return(
+    <Questions key={i} {...item} taskIds={taskId} statusQ={statusQ}/>
+);
+  });
 
   return (
     <Grid container className={classes.rootTask} xl={12}>

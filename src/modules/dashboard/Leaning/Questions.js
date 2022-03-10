@@ -11,7 +11,7 @@ import axios from "axios";
 
 import { useLocation } from "react-router-dom";
 
-export default function Questions({ id, name, hint,taskIds }) {
+export default function Questions({ id, name, hint,taskIds,statusQ}) {
   const useStyles = makeStyles((theme) => ({
     root: {
       "& > *": {
@@ -33,8 +33,10 @@ export default function Questions({ id, name, hint,taskIds }) {
   const [answer, setAnswer] = useState("");
   const [taskId, setTaskId] = useState(taskIds);
   const [userId, setUserId] = useState(user.id);
+  const [statusQuestion, setStatusQuestion] = useState(statusQ);
 
   const [open, setOpen] = useState(false);
+  // const [statusQuestion, setStatusQuestion] = useState(updateQuestion);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -63,61 +65,128 @@ export default function Questions({ id, name, hint,taskIds }) {
         console.log(error.response.data.error);
       });
   };
-  useEffect(() => {}, []);
 
-  return (
-    <Grid container>
-      <Grid item container xl={12}>
-        <Grid item xl={10}>
-      
-            <Typography variant="subtitle1" component="h2" gutterBottom>
-              <b>Questions : </b>{name}
-            </Typography>
 
-            <TextField 
+
+    return (
+      <Grid container>
+        <Grid item container xl={12}>
+          <Grid item xl={10}>
+        
+              <Typography variant="subtitle1" component="h2" gutterBottom>
+                <b>Questions : </b> 
+                {name}
+           
+              </Typography>
+           
+              {statusQ ? (
+                <div></div>
+            ) : (    <TextField 
               id="standard-basic"
               label="Answer"
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
-            />
-         </Grid>
+            /> )}
+           </Grid>
+           {statusQ ? (
+                <div> <b>Complete</b></div>
+                 ) : (   <Grid item container xl={2} className={classes.btnAns}>
+                  <Button variant="outlined" onClick={handleClickOpen}>
+                    Hint
+                  </Button>
+            
+    
+               
+                  <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                  >
+                    <DialogTitle id="alert-dialog-title">{"HINT"}</DialogTitle>
+                    <DialogContent>
+                      <DialogContentText id="alert-dialog-description">
+                        {hint}
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleClose} color="primary">
+                        close
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
+                
+                <Button
+                  variant="contained"
+                  color="secondary"
+                 
+                  onClick={sendAns}
+                >
+                  Submit
+                </Button>
+                </Grid>)}
+        </Grid>
+      </Grid>
+    );
 
-            <Grid item container xl={2} className={classes.btnAns}>
-              <Button variant="outlined" onClick={handleClickOpen}>
-                Hint
-              </Button>
+
+// const hasAnswer = () => {
+
+//   return (
+//     <Grid container>
+//       <Grid item container xl={12}>
+//         <Grid item xl={10}>
+      
+//             <Typography variant="subtitle1" component="h2" gutterBottom>
+//               <b>Questions : </b>{name}
+//             </Typography>
+
+//             {/* <TextField 
+//               id="standard-basic"
+//               label="Answer"
+//               value={answer}
+//               onChange={(e) => setAnswer(e.target.value)}
+//             /> */}
+//          </Grid>
+
+//             {/* <Grid item container xl={2} className={classes.btnAns}>
+//               <Button variant="outlined" onClick={handleClickOpen}>
+//                 Hint
+//               </Button>
         
 
            
-              <Dialog
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-              >
-                <DialogTitle id="alert-dialog-title">{"HINT"}</DialogTitle>
-                <DialogContent>
-                  <DialogContentText id="alert-dialog-description">
-                    {hint}
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleClose} color="primary">
-                    close
-                  </Button>
-                </DialogActions>
-              </Dialog>
+//               <Dialog
+//                 open={open}
+//                 onClose={handleClose}
+//                 aria-labelledby="alert-dialog-title"
+//                 aria-describedby="alert-dialog-description"
+//               >
+//                 <DialogTitle id="alert-dialog-title">{"HINT"}</DialogTitle>
+//                 <DialogContent>
+//                   <DialogContentText id="alert-dialog-description">
+//                     {hint}
+//                   </DialogContentText>
+//                 </DialogContent>
+//                 <DialogActions>
+//                   <Button onClick={handleClose} color="primary">
+//                     close
+//                   </Button>
+//                 </DialogActions>
+//               </Dialog>
             
-            <Button
-              variant="contained"
-              color="secondary"
+//             <Button
+//               variant="contained"
+//               color="secondary"
              
-              onClick={sendAns}
-            >
-              Submit
-            </Button>
-            </Grid>
-      </Grid>
-    </Grid>
-  );
+//               onClick={sendAns}
+//             >
+//               Submit
+//             </Button>
+//             </Grid> */}
+//       </Grid>
+//     </Grid>
+//   );
+// }
+
 }
