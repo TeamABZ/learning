@@ -8,6 +8,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import axios from "axios";
+import swal from "sweetalert";
 
 import { useLocation } from "react-router-dom";
 
@@ -51,7 +52,7 @@ export default function Questions({ id, name, hint,taskIds,statusQ}) {
     const bodyParameters = { id, answer ,taskId,userId};
     console.log(userId);
 
-    console.log("bodyParameters"+JSON.stringify(bodyParameters));
+    // console.log("bodyParameters"+JSON.stringify(bodyParameters));
     await axios
       .post("/api/v1/questions/CheckAns", bodyParameters, {
         headers: { Authorization: `Bearer ${token}` },
@@ -61,8 +62,15 @@ export default function Questions({ id, name, hint,taskIds,statusQ}) {
         console.log(response.data);
       })
       .catch((error) => {
-        console.log(error.response.status.question);
         console.log(error.response.data.error);
+        swal({
+          text: "wrong answer",
+          icon: "warning",
+          dangerMode: true,
+        });
+        setAnswer("");
+
+        
       });
   };
 
