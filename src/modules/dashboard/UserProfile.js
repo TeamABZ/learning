@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";import { makeStyles } from "@material-ui/core/styles";
+import React, { useState, useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 
-import Link from "@material-ui/core/Link";
+import Links from "@material-ui/core/Link";
 import Header from "../Header";
 import Mymodule from "./MyModule";
 import NewMudule from "./NewModule";
@@ -33,32 +34,36 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login() {
   const token = localStorage.getItem("accessToken");
-const [course, setCourse] = useState([]);
 
   const classes = useStyles();
+  const [user, setUser] = useState(() => {
+    // getting stored value
+    const saved = localStorage.getItem("user");
+    const initialValue = JSON.parse(saved);
+
+    return initialValue || "";
+  });
+  const userId = user.id;
+
+  const [mycourse, setCourse] = useState([]);
+
+
+
+  const getCourse = async () => {
+    const { data } = await axios.get(`/api/v1/progresses/mycourse/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    setCourse(data.progresses.course);
+    // console.log(data.progresses.course);
+  };
   useEffect(() => {
-    const getCourse = async () => {
-      const { data } = await axios.get("/api/v1/courses", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      console.log(data);
-
-      setCourse(data.courses);
-      
-
-
-     
-  
-    
-    };
     getCourse();
-    
-  },[]);
-console.log(course);
-  const courselist = (course || []).map((item, i) => (
-      <Mymodule key={i} {...item} />
-
-  ));
+  }, []);
+console.log(mycourse);
+  const courselist = (mycourse || []).map((item, i) => {
+    return <Mymodule key={i} {...item} />;
+  });
 
   return (
     <div className={classes.root}>
@@ -67,31 +72,29 @@ console.log(course);
         variant="dense"
         className={classes.toolbarSecondary}
       >
-        
-        <Link
+        <Links
           color="inherit"
           noWrap
           variant="h6"
           className={classes.toolbarLink}
         >
           All Course
-        </Link>
-        <Link
+        </Links>
+        <Links
           color="inherit"
           noWrap
           variant="h6"
           className={classes.toolbarLink}
         >
-         Profile
-        </Link>
+          Profile
+        </Links>
       </Toolbar>
 
       <Grid container className={classes.dashboard}>
-       
-        <Grid item xs={12} >
+        <Grid item xs={12}>
           <Typography variant="h6" gutterBottom>
             My Course
-          {courselist}
+            {courselist}
           </Typography>
         </Grid>
       </Grid>

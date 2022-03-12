@@ -8,7 +8,14 @@ import Avatar from "@material-ui/core/Avatar";
 import ImageIcon from "@material-ui/icons/Image";
 import WorkIcon from "@material-ui/icons/Work";
 import BeachAccessIcon from "@material-ui/icons/BeachAccess";
-
+import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams,
+} from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -40,10 +47,14 @@ export default function MyModule({id,name}) {
         <ListItem>
           <ListItemAvatar>
             <Avatar>
-              <ImageIcon />
+              <BookmarkBorderOutlinedIcon />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary={name} />
+          <Link
+        color="inherit"
+        to={{ pathname: `LeaningDetail/${id}`, state: { id } }}
+      >
+  <ListItemText primary={name} /> </Link>
         </ListItem>
         
       </List>

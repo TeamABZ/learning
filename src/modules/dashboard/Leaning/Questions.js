@@ -9,6 +9,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import axios from "axios";
 import swal from "sweetalert";
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 import { useLocation } from "react-router-dom";
 
@@ -24,6 +25,11 @@ export default function Questions({ id, name, hint,taskIds,statusQuestion,setSta
       alignItems: "center",
       justifyContent: "space-evenly",
     },
+    complete:{
+       color:"#32CD32",
+       textAlign:"center",
+       display:"flex",
+    }
   }));
   const classes = useStyles();
   const token = localStorage.getItem("accessToken");
@@ -85,7 +91,7 @@ export default function Questions({ id, name, hint,taskIds,statusQuestion,setSta
     return (
       <Grid container>
         <Grid item container xl={12}>
-          <Grid item xl={10}>
+          <Grid item xl={10} >
         
               <Typography variant="subtitle1" component="h2" gutterBottom>
                 <b>Questions : </b> 
@@ -103,7 +109,7 @@ export default function Questions({ id, name, hint,taskIds,statusQuestion,setSta
             /> )}
            </Grid>
            {statusQ ? (
-                <div> <b>Complete</b></div>
+                <Grid className={classes.complete} > <b>Complete</b>  <CheckCircleOutlineIcon/></Grid>
                  ) : (   <Grid item container xl={2} className={classes.btnAns}>
                   <Button variant="outlined" onClick={handleClickOpen}>
                     Hint
