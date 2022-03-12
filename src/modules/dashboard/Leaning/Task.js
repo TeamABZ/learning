@@ -45,6 +45,7 @@ const users = localStorage.getItem("user");
 const user = JSON.parse(users);
 const [userId, setUserId] = useState(user.id);
 const [updateQuestion, setupdateQuestion] = useState(false);
+const [statusQuestion, setStatusQuestion] = useState(false);
 
 // const getQuestion = async () => {
 //   const { data } = await axios.get("/api/v1/questionall", {
@@ -79,7 +80,7 @@ const getQuest = async () => {
     getQuest();
     getProgressDetail();
 
-  },[]);
+  },[statusQuestion]);
 
   const questionlist =  (question || []).map((item,i) => {
     var cc = item.id;
@@ -105,7 +106,7 @@ const getQuest = async () => {
     console.log("loop " + cc + " have " + statusQ);
 
 return(
-    <Questions key={i} {...item} taskIds={taskId} statusQ={statusQ}/>
+    <Questions key={i} {...item} taskIds={taskId} statusQuestion={statusQuestion} setStatusQuestion={setStatusQuestion} statusQ={statusQ}/>
 );
   });
 

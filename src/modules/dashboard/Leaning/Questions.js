@@ -12,7 +12,7 @@ import swal from "sweetalert";
 
 import { useLocation } from "react-router-dom";
 
-export default function Questions({ id, name, hint,taskIds,statusQ}) {
+export default function Questions({ id, name, hint,taskIds,statusQuestion,setStatusQuestion,statusQ}) {
   const useStyles = makeStyles((theme) => ({
     root: {
       "& > *": {
@@ -34,10 +34,10 @@ export default function Questions({ id, name, hint,taskIds,statusQ}) {
   const [answer, setAnswer] = useState("");
   const [taskId, setTaskId] = useState(taskIds);
   const [userId, setUserId] = useState(user.id);
-  const [statusQuestion, setStatusQuestion] = useState(statusQ);
 
   const [open, setOpen] = useState(false);
   // const [statusQuestion, setStatusQuestion] = useState(updateQuestion);
+  const [statusq, setstatusq] = useState(statusQ);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -60,12 +60,18 @@ export default function Questions({ id, name, hint,taskIds,statusQ}) {
       .then((response) => {
         setResults(response.data);
         console.log(response.data);
+        swal({
+          text: "rigth answer",
+          icon: "success",
+          dangerMode: true,
+        });
+        setStatusQuestion(!statusQuestion);
       })
       .catch((error) => {
         console.log(error.response.data.error);
         swal({
           text: "wrong answer",
-          icon: "warning",
+          icon: "error",
           dangerMode: true,
         });
         setAnswer("");
