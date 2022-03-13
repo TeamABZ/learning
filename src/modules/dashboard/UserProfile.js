@@ -29,10 +29,12 @@ const useStyles = makeStyles((theme) => ({
   toolbar: { borderBottom: `1px solid ${theme.palette.divider}` },
   dashboard: {
     padding: theme.spacing(3, 2),
-  },
+  }, btnSetting: {
+      textAlign: "center",
+    },
 }));
 
-export default function Login() {
+export default function UserPofile() {
   const token = localStorage.getItem("accessToken");
 
   const classes = useStyles();
@@ -77,6 +79,8 @@ console.log(mycourse);
           noWrap
           variant="h6"
           className={classes.toolbarLink}
+          href="/allmodule"
+
         >
           All Course
         </Links>
@@ -85,8 +89,19 @@ console.log(mycourse);
           noWrap
           variant="h6"
           className={classes.toolbarLink}
+          href="/userprofile"
         >
-          Profile
+          My Course
+
+        </Links>
+        <Links
+          color="inherit"
+          noWrap
+          variant="h6"
+          className={classes.toolbarLink}
+          href="/settingprofile"
+        >
+         Setting
         </Links>
       </Toolbar>
 

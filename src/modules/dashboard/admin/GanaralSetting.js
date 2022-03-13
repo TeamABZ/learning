@@ -157,23 +157,7 @@ export default function GanaralSetting({ id, name, desc, tasks }) {
         </div>
 
         <div>
-          {/* <input
-            accept="image/*"
-            className={classes.input}
-            id="contained-button-file"
-            multiple
-            type="file"
-          />
-          <label htmlFor="contained-button-file">
-            <Button
-              variant="contained"
-              color="primary"
-              component="span"
-              startIcon={<CloudUploadIcon />}
-            >
-              Upload image
-            </Button>
-          </label> */}
+       
         </div>
         <div className={classes.btnSetting}>
           {disabledCourse ? <BtnEditCourse /> : <BtnUpdatCourse />}

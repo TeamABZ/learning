@@ -12,6 +12,7 @@ import UpdateRoom from "./dashboard/admin/UpdateRoom";
 import TaskSetting from "./dashboard/admin/TaskSetting";
 import UserSetting from "./dashboard/admin/UserSetting";
 import UpdateUser from "./dashboard/admin/UpdateUser";
+import SettingProfile from "./dashboard/SettingProfile";
 
 import SignUp from "./Signup";
 export default function Routes() {
@@ -59,6 +60,9 @@ export default function Routes() {
       </Route>
       <Route path="/updateuser">
         <UpdateUser></UpdateUser>
+      </Route>
+      <Route path="/settingprofile">
+        <SettingProfile></SettingProfile>
       </Route>
     </Switch>
   );
