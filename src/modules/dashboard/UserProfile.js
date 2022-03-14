@@ -46,24 +46,45 @@ export default function UserPofile() {
     return initialValue || "";
   });
   const userId = user.id;
+  const [progress, setProgress] = useState([]);
 
-  const [mycourse, setCourse] = useState([]);
-
-
+  const [mycourse, setCourse] = useState();
+const coursee =[];
 
   const getCourse = async () => {
     const { data } = await axios.get(`/api/v1/progresses/mycourse/${userId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    setCourse(data.progresses.course);
+    setProgress(data.progresses);
+
     // console.log(data.progresses.course);
+
   };
+  console.log(progress);
+// program to loop through an object using for...in loop
+
+
+// using for...in
+for (let key in progress) { 
+  let i=0;
+  let value;
+
+  // get the value
+  value = progress[key];
+  coursee.push(value.course[i])
+  console.log(value.course[i])
+  i++;
+
+
+} 
+// console.log(coursee)
+// console.log(progress)
+
   useEffect(() => {
     getCourse();
   }, []);
-console.log(mycourse);
-  const courselist = (mycourse || []).map((item, i) => {
+  const courselist = (coursee || []).map((item, i) => {
     return <Mymodule key={i} {...item} />;
   });
 
