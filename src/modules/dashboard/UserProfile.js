@@ -29,9 +29,10 @@ const useStyles = makeStyles((theme) => ({
   toolbar: { borderBottom: `1px solid ${theme.palette.divider}` },
   dashboard: {
     padding: theme.spacing(3, 2),
-  }, btnSetting: {
-      textAlign: "center",
-    },
+  },
+  btnSetting: {
+    textAlign: "center",
+  },
 }));
 
 export default function UserPofile() {
@@ -48,38 +49,64 @@ export default function UserPofile() {
   const userId = user.id;
   const [progress, setProgress] = useState([]);
 
-  const [mycourse, setCourse] = useState();
-const coursee =[];
-
+  const [mycourse, setCourse] = useState([]);
+  const coursee = [];
+  var questionCount = [];
+  const [data, setData] = useState([]);
+var bodyParameters;
   const getCourse = async () => {
     const { data } = await axios.get(`/api/v1/progresses/mycourse/${userId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
     setProgress(data.progresses);
-
-    // console.log(data.progresses.course);
-
+    // setCourse(data.progresses.courseId);
   };
-  console.log(progress);
-// program to loop through an object using for...in loop
+  // console.log(progress);
+  // program to loop through an object using for...in loop
+
+  // console.log("ID COURSE = "+mycourse);
+
+  // const CountQuestion = async () => {
+
+  //   await axios
+  //     .post("/api/v1/progressesdetail/couters", bodyParameters, {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     })
+  //     .then((response) => {
+  //       // setData(response.data);
+  //       console.log(
+  //         "couter response =" + JSON.stringify(response.data.counter.length)
+  //       );
+
+  //     })
+  //     .catch((error) => {
+  //       console.log(error.response.status); // 401
+  //       console.log(error.response.data.error);
+  //     });
+  // };
+
+  // using for...in
+
+  for (let key in progress) {
+    let i = 0;
+    let value;
+
+    // get the value
+    value = progress[key];
+    coursee.push(value.course[i]);
+    // console.log(value);
+    console.log("loop i =" + i);
+    
+   
 
 
-// using for...in
-for (let key in progress) { 
-  let i=0;
-  let value;
 
-  // get the value
-  value = progress[key];
-  coursee.push(value.course[i])
-  console.log(value.course[i])
-  i++;
+    i++;
+  }
 
-
-} 
-// console.log(coursee)
-// console.log(progress)
+  // console.log(coursee)
+  // console.log(progress)
 
   useEffect(() => {
     getCourse();
@@ -101,7 +128,6 @@ for (let key in progress) {
           variant="h6"
           className={classes.toolbarLink}
           href="/allmodule"
-
         >
           All Course
         </Links>
@@ -113,7 +139,6 @@ for (let key in progress) {
           href="/userprofile"
         >
           My Course
-
         </Links>
         <Links
           color="inherit"
@@ -122,7 +147,7 @@ for (let key in progress) {
           className={classes.toolbarLink}
           href="/settingprofile"
         >
-         Setting
+          Setting
         </Links>
       </Toolbar>
 

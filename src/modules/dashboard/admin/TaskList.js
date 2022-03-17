@@ -83,6 +83,7 @@ export default function TaskList({
   const [descs, setDesc] = useState(desc);
   
   const [idtask, setIdtask] = useState();
+  const [idcourse, setIdcourse] = useState();
 
   const [objectives, setObjective] = useState(objective);
   const [statusTask, setStatusTask] = useState(status);
@@ -97,6 +98,7 @@ export default function TaskList({
   const [disabledQuest, setDisabledQuest] = useState(true);
 
   const [isAddQ, setAddQ] = useState(false);
+  console.log("id course"+idcourse);
 
   useEffect(() => {
     setIdtask(id);
@@ -108,7 +110,7 @@ export default function TaskList({
         headers: { Authorization: `Bearer ${token}` },
       });
       setQuest(data.task.question);
-
+      setIdcourse(data.task.course.id);
     };
 
 
@@ -180,7 +182,7 @@ export default function TaskList({
   }
 
   const AddQuestion = Qfield.map((id) => {
-    if (Qfield.length > 0) return <QandA idtask={idtask} isAddQ={isAddQ} setAddQ={setAddQ}></QandA>;
+    if (Qfield.length > 0) return <QandA idcourse={idcourse} idtask={idtask} isAddQ={isAddQ} setAddQ={setAddQ}></QandA>;
     return <div></div>;
   });
   const listQuest = (quests || []).map((item, i) => {

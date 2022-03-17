@@ -84,7 +84,7 @@ useEffect(() => {
  
   const taskList =  (tasks || []).map((data,id) => (
             
-    <Task key={id} no={id+1} {...data} />
+    <Task key={id}  no={id+1} {...data} />
    
   ));
 
@@ -102,7 +102,6 @@ useEffect(() => {
       
         <Grid container item spacing={1}>
           <Grid item xl={12} className={classes.secAtk}>
-            <BorderLinearProgress variant="determinate" value={50} />
           </Grid>
         </Grid>
         <Grid container item>

@@ -13,7 +13,7 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 import { useLocation } from "react-router-dom";
 
-export default function Questions({ id, name, hint,taskIds,statusQuestion,setStatusQuestion,statusQ}) {
+export default function Questions({ id, name, hint,courseId,taskIds,statusQuestion,setStatusQuestion,statusQ}) {
   const useStyles = makeStyles((theme) => ({
     root: {
       "& > *": {
@@ -55,7 +55,7 @@ export default function Questions({ id, name, hint,taskIds,statusQuestion,setSta
 
   const sendAns = async (e) => {
     e.preventDefault();
-    const bodyParameters = { id, answer ,taskId,userId};
+    const bodyParameters = { id, answer ,courseId,taskId,userId};
     console.log(userId);
 
     // console.log("bodyParameters"+JSON.stringify(bodyParameters));

@@ -46,6 +46,7 @@ const user = JSON.parse(users);
 const [userId, setUserId] = useState(user.id);
 const [updateQuestion, setupdateQuestion] = useState(false);
 const [statusQuestion, setStatusQuestion] = useState(false);
+const [courseId, setCourseId] = useState();
 
 // const getQuestion = async () => {
 //   const { data } = await axios.get("/api/v1/questionall", {
@@ -70,7 +71,9 @@ const getQuest = async () => {
   });
 
   setQuest(data.task.question);
+  setCourseId(data.task.courseId);
   console.log(JSON.stringify(data.task.question));
+  console.log("id course = "+data.task.courseId)
 };
 
 
@@ -106,7 +109,7 @@ const getQuest = async () => {
     console.log("loop " + cc + " have " + statusQ);
 
 return(
-    <Questions key={i} {...item} taskIds={taskId} statusQuestion={statusQuestion} setStatusQuestion={setStatusQuestion} statusQ={statusQ}/>
+    <Questions key={i} {...item} courseId={courseId} taskIds={taskId} statusQuestion={statusQuestion} setStatusQuestion={setStatusQuestion} statusQ={statusQ}/>
 );
   });
 
