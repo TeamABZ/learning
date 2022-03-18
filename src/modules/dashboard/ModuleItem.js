@@ -78,7 +78,16 @@ export default function ModuleItem({
 
   return (
     <Grid className={classes.itemModule}>
-      <Link
+      {!btn ? ( 
+    <div>
+        <img className={classes.media} />
+        {/* {imageModule} */}
+        <Typography variant="h5">{name} </Typography>
+
+        <Typography>{desc}</Typography>
+        <Typography>{btn}</Typography>
+        </div>
+       ) : ( <Link
         color="inherit"
         to={{ pathname: `LeaningDetail/${id}`, state: { id } }}
       >
@@ -88,7 +97,7 @@ export default function ModuleItem({
 
         <Typography>{desc}</Typography>
         <Typography>{btn}</Typography>
-      </Link>
+      </Link> )}
 
       {!btn ? (
         <Button variant="contained" color="primary" onClick={createEnroll}>

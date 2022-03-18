@@ -7,7 +7,14 @@ import Task from "./Task";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 
-
+import { useHistory } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams,
+} from "react-router-dom";
 export default function LeaningDetail() {
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -40,10 +47,14 @@ export default function LeaningDetail() {
       padding: "2.5em 0",
       alignItems: "center",
     },
+    btnback:{
+      color:"#fff",
+    }
   }));
   const classes = useStyles();
 
-  
+  let history = useHistory();
+
   const location = useLocation();
 const token = localStorage.getItem("accessToken");
 const { id } = location.state;
@@ -91,7 +102,9 @@ useEffect(() => {
   return (
     <div className={classes.root}>
       <div className={classes.titlepage}>
-        Back to all modules
+ 
+        <Button className={classes.btnback} onClick={history.goBack}>Back to all modules</Button>
+
         <Typography variant="h6"></Typography>
         <Typography variant="h4">{course.name}</Typography>
         <Typography variant="h6">

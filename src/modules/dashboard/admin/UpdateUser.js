@@ -13,7 +13,7 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import axios from "axios";
 import swal from "sweetalert";
-
+import UserModule from "./UserModule";
 export default function UpdateUser() {
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -52,6 +52,9 @@ export default function UpdateUser() {
     input: {
       display: "none",
     },
+    dashboard: {
+      padding: theme.spacing(3, 2),
+    },
   }));
   const classes = useStyles();
   const location = useLocation();
@@ -66,11 +69,20 @@ export default function UpdateUser() {
 
   const [avatar, setAvatar] = useState("");
   const [disabledUser, setDisabledUser] = useState(true);
+  const [progress, setProgress] = useState([]);
+  const coursee = [];
 
   const handleChange = (event) => {
     setRole(event.target.value);
   };
+  const getCourse = async () => {
+    const { data } = await axios.get(`/api/v1/progresses/mycourse/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
 
+    setProgress(data.progresses);
+    // setCourse(data.progresses.courseId);
+  };
   useEffect(() => {
     const getUsers = async () => {
       try {
@@ -93,8 +105,24 @@ export default function UpdateUser() {
       }
     };
     getUsers();
+    getCourse();
   }, [disabledUser]);
+  for (let key in progress) {
+    let i = 0;
+    let value;
 
+    // get the value
+    value = progress[key];
+    coursee.push(value.course[i]);
+    // console.log(value);
+    console.log("loop i =" + i);
+
+    i++;
+  }
+
+  const courselist = (coursee || []).map((item, i) => {
+    return <UserModule userid={id} key={i} {...item} />;
+  });
   const updateUsers = async (e) => {
     e.preventDefault();
     console.log(role);
@@ -154,6 +182,7 @@ export default function UpdateUser() {
       </Button>
     );
   };
+
   return (
     <div className={classes.root}>
       <ToobarAdmin></ToobarAdmin>
@@ -165,11 +194,11 @@ export default function UpdateUser() {
       <Grid container className={classes.allGroup}>
         <Grid item xl={12}>
           <form noValidate autoComplete="off" onSubmit={updateUsers}>
-            <div>
+            {/* <div>
               <Avatar alt="Remy Sharp" src={avatar} className={classes.large} />
-            </div>
+            </div> */}
             <div>
-              <input
+              {/* <input
                 accept="image/*"
                 className={classes.input}
                 id="contained-button-file"
@@ -180,7 +209,7 @@ export default function UpdateUser() {
                 <Button variant="contained" color="primary" component="span">
                   Upload
                 </Button>
-              </label>
+              </label> */}
               <input
                 accept="image/*"
                 className={classes.input}
@@ -255,6 +284,15 @@ export default function UpdateUser() {
               </Button>
             </Link>
           </form>
+        </Grid>
+      </Grid>
+
+      <Grid container className={classes.dashboard}>
+        <Grid item xs={12}>
+          <Typography variant="h6" gutterBottom>
+          User-learned course
+            {courselist}
+          </Typography>
         </Grid>
       </Grid>
     </div>
