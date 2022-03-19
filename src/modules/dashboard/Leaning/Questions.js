@@ -46,7 +46,15 @@ export default function Questions({ id, name, hint,courseId,taskIds,statusQuesti
   const [statusq, setstatusq] = useState(statusQ);
 
   const handleClickOpen = () => {
-    setOpen(true);
+ 
+    swal({
+      title: hint,
+
+      text: "",
+      icon: "warning",
+      dangerMode: true,
+    });
+    // setOpen(true);
   };
 
   const handleClose = () => {
