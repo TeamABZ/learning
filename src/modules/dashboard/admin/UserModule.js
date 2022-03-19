@@ -11,9 +11,9 @@ import BeachAccessIcon from "@material-ui/icons/BeachAccess";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import axios from "axios";
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import PropTypes from 'prop-types';
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import PropTypes from "prop-types";
 
 import {
   BrowserRouter as Router,
@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     margin: theme.spacing(2, 0),
     padding: theme.spacing(0, 2),
-
   },
   allList: {
     border: " 1px solid #555",
@@ -46,7 +45,7 @@ const mainFeaturedPost = {
   linkText: "Continue reading…",
 };
 
-export default function UserModule({ userid,id, name }) {
+export default function UserModule({ userid, id, name }) {
   const token = localStorage.getItem("accessToken");
   const [datas, setData] = useState([]);
   const [datas2, setData2] = useState([]);
@@ -56,21 +55,22 @@ export default function UserModule({ userid,id, name }) {
   const userId = userid;
   var maxquetsion = 0;
   var valueprocess = 0;
+  var calpersent;
   function LinearProgressWithLabel(props) {
     return (
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Box sx={{ width: '100%', mr: 1 }}>
+      <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Box sx={{ width: "100%", mr: 1 }}>
           <LinearProgress variant="determinate" {...props} />
         </Box>
         <Box sx={{ minWidth: 40 }}>
           <Typography variant="body2" color="text.secondary">{`${Math.round(
-            props.value,
+            props.value
           )}%`}</Typography>
         </Box>
       </Box>
     );
   }
-  
+
   LinearProgressWithLabel.propTypes = {
     /**
      * The value of the progress indicator for the determinate and buffer variants.
@@ -157,9 +157,22 @@ export default function UserModule({ userid,id, name }) {
   } else {
     valueprocess = 0;
   }
-  var calpersent = Math.ceil((valueprocess * 100) / maxquetsion);
-  console.log(calpersent);
 
+  calpersent = Math.ceil((valueprocess * 100) / maxquetsion);
+
+ 
+
+  var progressBar;
+  if (calpersent >0) {
+    progressBar = <BorderLinearProgress value={calpersent} />;
+
+  } else if(calpersent ===0) {
+    progressBar = <BorderLinearProgress value={0} />;
+
+  }else{
+    progressBar = <BorderLinearProgress value={0} />;
+
+  }
   return (
     <div className={classes.allList}>
       <List className={classes.root}>
@@ -173,10 +186,9 @@ export default function UserModule({ userid,id, name }) {
             color="inherit"
             to={{ pathname: `LeaningDetail/${id}`, state: { id } }}
           > */}
-            <ListItemText primary={name} />{" "}
-          {/* </Link> */}
+          <ListItemText primary={name} /> {/* </Link> */}
         </ListItem>
-        <BorderLinearProgress  value={calpersent} />
+        {progressBar}
 
       </List>
     </div>

@@ -104,7 +104,7 @@ export default function CrateRoom() {
             />
           </div>
           <div>
-            <input
+            {/* <input
               accept="image/*"
               className={classes.input}
               id="contained-button-file"
@@ -120,7 +120,7 @@ export default function CrateRoom() {
               >
                 Upload image
               </Button>
-            </label>
+            </label> */}
           </div>
           <div>
             <Button variant="contained" color="secondary" type="submit">

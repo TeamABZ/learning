@@ -62,6 +62,7 @@ export default function MyModule({ id, name }) {
   const userId = user.id;
   var maxquetsion = 0;
   var valueprocess = 0;
+  var calpersent ;
   function LinearProgressWithLabel(props) {
     return (
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -163,9 +164,18 @@ export default function MyModule({ id, name }) {
   } else {
     valueprocess = 0;
   }
-  var calpersent = Math.ceil((valueprocess * 100) / maxquetsion);
-  console.log(calpersent);
+   calpersent = Math.ceil((valueprocess * 100) / maxquetsion);
+  var progressBar;
+  if (calpersent >0) {
+    progressBar = <BorderLinearProgress value={calpersent} />;
 
+  } else if(calpersent ===0) {
+    progressBar = <BorderLinearProgress value={0} />;
+
+  }else{
+    progressBar = <BorderLinearProgress value={0} />;
+
+  }
   return (
     <div className={classes.allList}>
       <List className={classes.root}>
@@ -182,7 +192,7 @@ export default function MyModule({ id, name }) {
             <ListItemText primary={name} />{" "}
           </Link>
         </ListItem>
-        <BorderLinearProgress  value={calpersent} />
+      {progressBar}
 
       </List>
     </div>
