@@ -39,8 +39,11 @@ export default function Userlist({
     userList: {
       paddingRight: "2em",
       textDecoration: "none",
-      color: "000",
+      color:"#000"
     },
+    btncreate:{
+     marginLeft:"0.5em"
+    }
   }));
   const classes = useStyles();
   const token = localStorage.getItem("accessToken");
@@ -76,14 +79,13 @@ export default function Userlist({
     });
   };
   return (
-    <Grid container className={classes.allRoom} xl={4}>
+    <Grid container className={classes.allRoom} xl={4} >
       <Grid container item xl={6}>
-        <Link
-          color="inherit"
+        <Link 
           to={{ pathname: `updateuser/${id}`, state: { id } }}
           className={classes.userList}
         >
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+          {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" /> */}
           <Typography variant="subtitle1" color="initial">
             {email}
           </Typography>
@@ -92,7 +94,7 @@ export default function Userlist({
           </Typography>
         </Link>
       </Grid>
-      <Grid item container xl={2}>
+      <Grid item container xl={2} className={classes.btncreate}>
         <Button
           variant="contained"
           color="secondary"

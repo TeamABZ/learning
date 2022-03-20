@@ -81,7 +81,7 @@ export default function CrateRoom() {
       <div className={classes.titlepage}>
         <Typography variant="h4">Create Rooms</Typography>
         <Typography variant="h6">
-          Create a room ,upload your material and assign task
+          Create a room 
         </Typography>
       </div>
 
@@ -123,7 +123,7 @@ export default function CrateRoom() {
             </label> */}
           </div>
           <div>
-            <Button variant="contained" color="secondary" type="submit">
+            <Button variant="contained" color="primary" type="submit">
               Create Room
             </Button>
           </div>
