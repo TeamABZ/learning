@@ -66,7 +66,7 @@ const [cCount,setCount] = useState(0)
   return (
     <div className={classes.root}>
       <Grid container className={classes.btnCreate}>
-        <Button size="medium" variant="outlined" href="/createroom">
+        <Button size="medium"  color="primary"  variant="contained" href="/createroom">
           Create Course
         </Button>
       </Grid>  

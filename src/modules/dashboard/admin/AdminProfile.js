@@ -26,7 +26,7 @@ export default function AdminProfile() {
       <div className={classes.titlepage}>
         <Typography variant="h4">Setting Course</Typography>
         <Typography variant="h6">
-          Create a Course ,upload your material and assign task
+          Create a Course
         </Typography>
       </div>
       <Grid container>
