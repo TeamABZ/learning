@@ -14,16 +14,22 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 const useStyles = makeStyles((theme) => ({
   itemModule: {
+    minWidth:280,
     textAlign: "center",
     display: "inline-block",
     border: " 1px solid #555",
-    padding: "10px",
+    padding: "5px",
     height: 300,
-    margin: "auto 1em",
+    margin: "1em",
+    
+    
   },
   media: {
     height: 130,
   },
+  linkcolor:{
+    color:"#000",
+  }
 }));
 export default function ModuleItem({
   id,
@@ -87,8 +93,8 @@ export default function ModuleItem({
         <Typography>{desc}</Typography>
         <Typography>{btn}</Typography>
         </div>
-       ) : ( <Link
-        color="inherit"
+       ) : ( <Link className={classes.linkcolor}
+       
         to={{ pathname: `LeaningDetail/${id}`, state: { id } }}
       >
         <img className={classes.media} />

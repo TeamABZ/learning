@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
+import Toolbar from "@material-ui/core/Toolbar";
+import Links from "@material-ui/core/Link";
 
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
@@ -24,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
   toolbarSecondary: {
     background: "#000",
     color: "#fff",
+    padding: theme.spacing(3, 2),
   },
   toolbarLink: {
     padding: theme.spacing(1),
@@ -108,15 +111,50 @@ export default function MyModule() {
 
   return (
     <div className={classes.root}>
+          <Toolbar
+        component="nav"
+        variant="dense"
+        className={classes.toolbarSecondary}
+      >
+        <Links
+          color="inherit"
+          noWrap
+          variant="h6"
+          className={classes.toolbarLink}
+          href="/allmodule"
+        >
+          All Course
+        </Links>
+        <Links
+          color="inherit"
+          noWrap
+          variant="h6"
+          className={classes.toolbarLink}
+          href="/userprofile"
+        >
+          My Course
+        </Links>
+        <Links
+          color="inherit"
+          noWrap
+          variant="h6"
+          className={classes.toolbarLink}
+          href="/settingprofile"
+        >
+          Setting
+        </Links>
+      </Toolbar>
       <div className={classes.titlepage}>
         <Typography variant="h4">Modules</Typography>
         <Typography variant="h6">
           Modules are made up of bite-sized rooms
         </Typography>
       </div>
+      
       <Grid container className={classes.allitem} spacing={2}>
         {courselist}
       </Grid>
+  
     </div>
   );
 }
