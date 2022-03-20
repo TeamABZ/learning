@@ -37,14 +37,7 @@ export default function ToobarAdmin() {
         variant="dense"
         className={classes.toolbarSecondary}
       >
-        <Link
-          color="inherit"
-          noWrap
-          variant="h6"
-          className={classes.toolbarLink}
-        >
-          Lean
-        </Link>
+       
         <Link
           color="inherit"
           noWrap
