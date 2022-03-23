@@ -27,7 +27,7 @@ export default function Footer() {
     <footer className={classes.footer}>
       <Container maxWidth="lg">
         <Typography component="h5" align="center" gutterBottom>
-          Copyright Adaptive Learning
+          Copyright Practicing and Learning System
         </Typography>
       </Container>
     </footer>

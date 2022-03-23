@@ -136,7 +136,7 @@ export default function StaticCourse() {
 
         <Grid container item xl={10}>
           <Typography variant="h5" color="initial">
-          Static learn course
+          Static list user  learn course
           </Typography> 
           <Grid container>
  <Grid item xs={12}>

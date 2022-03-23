@@ -15,7 +15,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
-
+import PersonIcon from '@mui/icons-material/Person';
 import Avatar from "@material-ui/core/Avatar";
 import {
   BrowserRouter as Router,
@@ -176,9 +176,7 @@ export default function StaticDisplay({username,course,user}) {
       <List className={classes.root}>
         <ListItem>
           <ListItemAvatar> 
-            <Avatar>
-              <BookmarkBorderOutlinedIcon />
-            </Avatar>
+              <PersonIcon color="primary" />
           </ListItemAvatar>
           <ListItemText primary={username} />
         </ListItem>

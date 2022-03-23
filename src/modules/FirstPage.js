@@ -5,9 +5,9 @@ import MainFeaturedPost from "./MainFeaturedPost";
 
 
 const mainFeaturedPost = {
-  title: "Cyber security training",
+  title: "Practicing and Learning System",
   description:
-    "Making it easier to break into security, all through your browser.",
+    "Practicing and Learning System",
   image: "https://source.unsplash.com/random",
   imgText: "main image description",
   linkText: "Continue reading…",
