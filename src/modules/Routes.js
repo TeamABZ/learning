@@ -15,6 +15,7 @@ import UpdateUser from "./dashboard/admin/UpdateUser";
 import SettingProfile from "./dashboard/SettingProfile";
 
 import SignUp from "./Signup";
+import StaticCourse from "./dashboard/admin/StaticCourse";
 export default function Routes() {
   return (
     <Switch>
@@ -54,6 +55,9 @@ export default function Routes() {
 
       <Route path="/tasksetting/:id">
         <TaskSetting></TaskSetting>
+      </Route>
+      <Route path="/staticcourse/:id">
+        <StaticCourse></StaticCourse>
       </Route>
       <Route path="/updateroom/:id">
         <UpdateRoom></UpdateRoom>

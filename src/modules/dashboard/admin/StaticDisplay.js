@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Toolbar from "@material-ui/core/Toolbar";
+import Grid from "@material-ui/core/Grid";
+import ToobarAdmin from "./ToobarAdmin";
+import GanaralSetting from "./GanaralSetting";
+import axios from "axios";
+import { useLocation } from "react-router-dom";
+import Box from "@mui/material/Box";
+import PropTypes from "prop-types";
+import LinearProgress from "@material-ui/core/LinearProgress";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
-import ImageIcon from "@material-ui/icons/Image";
-import WorkIcon from "@material-ui/icons/Work";
-import BeachAccessIcon from "@material-ui/icons/BeachAccess";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import axios from "axios";
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import PropTypes from 'prop-types';
 
+import Avatar from "@material-ui/core/Avatar";
 import {
   BrowserRouter as Router,
   Switch,
@@ -22,56 +24,48 @@ import {
   Link,
   useParams,
 } from "react-router-dom";
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-    backgroundColor: theme.palette.background.paper,
-    margin: theme.spacing(2, 0),
-    padding: theme.spacing(0, 2),
 
-  },
-  allList: {
-    border: " 1px solid #555",
-    borderRadius: "15px",
-    margin: theme.spacing(2, 0),
-  },
-}));
 
-const mainFeaturedPost = {
-  title: "Cyber security training",
-  description:
-    "Making it easier to break into security, all through your browser.",
-  image: "https://source.unsplash.com/random",
-  imgText: "main image description",
-  linkText: "Continue reading…",
-};
 
-export default function MyModule({ id, name }) {
+export default function StaticDisplay({username,course,user}) {
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      flexGrow: 1,
+    },
+    titlepage: {
+      padding: theme.spacing(2, 2),
+      color: "#fff",
+      background: "#000",
+    },
+    updateRoom: {
+      padding: "2em 0",
+    },
+    leftBar: {},
+    rightBar: {},
+    linkSetting: {
+      textDecoration: "none",
+    },
+  }));
+  const classes = useStyles();
   const token = localStorage.getItem("accessToken");
   const [datas, setData] = useState([]);
   const [datas2, setData2] = useState([]);
 
-  const classes = useStyles();
-  const [user, setUser] = useState(() => {
-    // getting stored value
-    const saved = localStorage.getItem("user");
-    const initialValue = JSON.parse(saved);
+  const [courseId, setCourseId] = useState(course);
+  const [userId, setUserId] = useState(user);
 
-    return initialValue || "";
-  });
-  const userId = user.id;
   var maxquetsion = 0;
   var valueprocess = 0;
-  var calpersent ;
+  var calpersent;
   function LinearProgressWithLabel(props) {
     return (
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Box sx={{ width: '100%', mr: 1 }}>
+      <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Box sx={{ width: "100%", mr: 1 }}>
           <LinearProgress variant="determinate" {...props} />
         </Box>
         <Box sx={{ minWidth: 40 }}>
           <Typography variant="body2" color="text.secondary">{`${Math.round(
-            props.value,
+            props.value
           )}%`}</Typography>
         </Box>
       </Box>
@@ -99,13 +93,11 @@ export default function MyModule({ id, name }) {
       backgroundColor: "#1a90ff",
     },
   }))(LinearProgressWithLabel);
-
-  const bodyParameters = { userId, id };
-
+  const bodyParameters = {  courseId, userId };
 
   const countQuestion = async (e) => {
     await axios
-      .post("/api/v1/progressesdetail/couters", bodyParameters, {
+      .post("/api/v1/progressesdetail/couters2", bodyParameters, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -123,7 +115,7 @@ export default function MyModule({ id, name }) {
         console.log(error.response.data.error);
       });
   };
-  const bodyParameters2 = { id };
+  const bodyParameters2 = { courseId };
 
   const coutAllQuestion = async (e) => {
     await axios
@@ -148,51 +140,49 @@ export default function MyModule({ id, name }) {
   useEffect(() => {
     countQuestion();
     coutAllQuestion();
+    // getUserEnroll();
   }, []);
-
+  // console.log(datas)
   if (datas !== null) {
-    console.log(datas.length);
     valueprocess = datas.length;
   } else {
     valueprocess = 0;
   }
 
   if (datas2 !== null) {
-    console.log(datas2.length);
     maxquetsion = datas2.length;
   } else {
-    valueprocess = 0;
+    maxquetsion = 0;
   }
-   calpersent = Math.ceil((valueprocess * 100) / maxquetsion);
+
+  console.log("value datas2 = "+datas2);
+
+
+  calpersent = Math.ceil((valueprocess * 100) / maxquetsion);
+  console.log("value process = "+valueprocess);
+  console.log("value maxquetsion = "+maxquetsion);
+  console.log("value calpersent = "+calpersent);
+
   var progressBar;
-  if (calpersent >0) {
+  if (calpersent > 0) {
     progressBar = <BorderLinearProgress value={calpersent} />;
-
-  } else if(calpersent ===0) {
+  } else if (calpersent === 0) {
     progressBar = <BorderLinearProgress value={0} />;
-
-  }else{
+  } else {
     progressBar = <BorderLinearProgress value={0} />;
-
   }
   return (
-    <div className={classes.allList}>
+    <div>
       <List className={classes.root}>
         <ListItem>
-          <ListItemAvatar>
+          <ListItemAvatar> 
             <Avatar>
               <BookmarkBorderOutlinedIcon />
             </Avatar>
           </ListItemAvatar>
-          <Link
-            color="inherit"
-            to={{ pathname: `LeaningDetail/${id}`, state: { id } }}
-          >
-            <ListItemText primary={name} />{" "}
-          </Link>
+          <ListItemText primary={username} />
         </ListItem>
-      {progressBar}
-
+        {progressBar}
       </List>
     </div>
   );

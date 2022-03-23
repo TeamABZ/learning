@@ -157,6 +157,16 @@ export default function TaskSetting() {
                     <Typography variant="subtitle1"> Task Setting</Typography>
                   </Link>
                 </ListItem>
+                <ListItem button>
+              <ArrowRightIcon></ArrowRightIcon>
+              <Link
+                color="inherit"
+                to={{ pathname: `/staticcourse/${id}`, state: { id } }}
+                className={classes.linkSetting}
+              >
+                <Typography variant="subtitle1"> Static</Typography>
+              </Link>
+            </ListItem>
               </List>
             </Grid>
           </Grid>

@@ -19,7 +19,8 @@ import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-export default function UpdateRoom() {
+import StaticDisplay from "./StaticDisplay";
+export default function StaticCourse() {
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -43,31 +44,52 @@ export default function UpdateRoom() {
   const token = localStorage.getItem("accessToken");
 
   const { id } = location.state;
-  const [course, setCourse] = useState([]);
+  const [user, setCourse] = useState([]);
+  const userall = [];
 
-  const [name, setName] = useState("");
-  const [desc, setDesc] = useState("");
-  const [tasks, setTasks] = useState();
 
+  const [userdata, setUser] = useState([]);
+  const [username, setUsername] = useState([]);
+
+
+  const getUser = async () => {
+    const { data } = await axios.get(`/api/v1/progresses/finduserenroll/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    setUser(data.users);
+    // setCourse(data.progresses.courseId);
+  };
+  
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { data } = await axios.get(`/api/v1/courses/${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
-        setCourse(data.course);
-        setName(data.course.name);
-        setDesc(data.course.desc);
-        setTasks(data.course.tasks);
-      } catch (error) {
-        console.log(error.response.status); // 401
-        console.log(error.response.data.error);
-      }
-    };
-    fetchData();
+    getUser();
   }, []);
 
+  for (let key in userdata) {
+    let i = 0;
+    let values;
+
+    // get the value
+    values = userdata[key];
+    username.push(values.user[0].name)
+    userall.push(values.userId);
+    // console.log(value);
+    console.log("loop i =" + i);
+    
+   
+
+
+
+    i++;
+  }
+  console.log(userall)
+  console.log(username)
+
+  const staticlist = (userall || []).map((item, i) => {
+    return <StaticDisplay key={i} username={username[i]} user={userall[i]} course={id}></StaticDisplay>;
+  
+  
+  });
   return (
     <div className={classes.root}>
       <ToobarAdmin></ToobarAdmin>
@@ -114,10 +136,14 @@ export default function UpdateRoom() {
 
         <Grid container item xl={10}>
           <Typography variant="h5" color="initial">
-            Course setting
-          </Typography>
+          Static learn course
+          </Typography> 
           <Grid container>
-            <GanaralSetting  key={id} {...course} id={id}></GanaralSetting>
+ <Grid item xs={12}>
+          <Typography variant="h6" gutterBottom>
+            {staticlist} 
+          </Typography>
+        </Grid>
           </Grid>
         </Grid>
       </Grid>

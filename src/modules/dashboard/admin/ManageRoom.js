@@ -33,6 +33,7 @@ const [cCount,setCount] = useState(0)
   const [isDeletes, setDeletes] = useState(false);
 
   useEffect(() => {
+    
     const getCourse = async () => {
       const { data } = await axios.get("/api/v1/courses", {
         headers: { Authorization: `Bearer ${token}` },
