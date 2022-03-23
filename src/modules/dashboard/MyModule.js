@@ -63,6 +63,7 @@ export default function MyModule({ id, name }) {
   var maxquetsion = 0;
   var valueprocess = 0;
   var calpersent ;
+  const courseId = id;
   function LinearProgressWithLabel(props) {
     return (
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -123,7 +124,7 @@ export default function MyModule({ id, name }) {
         console.log(error.response.data.error);
       });
   };
-  const bodyParameters2 = { id };
+  const bodyParameters2 = { courseId };
 
   const coutAllQuestion = async (e) => {
     await axios
