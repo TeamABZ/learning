@@ -13,7 +13,6 @@ import { useLocation } from "react-router-dom";
 import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
 import swal from "sweetalert";
 
-
 export default function TaskList({
   id,
   name,
@@ -81,7 +80,7 @@ export default function TaskList({
 
   const [names, setName] = useState(name);
   const [descs, setDesc] = useState(desc);
-  
+
   const [idtask, setIdtask] = useState();
   const [idcourse, setIdcourse] = useState();
 
@@ -98,14 +97,14 @@ export default function TaskList({
   const [disabledQuest, setDisabledQuest] = useState(true);
 
   const [isAddQ, setAddQ] = useState(false);
-  console.log("id course"+idcourse);
+  console.log("id course" + idcourse);
 
   useEffect(() => {
     setIdtask(id);
-    // Get question each task by id task 
-    const getQuestion = async () => {  
-      setQuest([])
-      console.log("id task ="+id)
+    // Get question each task by id task
+    const getQuestion = async () => {
+      setQuest([]);
+      console.log("id task =" + id);
       const { data } = await axios.get(`/api/v1/tasks/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -113,31 +112,24 @@ export default function TaskList({
       setIdcourse(data.task.course.id);
     };
 
-
-
     getQuestion();
-
-
-
-  }, [isDelete,isAddQ,isDelQuest,disabledQuest]);
+  }, [isDelete, isAddQ, isDelQuest, disabledQuest]);
   // list question
- 
+
   console.log(JSON.stringify(quests));
 
-
-  
   // Update Task
   const updateTask = async (e) => {
     e.preventDefault();
 
     // setCourseId(id);
 
-    const bodyParameters = { names, descs, objectives };
+    const bodyParameters = { names, descs };
 
     await axios
       .patch(
         `/api/v1/tasks/${id}`,
-        { name: names, desc: descs, objective: objectives },
+        { name: names, desc: descs },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -155,7 +147,7 @@ export default function TaskList({
         });
       })
       .catch((error) => {
-        swal("Failed", "Error", "error");
+        swal("error", "Error", "error");
         console.log(error.response.status); // 401
         console.log(error.response.data.error);
       });
@@ -171,8 +163,7 @@ export default function TaskList({
     const values = [...Qfield];
     values.push({ value: null });
     setFields(values);
-    console.log(
-      values);
+    console.log(values);
   }
 
   function handleRemove(i) {
@@ -182,21 +173,31 @@ export default function TaskList({
   }
 
   const AddQuestion = Qfield.map((id) => {
-    if (Qfield.length > 0) return <QandA idcourse={idcourse} idtask={idtask} isAddQ={isAddQ} setAddQ={setAddQ}></QandA>;
+    if (Qfield.length > 0)
+      return (
+        <QandA
+          idcourse={idcourse}
+          idtask={idtask}
+          isAddQ={isAddQ}
+          setAddQ={setAddQ}
+        ></QandA>
+      );
     return <div></div>;
   });
   const listQuest = (quests || []).map((item, i) => {
-    
-      return(
-          <ListQuestion key={i} {...item}  isDelQuest={isDelQuest} setDelQuest={setDelQuest} setDisabledQuest={setDisabledQuest} disabledQuest={disabledQuest} />
-      );
-
-    
- 
- 
+    return (
+      <ListQuestion
+        key={i}
+        {...item}
+        isDelQuest={isDelQuest}
+        setDelQuest={setDelQuest}
+        setDisabledQuest={setDisabledQuest}
+        disabledQuest={disabledQuest}
+      />
+    );
   });
 
-//Delete Task
+  //Delete Task
   const fnDelete = async () => {
     try {
       const { data } = await axios.delete(`api/v1/tasks/${id}`, {
@@ -311,7 +312,7 @@ export default function TaskList({
                       onChange={(e) => setDesc(e.target.value)}
                     />
                   </div>
-                  <div>
+                  {/* <div>
                     <TextField
                       className={classes.txtFilds}
                       id="objective"
@@ -321,7 +322,7 @@ export default function TaskList({
                       disabled={disabledTask}
                       onChange={(e) => setObjective(e.target.value)}
                     />
-                  </div>
+                  </div> */}
                   <div>
                     {disabledTask ? <BtnEditTask /> : <BtnUpdatTask />}
                     <Button
@@ -340,7 +341,6 @@ export default function TaskList({
                       <Typography variant="h6" color="initial">
                         Questions and Answers
                       </Typography>
-
                     </Grid>
                     <Grid item xl={6} className={classes.addbtn}>
                       <Button
@@ -355,7 +355,6 @@ export default function TaskList({
                   <Grid item xl={12}>
                     {AddQuestion}
                     {listQuest}
-
                   </Grid>
                 </Grid>
               </Grid>
@@ -364,7 +363,6 @@ export default function TaskList({
           </Grid>
         </AccordionDetails>
       </Accordion>
-    
     </Grid>
   );
 }

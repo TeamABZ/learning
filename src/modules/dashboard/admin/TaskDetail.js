@@ -81,7 +81,7 @@ export default function TaskDetail() {
 
     setCourseId(id);
 
-    const bodyParameters = { name, desc, objective, courseId };
+    const bodyParameters = { name, desc, courseId };
     console.log(bodyParameters);
     await axios
       .post("/api/v1/tasks", bodyParameters, {
@@ -159,7 +159,7 @@ export default function TaskDetail() {
                       onChange={(e) => setDesc(e.target.value)}
                     />
                   </div>
-                  <div>
+                  {/* <div>
                     <TextField
                       className={classes.txtFilds}
                       id="objective"
@@ -167,7 +167,7 @@ export default function TaskDetail() {
                       variant="outlined"
                       onChange={(e) => setObjective(e.target.value)}
                     />
-                  </div>
+                  </div> */}
                   <div>
                     <Button
                       variant="contained"

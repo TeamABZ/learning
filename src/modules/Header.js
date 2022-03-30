@@ -3,6 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import Chip from '@material-ui/core/Chip';
+
 const useStyles = makeStyles((theme) => ({
   toolbarTitle: {
     flex: 1,
@@ -31,6 +33,7 @@ export default function Header(props) {
   const { title } = props;
   const token = localStorage.getItem("accessToken");
   const user = JSON.parse(localStorage.getItem("user"));
+  console.log(user.name)
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("user");
@@ -53,7 +56,7 @@ export default function Header(props) {
               {title}{" "}
             </a>
           </Typography>
-
+       
           <Button
             size="medium"
             variant="outlined"
@@ -90,14 +93,16 @@ export default function Header(props) {
               {title}
             </a>
           </Typography>
-
+          <Chip
+        label={user.name}
+      />
           <Button
             size="medium"
             variant="outlined"
             className={classes.btnheader}
             href="/adminprofile"
           >
-            Admin Profile
+            Setting
           </Button>
           <Button
             size="medium"
@@ -125,7 +130,9 @@ export default function Header(props) {
               {title}
             </a>
           </Typography>
-
+          <Chip
+        label={user.name}
+      />
           <Button
             size="medium"
             variant="outlined"
