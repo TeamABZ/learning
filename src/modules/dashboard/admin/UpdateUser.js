@@ -99,6 +99,7 @@ export default function UpdateUser() {
         setEmail(data.user.email);
         setName(data.user.name);
         setRole(data.user.role);
+        
       } catch (error) {
         console.log(error.response.status); // 401
         console.log(error.response.data.error);
@@ -128,7 +129,7 @@ export default function UpdateUser() {
     console.log(role);
     await axios
       .patch(
-        `/api/v1/users/${id}`,
+        `/api/v1/users/updateuser/${id}`,
         { email, Password: password, name, role },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -143,10 +144,11 @@ export default function UpdateUser() {
           timer: 1000,
         }).then((value) => {
           console.log("UPDATE");
+          setPassword("")
         });
       })
       .catch((error) => {
-        swal("Failed", "Error", "error");
+        swal("error", "Error", "error");
         console.log(error.response.status); // 401
         console.log(error.response.data.error);
       });

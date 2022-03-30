@@ -58,6 +58,8 @@ export default function SettingProfile() {
   const [datas, setData] = useState();
   const [names, setName] = useState("");
   const [password, setPass] = useState("");
+  const [newpassword, setNewpass] = useState("");
+
   const [email, setEmail] = useState("");
 
   const [user, setUser] = useState(() => {
@@ -71,13 +73,13 @@ export default function SettingProfile() {
 
   const getProfile = async () => {
     await axios
-      .get(`/api/v1/users/${id}` ,{
+      .get(`/api/v1/users/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
         setData(response.data);
-        setName(response.data.user.name)
-        setEmail(response.data.user.email)
+        setName(response.data.user.name);
+        setEmail(response.data.user.email);
 
         console.log(response.data);
         setDisableBtn(!disabledBtn);
@@ -102,12 +104,12 @@ export default function SettingProfile() {
       headers: { Authorization: `Bearer ${token}` },
     };
 
-    const bodyParameters = { names, password,email };
+    const bodyParameters = { names, password, email };
     console.log(bodyParameters);
     await axios
       .patch(
         `/api/v1/users/${id}`,
-        { name: names, password: password, email:email },
+        { name: names, password: password,newpassword: newpassword, email: email },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -120,14 +122,16 @@ export default function SettingProfile() {
           timer: 2000,
         }).then((value) => {
           console.log("UPDATE");
+          setPass("");
+          setNewpass("");
           setDisableBtn(!disabledBtn);
-          
+
           // localStorage.setItem("user", JSON.stringify(response["user"]));
           // window.location.href = "/adminprofile";
         });
       })
       .catch((error) => {
-        swal("Failed", "Error", "error");
+        swal("error", "Error","Error" );
 
         console.log(error.response.status); // 401
         console.log(error.response.data.error);
@@ -138,6 +142,8 @@ export default function SettingProfile() {
   };
   const cancleEditProfile = () => {
     setDisableBtn(true);
+    setPass("");
+    setNewpass("");
   };
   const BtnUpdatProfile = () => {
     return (
@@ -165,7 +171,6 @@ export default function SettingProfile() {
   };
   return (
     <div>
-
       <Toolbar
         component="nav"
         variant="dense"
@@ -200,8 +205,7 @@ export default function SettingProfile() {
         </Links>
       </Toolbar>
       <div className={classes.formCrate}>
-
-      <Typography variant="h5">Setting Profile</Typography>
+        <Typography variant="h5">Setting Profile</Typography>
         <form noValidate autoComplete="off" onSubmit={Update}>
           <div>
             <InputLabel htmlFor="Username">Username</InputLabel>
@@ -215,14 +219,25 @@ export default function SettingProfile() {
             />
           </div>
           <div>
-            <InputLabel htmlFor="Passsword">Passsword</InputLabel>
+            <InputLabel htmlFor="Passsword">Current Passsword</InputLabel>
             <TextField
               id="Passsword"
               variant="outlined"
               value={password}
               type="password"
-
               onChange={(e) => setPass(e.target.value)}
+              disabled={disabledBtn}
+              className={classes.textField}
+            />
+          </div>
+          <div>
+            <InputLabel htmlFor="Newpasssword">New Passsword</InputLabel>
+            <TextField
+              id="Newpasssword"
+              variant="outlined"
+              value={newpassword}
+              type="password"
+              onChange={(e) => setNewpass(e.target.value)}
               disabled={disabledBtn}
               className={classes.textField}
             />
